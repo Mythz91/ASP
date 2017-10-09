@@ -1,0 +1,29 @@
+<div>
+        <div id="login" class="input-group input-group">
+            <h2>View your profile in a few steps</h2>
+        <form name="login" ng-submit="vm.login(vm.regNum,vm.password)">
+
+             <table>
+                 <tr >
+                     <td class="login-spacing">Registration Number :</td>
+                     <td class="login-spacing"> <input type="text"  name="regNum" ng-blur=" vm.verifyUser()"  ng-keypress="vm.clearUserErr()" required minlength="7" maxlength="7" ng-model="vm.regNum"> </td>
+                    
+                 </tr>
+                 <tr><td></td><td>{{vm.errUser}}</td></tr>
+                 <tr>
+                     <td class="login-spacing">  Password :</td>
+                     <td class="login-spacing"><input type="password" name="password" required minlength="4"  ng-keypress="vm.clearPassErr()" ng-model="vm.password"  ng-blur=" vm.verifyPass()" ><br/></td>
+                    
+                 </tr>
+                 <tr><td></td>{{vm.PassErr}}</td></tr>
+               
+                     <td class="login-spacing"><button type="submit" class="btn btn-success">Login</button></td>
+
+                 </tr>
+               
+             </table>
+             <tr>{{vm.err}}</tr>
+         </form>
+       </div>   
+    
+</div>
