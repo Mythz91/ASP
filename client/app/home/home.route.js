@@ -32,6 +32,26 @@
         url: '/about',
         templateUrl: 'templates/about.html'
        
-      });
+      })
+      .state('welcome',{
+        url:'/welcome',
+        templateUrl : 'templates/welcome.html'
+      })
+      .state('appointment',{
+        url:'/appointment',
+        templateUrl:'app/appointment/appointment.html',
+        controller:'appointmentCtrl as appoint'
+      })
+      .state("previous",{
+        url:"/previous",
+        templateUrl:'app/previousAppointments/previous.html',
+        controller:'previousController as data'
+      })
+      .state('update',{
+        url:'/update',
+        templateUrl:'app/update/update.html',
+        controller:'updateCtrl as update'
+      })
+
   }
 })();

@@ -1,0 +1,27 @@
+<header data-ng-include="'templates/loginHeader.html'"></header>
+<table class="table table-hover">
+        <thead>
+            <tr>
+             <th>#</th>
+                <th>User Name </th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Date</th>
+                <th>Phone</th>
+                <th>Symptoms</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat="(key,value) in  data.appointments">
+        	<td>{{$index+1}}</td>
+        	<td>{{value.user}}</td>
+        	<td>{{value.age}}</td>
+        	<td>{{value.sex}}</td>
+        	<td>{{value.contact}}</td>
+        	<td>{{value.date}}</td>
+        	<td>{{value.symptoms}}</td>
+        </tr> 
+        
+        </tbody>
+    </table>

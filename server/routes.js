@@ -16,6 +16,8 @@ module.exports = function (app) {
 
   app.use('/api/v1/login', require('./api/login'));
   app.use('/api/v1/register', require('./api/register'));
+  app.use('/api/v1/getAppointments', require('./api/previous'))
+  app.use('/api/v1/appointment', require('./api/appointment'));
   // app.use('api/v1/register',require('./api/register'));
   // Return API Version
   app.route('/api').get(function (req, res) {

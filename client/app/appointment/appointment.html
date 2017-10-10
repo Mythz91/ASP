@@ -1,0 +1,58 @@
+<header data-ng-include="'templates/loginHeader.html'"></header>
+<div id="login" class="shift">
+        <p> Name
+                <input type="text" class="form-control" id="name" placeholder="enter your name" ng-model="appoint.userName" ng-blur="appoint.verifyUserName()" ng-keypress="appoint.clear()" /><span>{{appoint.user}}</span>
+            </p>
+            <p>Age :
+                <input type="number" class="form-control" id="age" min="1" max="90" ng-model="appoint.age" ng-blur="appoint.verifyAge()" ng-keypress="appoint.clearAge()" /><span>{{appoint.ageCheck}}</span>
+            </p>
+            <p> Sex :
+                <select ng-model="appoint.sext" ng-options="sex as sex for sex in appoint.sex"><span>{{ appoint.selection}}</span>
+                </select>
+            </p>
+            <p>Date of appointment:
+                <span class="glyphicon glyphicon-calendar"></span>
+                <input type="date" class="form-control" ng-model="appoint.date" id="datepicker" ng-change="appoint.verifyDate()" /> <span>{{appoint.dateCheck}}</span>
+            </p>
+            <p>Enter the symptoms of the problem:
+                <br/>
+                <textarea id="problem" rows="5" cols="50" ng-blur="appoint.checkSymptoms()" ng-model="appoint.symptoms" ng-keypress="appoint.clearSymp()"></textarea>
+            </p>
+            <p>Contact :
+                <input type="text" placeholder="999-#######" ng-model="appoint.contact" ng-blur="appoint.checkContact()" ng-keypress="appoint.clearContact()" />
+            </p><span>{{appoint.contactCheck}}</span>
+            <p>
+                <button class="btn btn-success" ng-click="appoint.confirmAppointment()">Make a Appointment!</button>
+                <br/>
+    
+                {{appoint.validate}}
+            </p>
+            <div ng-show="appoint.show">
+                <table>
+                    <tr>
+                        <th>User Name :</th> <td>{{appoint.userName}}</td>
+    
+                    </tr>
+                    <tr>
+                        <th>Age :</th> <td>{{appoint.age}}</td>
+                    </tr>
+                    <tr>
+                        <th>Sex : </th><td>{{appoint.sext}}</td>
+                    </tr>
+                    <tr>
+                        <th>Appointment confirmation Date :</th> <td>{{appoint.date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Symptoms : </th> <td>{{appoint.symptoms}}</td>
+                    </tr>
+                    <tr>
+                        <th>Contact : </th> <td>{{appoint.contact}}</td>
+                    </tr>
+                    <tr>
+                        <td><button  id ="appoint" class="btn btn-success" ng-click="appoint.appointment()">Confim Appointment</button></td>
+                        <td><button id="dis" class="btn btn-danger" ng-click="appoint.drop()">Drop Appointment</button></td>
+                    </tr>
+                </table>
+                {{appoint.res}}
+            </div>
+</div>

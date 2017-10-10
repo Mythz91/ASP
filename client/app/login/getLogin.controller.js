@@ -4,7 +4,7 @@
         .controller('getLogin', getLogin)
     var URL = 'http://localhost:9000/api/v1/login/'
 
-    function getLogin(UserService,	authTokenFactory) {
+    function getLogin(UserService,	authTokenFactory, $location) {
         var vm = this;
 
         vm.regNum = "";
@@ -39,8 +39,9 @@
                 UserService.login(regNum, password, URL).then(function (res) {
                     console.log(res);
                     if(res.token){
-                        alert(res.token);
+                 
                         authTokenFactory.setToken(res.token);
+                        $location.path('/welcome');
                     }
                 }, function (err) {
                     vm.err=err;
@@ -49,6 +50,12 @@
                 vm.err="Please try again after some time";
             }
 
+        }
+        vm.logout = logout;
+        function logout(){
+            authTokenFactory.setToken("");
+            vm.userName = null;
+            $location.path("/");
         }
 
     }
@@ -76,6 +83,8 @@
                 })
                 return defer.promise;
             }
+
+            
         })
 
 })();

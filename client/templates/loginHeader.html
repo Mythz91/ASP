@@ -7,17 +7,17 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><span>Medical Insights</span>
+            <a class="navbar-brand" ><span>Medical Insights</span>
             <img class="img-responsive" src="./assets/images/icon.jpg" alt="Brand Name" style="height:50px;">
             </a>
           </div>
           <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
             <div class="nav-main-wrapper">
               <ul class="nav navbar-nav nav-main ">
-                <li ng-class="vm.getClass('/appointment')"><a href="/appointment">Make a appointment</a></li>
+                <li ng-class="vm.getClass('/appointment')"><a href="/appointment">Make Appointment</a></li>
                 <li ng-class="vm.getClass('/previous')"><a href="/previous">Previous Appointments</a></li>
-                <li ng-class="vm.getClass('/settings')"><a href="/settings">Settings</a></li>
-                <li ng-class="vm.getClass('/logout')"><a href="/logout">About</a></li>
+                <li ng-class="vm.getClass('/update')"><a href="/update">Settings</a></li>
+                <li ng-controller="getLogin as vm" ng-class="vm.getClass('/')"><a href="/home" ng-click="vm.logout()">Logout</a></li>
               </ul>
             </div>
           </div>
