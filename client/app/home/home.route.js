@@ -35,7 +35,8 @@
       })
       .state('welcome',{
         url:'/welcome',
-        templateUrl : 'templates/welcome.html'
+        templateUrl : 'app/welcome/welcome.html',
+        controller:'welcomeCtrl as vm'
       })
       .state('appointment',{
         url:'/appointment',

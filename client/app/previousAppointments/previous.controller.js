@@ -29,7 +29,7 @@ angular.module("app.home")
             var defer = $q.defer();
             $http({
                 method : 'GET',
-                url : 'http://localhost:4000/getAppointments'
+                url : 'http://localhost:9000/getAppointments'
 
             }).success(function(data){
                 defer.resolve(data);

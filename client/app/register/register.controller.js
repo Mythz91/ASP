@@ -3,7 +3,7 @@
     .module('app.home')
     .controller('registerCtrl', registerCtrl);
 
-    var URL = 'http://localhost:9000/api/v1/register/'
+    var URL = 'http://localhost:9000/api/v1/'
 
     function registerCtrl(RegistrationService){
         var vm = this;
@@ -83,7 +83,7 @@
     ];
     vm.verifyUserName = function(){
         
-        if(!(vm.userName.match(/^[A-Za-z]+$/g))){
+        if(!vm.userName && !(vm.userName.match(/^[A-Za-z]+$/g))){
             vm.uName="Please enter a valid user name";
         }
     }

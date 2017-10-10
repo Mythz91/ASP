@@ -110,7 +110,7 @@ angular.module("app.home")
         var defer = $q.defer();
     $http({
         method:'GET',
-        url:'http://localhost:4000/getUserData'
+        url:'http://localhost:9000/getUserData'
     }).success(function(data){
         defer.resolve(data)
     }).error(function(err){
@@ -127,7 +127,7 @@ angular.module("app.home")
         var defer = $q.defer();
         $http({
             method : 'POST',
-            url : 'http://localhost:4000/updateInfo',
+            url : 'http://localhost:9000/updateInfo',
             data : text,
              headers: {
             'Content-Type': 'application/json'

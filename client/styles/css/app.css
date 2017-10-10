@@ -5987,7 +5987,7 @@ Imaging with any questions regarding Web Fonts:  http://www.fonts.com
     height: 90px;
     width: 100%; }
     .color-container .color-swatch.red {
-      background-color: #cd040b; }
+      background-color: #04692E; }
     .color-container .color-swatch.black {
       background-color: #000000; }
     .color-container .color-swatch.white {
@@ -6254,9 +6254,9 @@ Imaging with any questions regarding Web Fonts:  http://www.fonts.com
         color: #000000;
         font-family: "NHG-W01-75-DspBd"; }
         .navbar.navbar-cd .nav-main > li > a:hover {
-          color: #cd040b; }
+          color: #04692E; }
       .navbar.navbar-cd .nav-main > li.active a {
-        color: #cd040b;
+        color: #04692E;
         background-color: transparent; }
 
 .navbar-default .navbar-collapse {
@@ -6340,10 +6340,10 @@ Imaging with any questions regarding Web Fonts:  http://www.fonts.com
           color: #000000;
           font-family: "NHG-W01-75-TxtBd"; }
           .navbar.navbar-cd .nav-main li a:hover {
-            color: #cd040b;
+            color: #04692E;
             background-color: #ffffff; }
           .navbar.navbar-cd .nav-main li a:active {
-            color: #cd040b;
+            color: #04692E;
             background-color: #ffffff; }
   .navbar-default .navbar-collapse {
     margin-top: 4px;
@@ -6389,10 +6389,10 @@ Imaging with any questions regarding Web Fonts:  http://www.fonts.com
           color: #000000;
           font-family: "NHG-W01-75-TxtBd"; }
           .navbar.navbar-cd .nav-main > li > a:hover {
-            color: #cd040b;
+            color: #04692E;
             background-color: transparent; }
         .navbar.navbar-cd .nav-main > li.active a {
-          color: #cd040b;
+          color: #04692E;
           background-color: transparent; }
         .navbar.navbar-cd .nav-main > li:last-child {
           margin-right: 0px; }
@@ -6455,14 +6455,21 @@ Imaging with any questions regarding Web Fonts:  http://www.fonts.com
     float: none; } }
 
 .choice {
-  background-color: #DCDCDC; }
+  background-color: #F1F1EF; }
 
 .choiceDiff {
   padding: 250px;
   border: 1px solid black; }
 
-.disp:hover {
-  font-size: 32px; }
+.disp {
+  font-size: 20px;
+  color: #000000; }
+  .disp:hover {
+    color: #04692E;
+    font-size: 32px; }
+  .disp:active {
+    color: #04692E;
+    font-size: 38px; }
 
 .login-spacing {
   padding: 2px; }

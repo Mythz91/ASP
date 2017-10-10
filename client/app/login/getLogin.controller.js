@@ -1,12 +1,13 @@
+var data ="";
+var pass="";
+
 (function () {
     angular
         .module('app.home')
         .controller('getLogin', getLogin)
-    var URL = 'http://localhost:9000/api/v1/login/'
-
-    function getLogin(UserService,	authTokenFactory, $location) {
+    var URL = 'http://localhost:9000/api/v1/';
+    function getLogin($scope, UserService,	authTokenFactory, $location) {
         var vm = this;
-
         vm.regNum = "";
         vm.password = "";
         vm.PassErr = "";
@@ -15,7 +16,7 @@
         vm.verifyUser = function () {
          
             if(!(vm.regNum.match(/^\d+$/g))){
-                if(vm.regNum.charAt(0)==0){
+                if(vm.regNum.charAt(0)==0||vm.regNum.charAt(0)=="0"){
                 vm.errUser = "Please enter a valid registration number";
                 }
                 vm.errUser = "Please enter a valid registration number";
@@ -38,8 +39,9 @@
            try {
                 UserService.login(regNum, password, URL).then(function (res) {
                     console.log(res);
+                   data=res.username;
+                    pass=password;
                     if(res.token){
-                 
                         authTokenFactory.setToken(res.token);
                         $location.path('/welcome');
                     }
@@ -54,7 +56,7 @@
         vm.logout = logout;
         function logout(){
             authTokenFactory.setToken("");
-            vm.userName = null;
+            vm.userName = "";
             $location.path("/");
         }
 
