@@ -16,7 +16,7 @@ var transporter = mailer.createTransport({
 var url = "mongodb://localhost:27017/medicalInsights";
 mongoC.connect(url, function (err, db) {
     if (err) throw err;
-    router.post("/register", function (req, res) {
+    router.post("/", function (req, res) {
         var data = req.body;
         console.log(data);
        

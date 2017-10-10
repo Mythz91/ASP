@@ -5,7 +5,7 @@ const mongoC = require("mongodb").MongoClient;
 
 var url = "mongodb://localhost:27017/medicalInsights";
 mongoC.connect(url, function(err, db) {
-    router.post("/appointment", function(req, res) {
+    router.post("/", function(req, res) {
         console.log(req.body.date);
         console.log(userName)
 
