@@ -1,5 +1,6 @@
 var data ="";
 var pass="";
+var reg = "";
 
 (function () {
     angular
@@ -39,6 +40,7 @@ var pass="";
            try {
                 UserService.login(regNum, password, URL).then(function (res) {
                     console.log(res);
+                    reg = regNum;
                    data=res.username;
                     pass=password;
                     if(res.token){
