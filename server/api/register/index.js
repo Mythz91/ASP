@@ -24,7 +24,7 @@ mongoC.connect(url, function (err, db) {
             var count =1;
             if(err) throw err;
             
-            else{
+            else{if(reply.length){
                 var arr = reply[0].registrationList;
                arr.forEach(function(element){
                    if(data.registration ==element){
@@ -103,6 +103,7 @@ mongoC.connect(url, function (err, db) {
                 })
             }
             }
+        }
         })
       
     })

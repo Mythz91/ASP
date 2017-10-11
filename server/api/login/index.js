@@ -43,7 +43,7 @@ router.post("/",authenticate, function(req,res){
 
 function authenticate(req,res,next){
     var data = req.body;
- console.log(data);
+ 
     if(!data.user || !data.pass){
         res.status(400).end("must provide valid registration number or password")
     }

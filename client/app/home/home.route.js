@@ -51,7 +51,7 @@
       .state('update',{
         url:'/update',
         templateUrl:'app/update/update.html',
-        controller:'updateCtrl as update'
+        controller:'updateCtrl as vm'
       })
 
   }

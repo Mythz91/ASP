@@ -1,41 +1,45 @@
 <header data-ng-include="'templates/loginHeader.html'"></header>
-<div id="register" class="input-group input-group" ng-init="update.updateData()">
+<div id="register" class="input-group input-group" ng-init="vm.updateData()">
+    <h2>Update Information</h2>
         <form ng-submit="vm.updateInfo(vm.userName,vm.regNum,vm.mail,vm.address,vm.city,vm.states,vm.zip,vm.password)">
-        <h2>Update Information</h2>
-        <p>UserName :
-            <input type="text" class="form-control" ng-model="update.userName" ng-keypress="update.clear()" ng-blur="update.verifyUserName()" required/>
-            <br/> {{uName}}</p>
-        <p>Registration Number :
-            <input type="text" class="form-control" ng-model="update.regNum" ng-keypress="update.clear()" ng-blur="update.verifyReg()" readonly/>
-            <br/> {{reg}}</p>
-        <p>Email:
-            <input type="email" class="form-control" ng-model="update.mail" ng-keypress="clear()" ng-blur="update.verifyEmail()" required/>
-            <br/> </p>
-        <p>Address:</p>
-        <span>Street Address  :</span>
-        <input type="text" class="form-control" ng-model="update.address" ng-keypress="update.clear()" ng-blur="update.verifyAddr()" required/>
-        <br/>
-        <span>City :</span>
-        <input type="text" class="form-control" ng-model="update.city" ng-keypress="update.clear()" ng-blur="update.verifyCity()" required/>
-        <br/>
-        <br/>
-        <span>State  :</span>
-        <select ng-model="update.states" ng-blur="update.verifyState()" ng-options="states as states for states in update.state"></select>
-        <br/>
-        <p>Zip:
-            <input type="text" class="form-control" . ng-blur="update.verifyZip()" ng-model="update.zip" ng-keypress="update.clear()" required/>
-            <br/>
-        </p>
-        <p> Password:
-            <input type="password" class="form-control" ng-blur="update.verifyPass()" ng-model="update.password" ng-keypress="update.clear()" required/>
-            <br/>
-        </p>
-        <p> Confirm Password:
-            <input type="password1" class="form-control" ng-blur="update.verifyPass1()" ng-model="update.password" ng-keypress="update.clear()" required/>
-            <br/>
-        </p>
-        <button type="submit" type="button" class="btn btn-success">Save</button>
-        <br/> {{res}}
+            
+            <div ng-show="vm.show">
+               <p>UserName :
+                        <input type="text" class="form-control" ng-model="vm.userName" ng-keypress="vm.clearUser()" ng-blur="vm.verifyUserName()" required minlength="5"/>
+                        <br/> {{vm.uNameErr}}</p>
+                    <p>Registration Number :
+                        <input type="text" class="form-control" ng-model="vm.regNum" ng-keypress="vm.clearReg()" ng-blur="vm.verifyReg()" readonly minlength="7" maxlength="7"/>
+                        <br/> {{vm.regErr}}</p>
+                    <p>Email:
+                        <input type="email" class="form-control" ng-model="vm.mail" ng-blur="vm.verifyEmail()" ng-keypress="vm.clearMail()" required />
+                        <br/>{{vm.mailErr}} </p>
+                    <p>Address:</p>
+                    <span>Street Address  :</span>   <input type="text" class="form-control" ng-model="vm.address" minlength="6" required/> <br/>
+                    <span>City :</span>   <input type="text" class="form-control" ng-model="vm.city" minlength="4" ng-blur="vm.verifyCity()" required/><span>{{vm.cityErr}}</span> <br/><br/>
+                    <span>State  :</span> <select ng-model="vm.states" ng-blur="vm.verifyState()" ng-options="state as state for state in vm.state" required></select> 
+                        <br/> 
+                    <p>Zip:
+                        <input type="text" class="form-control". ng-blur="vm.verifyZip()" ng-model="vm.zip" ng-keypress="vm.clearZip()"  required minlength="5" maxlength="5"/>
+                        <br/>
+                        {{vm.zipErr}}
+                    </p>
+                    <p> Password:
+                        <input type="password" class="form-control" ng-blur="vm.verifyPass()" ng-model="vm.password" ng-keypress="vm.clearPassErr()" required minlength="4"/>
+                      
+                        <br/>
+                        {{vm.passErr}}
+                    </p>
+                    <p>Confirm  Password:
+                            <input type="password" class="form-control" ng-blur="vm.confirmPass()" ng-model="vm.passwordConfirm" ng-keypress="vm.clearPassCErr()" required minlength="4"/>
+                            <br/>
+                            {{vm.confirmErr}}
+                        </p>
+                    <button  type="submit" class="btn btn-success">Register!!</button>
+                    <br/> 
+
+                    <span>{{vm.data}}</span>
+                    </div>
+                    <span>{{vm.msg}}</span>
         </form>
       
     </div>
