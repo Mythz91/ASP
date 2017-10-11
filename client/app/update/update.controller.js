@@ -127,7 +127,7 @@ angular.module("app.home")
         var defer = $q.defer();
         $http({
             method : 'POST',
-            url : 'http://localhost:9000/updateInfo',
+            url : 'http://localhost:9000/api/v1/updateInfo',
             data : text,
              headers: {
             'Content-Type': 'application/json'

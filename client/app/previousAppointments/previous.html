@@ -1,14 +1,14 @@
-<div ng-init="data.getData()">
+<div >
 <header data-ng-include="'templates/loginHeader.html'"></header>
-<table class="table table-hover">
+<table class="table table-hover" ng-init="data.getData()">
         <thead>
             <tr>
              <th>#</th>
                 <th>User Name </th>
                 <th>Age</th>
                 <th>Sex</th>
-                <th>Date</th>
                 <th>Phone</th>
+                <th>Date</th>
                 <th>Symptoms</th>
             </tr>
         </thead>
@@ -20,7 +20,7 @@
         	<td>{{value.age}}</td>
         	<td>{{value.sex}}</td>
         	<td>{{value.contact}}</td>
-        	<td>{{value.date}}</td>
+        	<td>{{value.date | date : "MMMM/dd/yyyy :  hh:mm:ss"}}</td>
         	<td>{{value.symptoms}}</td>
         </tr> 
         

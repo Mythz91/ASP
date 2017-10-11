@@ -19,7 +19,7 @@
         <br/>
         <br/>
         <span>State  :</span>
-        <select ng-model="update.states" ng-blur="update.verifyState()" ng-options="update.states as states for states in update.state"></select>
+        <select ng-model="update.states" ng-blur="update.verifyState()" ng-options="states as states for states in update.state"></select>
         <br/>
         <p>Zip:
             <input type="text" class="form-control" . ng-blur="update.verifyZip()" ng-model="update.zip" ng-keypress="update.clear()" required/>
