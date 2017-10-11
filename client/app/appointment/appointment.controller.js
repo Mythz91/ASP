@@ -44,15 +44,16 @@
             appoint.contactCheck = "";
         }
         appoint.clear = function () {
+            appoint.show = false;
             appoint.user = "";
+
 
         }
         appoint.verifyUserName = function () {
             var i;
             for (i = 0; i < appoint.userName.length; i++) {
                 if (appoint.userName[i].match(/\d+/g)) {
-
-                    appoint.user = "please enter valid name"
+                   appoint.user = "please enter valid name"
                     break;
                 }
             }
@@ -111,6 +112,7 @@
             d.setHours( d.getHours() + hourOffset );
             appoint.dateLocal =d.toString().replace(/GMT.*/g,"");
         }
+       
         appoint.checkSymptoms = function () {
             if (appoint.symptoms.trim() == "") {
                 appoint.symp = "Please enter valid symptoms";
@@ -127,6 +129,7 @@
                 var data = {
                     userName: appoint.userName,
                     regNum: reg,
+                    password:pass,
                     contact: appoint.contact,
                     date: appoint.date,
                     age: appoint.age,
@@ -170,7 +173,7 @@ angular.module("app.home")
             $http({
                 method: 'POST',
                 data: text,
-                url: 'http://localhost:9000/api/v1/appointment',
+                url: 'http://localhost:9000/api/v1/appointment/appointment',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -182,3 +185,4 @@ angular.module("app.home")
             return defer.promise;
         }
     }]);
+   
