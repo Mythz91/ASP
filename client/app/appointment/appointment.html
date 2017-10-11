@@ -45,7 +45,7 @@
                         <th>Sex : </th><td>{{appoint.sext}}</td>
                     </tr>
                     <tr>
-                        <th>Appointment confirmation Date :</th> <td>{{appoint.dateLocal}}</td>
+                        <th>Appointment confirmation Date :</th> <td>{{appoint.date | date : "MMMM/dd/yyyy :  hh:mm:ss"}}</td>
                     </tr>
                     <tr>
                         <th>Symptoms : </th> <td>{{appoint.symptoms}}</td>

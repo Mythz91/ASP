@@ -13,7 +13,7 @@
         appoint.sext;
         appoint.selection = "";
         appoint.date = "";
-        appoint.dateLocal ="";
+        
         appoint.dateCheck = "";
         appoint.disable = false;
         appoint.symptoms = "";
@@ -103,14 +103,7 @@
             if (diff > 6) {
                 appoint.dateCheck = "please select a date which is within a week from today " + (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
             }
-        
-         convert(appoint.date);
-        }
-        var convert = function(t){
-            var d=new Date(t+" UTC");
-            var hourOffset = d.getTimezoneOffset() / 60;
-            d.setHours( d.getHours() + hourOffset );
-            appoint.dateLocal =d.toString().replace(/GMT.*/g,"");
+
         }
        
         appoint.checkSymptoms = function () {

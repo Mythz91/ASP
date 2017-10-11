@@ -109,8 +109,11 @@ angular.module("app.home")
     this.getData = function(){
         var defer = $q.defer();
     $http({
-        method:'GET',
-        url:'http://localhost:9000/getUserData'
+        method:'POST',
+        url:'http://localhost:9000/api/v1/getUserData',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     }).success(function(data){
         defer.resolve(data)
     }).error(function(err){

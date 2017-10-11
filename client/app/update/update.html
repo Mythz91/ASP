@@ -1,8 +1,9 @@
 <header data-ng-include="'templates/loginHeader.html'"></header>
 <div id="register" class="input-group input-group" ng-init="update.updateData()">
+        <form ng-submit="vm.updateInfo(vm.userName,vm.regNum,vm.mail,vm.address,vm.city,vm.states,vm.zip,vm.password)">
         <h2>Update Information</h2>
         <p>UserName :
-            <input type="text" class="form-control" ng-model="update.userName" ng-keypress="update.clear()" ng-blur="verifyUserName()" required/>
+            <input type="text" class="form-control" ng-model="update.userName" ng-keypress="update.clear()" ng-blur="update.verifyUserName()" required/>
             <br/> {{uName}}</p>
         <p>Registration Number :
             <input type="text" class="form-control" ng-model="update.regNum" ng-keypress="update.clear()" ng-blur="update.verifyReg()" readonly/>
@@ -33,9 +34,8 @@
             <input type="password1" class="form-control" ng-blur="update.verifyPass1()" ng-model="update.password" ng-keypress="update.clear()" required/>
             <br/>
         </p>
-        <button ng-click="update.save()" type="button" class="btn btn-success">Save</button>
+        <button type="submit" type="button" class="btn btn-success">Save</button>
         <br/> {{res}}
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-        <script src="../js/module.js"></script>
-        <script src="../js/updateCtrl.js"></script>
+        </form>
+      
     </div>

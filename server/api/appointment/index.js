@@ -42,12 +42,24 @@ mongoC.connect(url, function(err, db) {
                         if (err) throw err;
 
                         console.log("1 document updated");
-
+                        var date = req.body.date;
+                        function convertUTCDateToLocalDate(date) {
+                            var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+                        
+                            var offset = date.getTimezoneOffset() / 60;
+                            var hours = date.getHours();
+                        
+                            newDate.setHours(hours - offset);
+                        
+                            return newDate;   
+                        }  
+                        var changedDate = convertUTCDateToLocalDate(date);
+                       
                         var sendMail = {
                             from: 'medicalinglobal@gmail.com',
                             to: email,
                             subject: 'Medical Insights-Appointment Confirmation',
-                            html: '<h2>Appointment Confirmation --- Medical Insights</h2><p>The following appointment has been confirmed :</p> <table><tr><th>Name : </th><td>' + req.body.userName + '</td></tr><tr><th>Age : </th><td>' + req.body.age + '</td></tr><tr><th>Sex : </th><td>' + req.body.sex + '</td></tr><tr><th>Date: </th><td>' + req.body.date + '</td></tr><tr><th>Symptoms: </th><td>' + req.body.symptoms + '</td></tr><tr><th>Phone: </th><td>' + req.body.contact + '</td></tr></table>'
+                            html: '<h2>Appointment Confirmation --- Medical Insights</h2><p>The following appointment has been confirmed :</p> <table><tr><th>Name : </th><td>' + req.body.userName + '</td></tr><tr><th>Age : </th><td>' + req.body.age + '</td></tr><tr><th>Sex : </th><td>' + req.body.sex + '</td></tr><tr><th>Date: </th><td>' + changedDate + '</td></tr><tr><th>Symptoms: </th><td>' + req.body.symptoms + '</td></tr><tr><th>Phone: </th><td>' + req.body.contact + '</td></tr></table>'
 
                         };
 
