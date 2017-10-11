@@ -154,17 +154,24 @@
                 },
                 password: password
             }
-            updateInfo.update(data).then(function (resp) {
-                console.log(resp);
-                vm.msg = resp;
-            }, function (err) {
-                console.log(err);
-                vm.msg = "there is a error in updating data, please try again";
-            })
+           
+            try{
+                updateInfo.update(data).then(function(success){
+                  
+                    vm.msg="Update of information is successful";
+                    
+                },function(err){
+
+                    vm.msg="there is a error in updating data, please try again";
+                })
+            }catch(error){
+                vm.msg="please try again later";
+            }
 
         }
 
         vm.updateData = function () {
+            vm.msg = "";
             updateService.getData().then(function (data) {
                 
                 details = data;

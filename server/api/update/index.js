@@ -35,11 +35,13 @@ mongoC.connect(url, function (err, db) {
                 };
                 transporter.sendMail(sendMail, function(error, info) {
                     if (error) {
-                        throw err;
+
+                        //throw err;
+                        res.status(500).end('something failed!');
                     } else {
                         console.log("here");
-                        res.send("Update of information is successful");
-                        res.end();
+                        //res.send();
+                        res.end("Update of information is successful");
                     }
 
                 

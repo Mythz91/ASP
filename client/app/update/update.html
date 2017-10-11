@@ -1,6 +1,7 @@
 <header data-ng-include="'templates/loginHeader.html'"></header>
-<div id="register" class="input-group input-group" ng-init="vm.updateData()">
-    <h2>Update Information</h2>
+<div id="register" class="input-group input-group shift" ng-init="vm.updateData()">
+    <h2 class="text-success">Update Information</h2>
+    <span >{{vm.msg}}</span>
         <form ng-submit="vm.updateInfo(vm.userName,vm.regNum,vm.mail,vm.address,vm.city,vm.states,vm.zip,vm.password)">
             
             <div ng-show="vm.show">
@@ -39,7 +40,7 @@
 
                     <span>{{vm.data}}</span>
                     </div>
-                    <span>{{vm.msg}}</span>
+                    
         </form>
       
     </div>

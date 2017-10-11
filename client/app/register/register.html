@@ -2,8 +2,8 @@
 <div>
 
 
-    <div id="register" class="input-group input-group">
-            <h2>Get Registered</h2>
+    <div id="register" class="input-group input-group shift">
+            <h2 class="text-success">Get Registered</h2>
             <form ng-submit="vm.getRegistered(vm.userName,vm.regNum,vm.mail,vm.address,vm.city,vm.states,vm.zip,vm.password)">
                     <p>UserName :
                             <input type="text" class="form-control" ng-model="vm.userName" ng-keypress="vm.clearUser()" ng-blur="vm.verifyUserName()" required minlength="5"/>

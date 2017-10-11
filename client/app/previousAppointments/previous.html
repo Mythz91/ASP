@@ -1,29 +1,37 @@
-<div >
-<header data-ng-include="'templates/loginHeader.html'"></header>
-<table class="table table-hover" ng-init="data.getData()">
-        <thead>
-            <tr>
-             <th>#</th>
-                <th>User Name </th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Phone</th>
-                <th>Date</th>
-                <th>Symptoms</th>
-            </tr>
-        </thead>
-        <tbody>
+<div>
+    <header data-ng-include="'templates/loginHeader.html'"></header>
+    <div class="body-content">
+      
+        <div >
+                <label><span class="text-success shift"><b>Search Criteria:</b></span> <input ng-model="searchText" ng-disabled="data.hide"></label>
+        <table class="table table-hover" ng-init="data.getData()" >
 
-        <tr ng-repeat="(key,value) in  data.appointments">
-        	<td>{{$index+1}}</td>
-        	<td>{{value.user}}</td>
-        	<td>{{value.age}}</td>
-        	<td>{{value.sex}}</td>
-        	<td>{{value.contact}}</td>
-        	<td>{{value.date | date : "MMMM/dd/yyyy :  hh:mm:ss"}}</td>
-        	<td>{{value.symptoms}}</td>
-        </tr> 
-        
-        </tbody>
-    </table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>User Name </th>
+                    <th>Age</th>
+                    <th>Sex</th>
+                    <th>Phone</th>
+                    <th>Date</th>
+                    <th>Symptoms</th>
+                </tr>
+            </thead>
+            <tbody ng-show="data.show">
+
+                <tr ng-repeat="(key,value) in  data.appointments | filter:searchText">
+                    <td>{{$index+1}}</td>
+                    <td>{{value.user}}</td>
+                    <td>{{value.age}}</td>
+                    <td>{{value.sex}}</td>
+                    <td>{{value.contact}}</td>
+                    <td>{{value.date | date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
+                    <td>{{value.symptoms}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div><span ng-show="data.hide" class="text-success">No previous appointments to show</span></div>
+    </div>
 </div>
