@@ -1,14 +1,21 @@
 <header data-ng-include="'templates/loginHeader.html'"></header>
+
 <h1>Welcome <span id="uName"><i class="text-success">{{vm.userName}}</i></span> </h1>
 <button class="btn btn-success" ng-click="vm.showForm()">Start a discussion!</button> <br/><span>{{vm.err}}</span>
 <table class="table table-hover">
-    <thead>
+    <thead ng-init="vm.getData()">
         <th>User</th>
         <th>Topic</th>
         <th>Disscussion</th>
+        <th>Time</th>
     </thead>
     <tbody>
-        <td></td>
-        <td></td>
+       <tr ng-repeat="(key,value) in  vm.discussions "> 
+           <td>{{value.userName}}</td>
+        <td>{{value.topic}}</td>
+        <td>{{value.discussion}}</td>
+        <td>{{value.time |date : "MM/dd/yy : hh:mm:ss"}}</td>
+        </tr>
     </tbody>
+   
 </table>
