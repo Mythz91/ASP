@@ -5,6 +5,7 @@
     'ngResource',
     'ui.router',
    'ngMessages',
+   'ui.bootstrap',
 
      // 3rd Party Modules
 
