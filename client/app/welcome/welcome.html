@@ -10,11 +10,12 @@
         <th>Time</th>
     </thead>
     <tbody>
-       <tr ng-repeat="(key,value) in  vm.discussions "> 
+       <tr ng-repeat="(key,value) in  vm.discussion | orderBy:'-value.time'"> 
            <td>{{value.userName}}</td>
         <td>{{value.topic}}</td>
         <td>{{value.discussion}}</td>
         <td>{{value.time |date : "MM/dd/yy : hh:mm:ss"}}</td>
+        <td><button class="btn btn-primary" ng-click="vm.reply(value.userName,value.topic)">Respond</button></td>
         </tr>
     </tbody>
    

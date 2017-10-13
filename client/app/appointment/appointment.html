@@ -4,7 +4,7 @@
 
     <form ng-submit-"">
         <p> Name
-                <input type="text" class="form-control" id="name" placeholder="enter your name" ng-model="appoint.userName" ng-blur="appoint.verifyUserName()" ng-keypress="appoint.clear()" required minlength="5"/><span>{{appoint.user}}</span>
+                <input type="text" class="form-control" id="name" placeholder="enter your name" ng-model="appoint.userName" ng-blur="appoint.verifyUserName()" minlength="5" ng-keypress="appoint.clear()" required /><span>{{appoint.user}}</span>
             </p>
             <p>Age :
                 <input type="number" class="form-control" id="age" min="1" max="90" ng-model="appoint.age" ng-blur="appoint.verifyAge()" ng-keypress="appoint.clearAge()" required/><span>{{appoint.ageCheck}}</span>

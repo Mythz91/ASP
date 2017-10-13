@@ -5,15 +5,15 @@
 
     function appoint(appointmentService) {
         var appoint = this;
-        appoint.userName;
-        appoint.user;
+        appoint.userName = "";
+        appoint.user="";
         appoint.age;
         appoint.ageCheck;
         appoint.sex = ["male", "female", "not interested to disclose"];
         appoint.sext;
         appoint.selection = "";
         appoint.date = "";
-        
+
         appoint.dateCheck = "";
         appoint.disable = false;
         appoint.symptoms = "";
@@ -50,14 +50,20 @@
 
         }
         appoint.verifyUserName = function () {
-            var i;
-            for (i = 0; i < appoint.userName.length; i++) {
-                if (appoint.userName[i].match(/\d+/g)) {
-                   appoint.user = "please enter valid name"
-                    break;
-                }
+            if (!appoint.userName) {
+                appoint.user = "please enter valid name of length atleast of 5 characters long";
+                console.log(appoint.user);
             }
 
+            if (!appoint.userName && appoint.userName.length != 0) {
+                var i;
+                for (i = 0; i < appoint.userName.length; i++) {
+                    if (appoint.userName[i].match(/\d+/g)) {
+                        appoint.user = "please enter valid name"
+                        break;
+                    }
+                }
+            }
             if (i < 5) {
                 appoint.user = "please enter valid name"
             } else {
@@ -71,7 +77,7 @@
         }
         appoint.checkSelection = function () {
             console.log(appoint.sext)
-            if (appoint.sext != "male" && appoint.sext != "female" && appoint.sext != "not interested to disclose") {
+            if (appoint.sext == undefined) {
                 appoint.selection = "please select any one";
             }
         }
@@ -86,26 +92,28 @@
             }
         }
         appoint.verifyDate = function () {
-
+            if(!appoint.date){
+                appoint.dateCheck = "please select a date and time";
+            }
             appoint.dateCheck = "";
             console.log(appoint.date);
 
             var today = new Date();
             var check = new Date(appoint.date);
-          
+
             if (check < today || check == today) {
                 appoint.dateCheck = "please select a date of future occurance";
             }
             var todayTime = today.getTime();
             var checkTime = check.getTime();
-  
+
             var diff = Math.round(Math.abs((todayTime - checkTime) / (24 * 60 * 60 * 1000)));
             if (diff > 6) {
                 appoint.dateCheck = "please select a date which is within a week from today " + (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
             }
 
         }
-       
+
         appoint.checkSymptoms = function () {
             if (appoint.symptoms.trim() == "") {
                 appoint.symp = "Please enter valid symptoms";
@@ -122,7 +130,7 @@
                 var data = {
                     userName: appoint.userName,
                     regNum: reg,
-                    password:pass,
+                    password: pass,
                     contact: appoint.contact,
                     date: appoint.date,
                     age: appoint.age,
@@ -178,4 +186,3 @@ angular.module("app.home")
             return defer.promise;
         }
     }]);
-   

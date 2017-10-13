@@ -6159,6 +6159,10 @@ button.close {
   float: right;
   width: 750px; }
 
+.shift-right {
+  float: right;
+  margin-right: 200px; }
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

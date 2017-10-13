@@ -7,7 +7,7 @@ var reg = "";
         .module('app.home')
         .controller('getLogin', getLogin)
     var URL = 'http://localhost:9000/api/v1/';
-    function getLogin($scope, UserService,	authTokenFactory, $location) {
+    function getLogin($scope, UserService,	authTokenFactory, $location,$window) {
         var vm = this;
         vm.regNum = "";
         vm.password = "";
@@ -43,6 +43,9 @@ var reg = "";
                     reg = regNum;
                    data=res.username;
                     pass=password;
+                    $window.localStorage.setItem("user",res.username);
+                    $window.localStorage.setItem("reg",regNum);
+                    $window.localStorage.setItem("pass",password);
                     if(res.token){
                         authTokenFactory.setToken(res.token);
                         $location.path('/welcome');
@@ -59,6 +62,7 @@ var reg = "";
         function logout(){
             authTokenFactory.setToken("");
             vm.userName = "";
+            $window.localStorage.clear();
             $location.path("/");
         }
 

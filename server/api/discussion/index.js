@@ -39,5 +39,37 @@ mongoC.connect(url, function (err, db) {
         });
 
     });
+    router.post("/getReply", function(req,res){
+        console.log(req.body);
+        db.collection("discussionList").find().toArray(function(err,rep){
+            if(err) throw err;
+
+        })
+    })
+    router.post("/addReply", function(req,res){
+        var data = req.body;
+        console.log(req.body);
+        //{ field1: { $elemMatch: { one: 1 } } }
+        db.collection("discussionList").find({"_id":1},{"discussions":{ $elemMatch: { "userName": req.body.to, "topic": req.body.topic}}}).toArray(function(err,rep){
+            if(err) throw err;
+            console.log(rep[0]);
+            if(rep.length){
+               db.collection("discussionList").update({"_id":1},{"discussions":{
+                $push: {
+                    "replies":{
+                        "reply" : data.reply,
+                        "from" : data.user,
+                        "time":dateFormat(new Date()),
+                        replies:[]
+                    }
+                }
+               }})
+            }
+
+        }, function (err, rep) {
+            if (err) throw err;
+            res.send(rep).end();
+        })
+    })
 });
 module.exports = router;

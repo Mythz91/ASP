@@ -1,0 +1,16 @@
+<header data-ng-include="'templates/loginHeader.html'"></header>
+<div ng-init="vm.previousReplies()">
+<h2 class="text-success">{{vm.topic}}</h2>
+<div class="shift-right text-danger"><h4>-{{vm.userName}}</h4></div>
+<h3>Previous Replies:</h3>
+<table>
+    <tbody>
+        <td></td>
+    </tbody>
+</table>
+<form ng-submit="vm.addReply(vm.replyText)">
+<textarea class="form-control" rows="5" id="comment" ng-model="vm.replyText" required></textarea>
+
+<button class="btn btn-success" type="submit">Create Reply</button>
+</form>
+</div>

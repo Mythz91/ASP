@@ -1,16 +1,38 @@
-var details;
+
+  
   (function(){angular
   .module('app.home').controller("welcomeCtrl", welcomeCtrl) 
 
-    function welcomeCtrl($uibModal, DataService ) {
+    function welcomeCtrl($uibModal, DataService, $rootScope,$location,$window ) {
+       
         var vm = this;
-        vm.userName = data;
+        vm.userName = $window.localStorage.getItem("user");
         vm.pass=pass;
         vm.err="";
-        vm.discussions = details;
+      vm.discussion;
+      vm.reply= function(userName,topic){
+          $window.localStorage.setItem("to",userName);
+          $window.localStorage.setItem("topic",topic);
+         
+          
+          $location.path("/reply");
+
+      }
+       
         vm.getData = function(){
-            DataService.discussions();
+            DataService.getData().then(function(success){
+                console.log(success);
+                vm.discussion=success;
+           
+            },function(err){
+
+            });
         }
+
+        $rootScope.$on('change', function (event, data) {
+            vm.discussion=data;
+          });
+        
         vm.showForm = function () {
             vm.err="";
             var modalInstance = $uibModal.open({
@@ -32,7 +54,7 @@ var details;
             }
   })();
 
-var FormCtrl = function ($scope, $uibModalInstance, userForm,discussionStartService,DataService) {
+var FormCtrl = function ($scope, $rootScope, $uibModalInstance, userForm,discussionStartService,DataService) {
  
     $scope.form = {}
     $scope.submitForm = function (topic,discussion) {
@@ -48,7 +70,14 @@ var FormCtrl = function ($scope, $uibModalInstance, userForm,discussionStartServ
         }
         discussionStartService.startDiscussion(text).then(function(success){
             console.log(success);
-            DataService.discussions();
+            DataService.getData().then(function(data){
+                console.log(data);
+                
+                $rootScope.$emit("change",data);
+                
+            },function(err){
+
+            });
         },function(err){
 
         });
@@ -83,17 +112,9 @@ angular.module("app.home")
 
     angular.module("app.home")
         .service("DataService",function($http,$q){
-            var service = this;
-            service.discussions = function(){
-                service.getData().then(function(success){
-                console.log(success);
-                details=success;
-                
-            },function(err){
-
-            });
-        },
-        service.getData = function(){
+            
+            
+       this.getData = function(){
                 var defer = $q.defer();
                 $http({
                     method : 'GET',
