@@ -44,9 +44,35 @@ mongoC.connect(url, function (err, db) {
     router.post("/getReply", function (req, res) {
         console.log(req.body);
         db.collection("discussionList").find().toArray(function (err, rep) {
-            if (err) {throw err;}
-            else{
-                getData(req.body.userName,req.body.topic);
+            if (err) {
+                throw err;
+            } else {
+                db.collection("discussionList").find({
+                    $and: [{
+                        "_id": 1,
+                        "discussions": {
+                            $elemMatch: {
+                                "userName": req.body.userName,
+                                "topic": req.body.topic
+                            }
+                        }
+                    }]
+                }).toArray(function (err, reply) {
+                   
+                    if (err) {
+                        throw err;
+                    } else {
+                        if (reply.length > 0) {
+                            var data = reply[0].discussions;
+                            data.forEach(function (element) {
+                                if (element.userName == req.body.userName && element.topic == req.body.topic) {
+                                    res.send(element.replies);
+                                 
+                                }
+                            })
+                        }
+                    }
+                })
             }
 
         })
@@ -81,22 +107,48 @@ mongoC.connect(url, function (err, db) {
                 upsert: true,
             },
             function (err, reply) {
-                if (err) {throw err;}
-                else{
-                    console.log("here1")
-                   
-                     
-                 var data =   getData(req.body.to,req.body.topic);
-                 res.send(data).end();
-                  
+                if (err) {
+                    throw err;
+                } else {
+                    db.collection("discussionList").find({
+                        $and: [{
+                            "_id": 1,
+                            "discussions": {
+                                $elemMatch: {
+                                    "userName": req.body.to,
+                                    "topic": req.body.topic
+                                }
+                            }
+                        }]
+                    }).toArray(function (err, reply) {
+                       
+                        if (err) {
+                            throw err;
+                        } else {
+                            if (reply.length > 0) {
+                                var data = reply[0].discussions;
+                                data.forEach(function (element) {
+                                    if (element.userName == req.body.to && element.topic == req.body.topic) {
+                                       
+                                       res.send(element.replies);
+                                    }
+                                })
+                            }
+                        }
+                    })
+                    
+
                 }
-               
+
             });
 
     })
-    function getData(name,topic){
-        db.collection("discussionList").find( {
-            $and: [{"_id":1,
+
+    function getData(name, topic) {
+        var data;
+        db.collection("discussionList").find({
+            $and: [{
+                "_id": 1,
                 "discussions": {
                     $elemMatch: {
                         "userName": name,
@@ -104,22 +156,25 @@ mongoC.connect(url, function (err, db) {
                     }
                 }
             }]
-        }).toArray(function(err,reply){
-            console.log("Here2")
-            if(err) {throw err;}
-            else{
-             if(reply.length >0){
-               var data = reply[0].discussions;
-               data.forEach(function(element){
-                if(element.userName==name && element.topic == topic){
-                   return (element.replies);
+        }).toArray(function (err, reply) {
+           
+            if (err) {
+                throw err;
+            } else {
+                if (reply.length > 0) {
+                    var data = reply[0].discussions;
+                    data.forEach(function (element) {
+                        if (element.userName == name && element.topic == topic) {
+                           
+                           data=(element.replies);
+                        }
+                    })
                 }
-               })
-             }
             }
         })
+        return data;
     }
-    
+
 });
 
 module.exports = router;

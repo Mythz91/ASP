@@ -3,9 +3,18 @@
 <h2 class="text-success">{{vm.topic}}</h2>
 <div class="shift-right text-danger"><h4>-{{vm.userName}}</h4></div>
 <h3>Previous Replies:</h3>
-<table>
+<table class="table table-hover">
+    <thead>
+        <th>Reply</th>
+        <th>From</th>
+        <th>Time</th>
+    </thead>
     <tbody>
-        <td></td>
+        <tr ng-repeat="(key,value) in  vm.data">
+        <td class="text-success">{{value.reply}}</td>
+        <td class="text-danger">{{value.from}}</td>
+        <td>@ {{value.time|date : "MM/dd/yy : hh:mm:ss"}}</td>
+        </tr>
     </tbody>
 </table>
 <form ng-submit="vm.addReply(vm.replyText)">

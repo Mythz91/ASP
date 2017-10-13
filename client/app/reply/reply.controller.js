@@ -5,9 +5,11 @@ angular.module("app.home")
         vm.userName = $window.localStorage.getItem("to");
         vm.topic = $window.localStorage.getItem("topic");
         vm.replyText="";
+        vm.data;
        vm.previousReplies=function(){
-        replyService.getReplies( $window.localStorage.getItem("to"),$window.localStorage.getItem("topic")).then(function(success){
-
+        replyService.getReplies( vm.userName,vm.topic).then(function(success){
+            
+            vm.data=success;
         },function(err){
 
         });
@@ -21,8 +23,10 @@ angular.module("app.home")
                topic:vm.topic,
                to:vm.userName
            }
-           addReplyService.addReply(text).then(function(sucess){
-           
+           addReplyService.addReply(text).then(function(success){
+         
+           vm.data=success;
+         
            },function(err){
 
            })

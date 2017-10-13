@@ -21,7 +21,7 @@
        
         vm.getData = function(){
             DataService.getData().then(function(success){
-                console.log(success);
+             
                 vm.discussion=success;
            
             },function(err){
@@ -59,7 +59,7 @@ var FormCtrl = function ($scope, $rootScope, $uibModalInstance, userForm,discuss
     $scope.form = {}
     $scope.submitForm = function (topic,discussion) {
         if(!topic || !discussion){
-            DataService.discussions();
+           
             return 0;
         }
         console.log(topic,discussion);
