@@ -54,7 +54,7 @@
             }
   })();
 
-var FormCtrl = function ($scope, $rootScope, $uibModalInstance, userForm,discussionStartService,DataService) {
+var FormCtrl = function ($scope, $rootScope, $uibModalInstance, userForm,discussionStartService,DataService,$window) {
  
     $scope.form = {}
     $scope.submitForm = function (topic,discussion) {
@@ -64,7 +64,7 @@ var FormCtrl = function ($scope, $rootScope, $uibModalInstance, userForm,discuss
         }
         console.log(topic,discussion);
         var text ={
-            userName :data,
+            userName :$window.localStorage.getItem("user"),
             post : topic,
             detail : discussion
         }

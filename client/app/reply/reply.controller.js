@@ -11,8 +11,10 @@ angular.module("app.home")
         },function(err){
 
         });
+        return;
        }
        vm.addReply = function(text){
+        vm.replyText="";
            var text = {
                reply : text,
                user : $window.localStorage.getItem("user"),
@@ -20,7 +22,7 @@ angular.module("app.home")
                to:vm.userName
            }
            addReplyService.addReply(text).then(function(sucess){
-
+           
            },function(err){
 
            })
