@@ -16,7 +16,7 @@ var transporter = mailer.createTransport({
 var url = "mongodb://localhost:27017/medicalInsights";
 mongoC.connect(url, function (err, db) {
     if (err) throw err;
-    router.post("/register", function (req, res) {
+    router.post("/", function (req, res) {
         var data = req.body;
         console.log(data);
        
@@ -24,7 +24,7 @@ mongoC.connect(url, function (err, db) {
             var count =1;
             if(err) throw err;
             
-            else{
+            else{if(reply.length){
                 var arr = reply[0].registrationList;
                arr.forEach(function(element){
                    if(data.registration ==element){
@@ -103,6 +103,7 @@ mongoC.connect(url, function (err, db) {
                 })
             }
             }
+        }
         })
       
     })

@@ -7,7 +7,7 @@
     border-radius: 0px;
     border-bottom: 1px solid $lighter-gray;
     h2 {
-      margin-top: 30px;
+      margin-top: 10px;
       font-family: "NHG-W01-75-DspBd";
     }
     .navbar-header {
@@ -17,16 +17,16 @@
        .navbar-brand {
         padding: 0px;
         margin-left: 0px;
-        margin-top: 28px;
+        margin-top: 10px;
         width: 139px;
         height: 32px;
       }
     }
     .navbar-main-wrapper {
-      margin-top: 30px;
+      margin-top: 10px;
     }
     .nav-main {
-      margin-top: 40px;
+      margin-top: 10px;
       margin-bottom: 0px;
       > li {
         margin-top: 0px;
@@ -55,4 +55,9 @@
   margin-left: 5%;
   float: left;
   background-color: transparent;
+}
+
+.logout {
+width: 30px;
+height : 25px;
 }

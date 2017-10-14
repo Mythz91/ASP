@@ -1,12 +1,14 @@
+var data ="";
+var pass="";
+var reg = "";
+
 (function () {
     angular
         .module('app.home')
         .controller('getLogin', getLogin)
-    var URL = 'http://localhost:9000/api/v1/login/'
-
-    function getLogin(UserService,	authTokenFactory) {
+    var URL = 'http://localhost:9000/api/v1/';
+    function getLogin($scope, UserService,	authTokenFactory, $location,$window) {
         var vm = this;
-
         vm.regNum = "";
         vm.password = "";
         vm.PassErr = "";
@@ -15,7 +17,7 @@
         vm.verifyUser = function () {
          
             if(!(vm.regNum.match(/^\d+$/g))){
-                if(vm.regNum.charAt(0)==0){
+                if(vm.regNum.charAt(0)==0||vm.regNum.charAt(0)=="0"){
                 vm.errUser = "Please enter a valid registration number";
                 }
                 vm.errUser = "Please enter a valid registration number";
@@ -38,9 +40,15 @@
            try {
                 UserService.login(regNum, password, URL).then(function (res) {
                     console.log(res);
+                    reg = regNum;
+                   data=res.username;
+                    pass=password;
+                    $window.localStorage.setItem("user",res.username);
+                    $window.localStorage.setItem("reg",regNum);
+                    $window.localStorage.setItem("pass",password);
                     if(res.token){
-                        alert(res.token);
                         authTokenFactory.setToken(res.token);
+                        $location.path('/welcome');
                     }
                 }, function (err) {
                     vm.err=err;
@@ -49,6 +57,13 @@
                 vm.err="Please try again after some time";
             }
 
+        }
+        vm.logout = logout;
+        function logout(){
+            authTokenFactory.setToken("");
+            vm.userName = "";
+            $window.localStorage.clear();
+            $location.path("/");
         }
 
     }
@@ -76,6 +91,8 @@
                 })
                 return defer.promise;
             }
+
+            
         })
 
 })();

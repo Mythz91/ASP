@@ -15,7 +15,7 @@ var pass ="";
 var url = "mongodb://localhost:27017/medicalInsights";
 mongoC.connect(url, function(err, db) {
     if(err) throw err;
-router.post("/login",authenticate, function(req,res){
+router.post("/",authenticate, function(req,res){
     var data = req.body;
    
     db.collection("UserDetails").find({ $and: [{ "user.registrationNumber": req.body.user, "user.password": req.body.pass}] }).toArray(function(err, reply) {
@@ -43,7 +43,7 @@ router.post("/login",authenticate, function(req,res){
 
 function authenticate(req,res,next){
     var data = req.body;
- console.log(data);
+ 
     if(!data.user || !data.pass){
         res.status(400).end("must provide valid registration number or password")
     }

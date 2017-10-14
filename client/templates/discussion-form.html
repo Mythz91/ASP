@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h3>Start a Discussion!</h3>
+</div>
+<form name="form.userForm" ng-submit="submitForm(topic,discussion)" novalidate>
+    <div class="modal-body">
+        <!-- Topic -->
+        <div class="form-group">
+            <label>Topic</label>
+            <input type="text" name="topic" class="form-control" ng-model="topic" required>
+            <p ng-show="form.userForm.topic.$invalid && !form.userForm.topic.$pristine" class="help-block">Topic is required.</p>
+        </div>
+
+        <!-- Discussion -->
+        <div class="form-group">
+            <label>Discussion</label><br/>
+            <textarea rows="5" cols="50" ng-model="discussion" ng-minlength="2" ng-maxlength="500" required></textarea>
+            <p ng-show="form.userForm.discussion.$error.minlength" class="help-block">discussion is too short.</p>
+            <p ng-show="form.userForm.discussion.$error.maxlength" class="help-block">discussion is too long.</p>
+        </div>
+
+      
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" ng-disabled="form.userForm.$invalid">OK</button>
+        <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

@@ -14,7 +14,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
 
-  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="assets/img.jpg" type="image/x-icon">
 
   <!-- build:css app.css -->
   <!-- bower:css -->
@@ -22,12 +22,12 @@
 
   <link rel="stylesheet" href="styles/css/app.css">
   <!-- endbuild -->
-
+ 
 </head>
 
 <body ng-app="app">
 
-  <header data-ng-include="'templates/header.html'"></header>
+ 
   <div class="container body-content"  ui-view></div>
   <footer data-ng-include=" 'templates/footer.html'"></footer>
 
@@ -53,6 +53,7 @@
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular-messages/angular-messages.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
@@ -61,13 +62,19 @@
   <!-- inject:js -->
   <script src="app/app.js"></script>
   <script src="app/home/home.module.js"></script>
+  <script src="app/appointment/appointment.controller.js"></script>
   <script src="app/home/home.controller.js"></script>
   <script src="app/home/home.route.js"></script>
+  <script src="app/previousAppointments/previous.controller.js"></script>
   <script src="app/login/getLogin.controller.js"></script>
+  <script src="app/doctorFinder/finder.controller.js"></script>
+  <script src="app/reply/reply.controller.js"></script>
   <script src="app/register/register.controller.js"></script>
+  <script src="app/update/update.controller.js"></script>
+  <script src="app/welcome/welcome.controller.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
-
+  
 </body>
 
 </html>
