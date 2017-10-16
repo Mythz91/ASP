@@ -1,8 +1,8 @@
 <div>
-    <header data-ng-include="'templates/loginHeader.html'"></header>
+    <header data-ng-include="'templates/loginHeader.html'" class="navbar-fixed-top"></header>
     <div class="body-content">
-      
-        <div >
+      <div class="shift">
+        <div>
                 <label><span class="text-success shift"><b>Search Criteria:</b></span> <input ng-model="searchText" ng-disabled="data.hide"></label>
         <table class="table table-hover" ng-init="data.getData()" >
 
@@ -34,4 +34,5 @@
     </div>
     <div><span ng-show="data.hide" class="text-success">No previous appointments to show</span></div>
     </div>
+</div>
 </div>

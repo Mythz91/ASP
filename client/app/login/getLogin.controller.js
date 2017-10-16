@@ -64,6 +64,7 @@ var reg = "";
             vm.userName = "";
             $window.localStorage.clear();
             $location.path("/");
+           
         }
 
     }

@@ -174,6 +174,10 @@ mongoC.connect(url, function (err, db) {
         })
         return data;
     }
+    router.post("/messages",function(req,res){
+        var data = req.body;
+       
+    })
 
 });
 

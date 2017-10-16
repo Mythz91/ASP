@@ -4,7 +4,9 @@
   .module('app.home').controller("welcomeCtrl", welcomeCtrl) 
 
     function welcomeCtrl($uibModal, DataService, $rootScope,$location,$window ) {
-       
+        if(!$window.localStorage.getItem("auth-token")){
+            $location.path("/");
+        }
         var vm = this;
         vm.userName = $window.localStorage.getItem("user");
         vm.pass=pass;

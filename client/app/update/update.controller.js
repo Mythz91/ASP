@@ -2,7 +2,10 @@
     angular
         .module('app.home')
         .controller('updateCtrl', update)
-    function update(updateService, updateInfo) {
+    function update(updateService, updateInfo,$window) {
+        if(!$window.localStorage.getItem("auth-token")){
+            $location.path("/");
+        }
         var vm = this;
         vm.uNameErr = "";
         vm.userName = "";

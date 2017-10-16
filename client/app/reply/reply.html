@@ -1,4 +1,4 @@
-<header data-ng-include="'templates/loginHeader.html'"></header>
+<header data-ng-include="'templates/loginHeader.html'" class="navbar-fixed-top"></header>
 <div ng-init="vm.previousReplies()">
 <h2 class="text-success">{{vm.topic}}</h2>
 <div class="shift-right text-danger"><h4>-{{vm.userName}}</h4></div>
@@ -18,8 +18,8 @@
     </tbody>
 </table>
 <form ng-submit="vm.addReply(vm.replyText)">
-<textarea class="form-control" rows="5" id="comment" ng-model="vm.replyText" required></textarea>
+<textarea class="form-control" rows="5" id="comment" ng-model="vm.replyText" ng-keypress="vm.checkStatus()" required></textarea>
 
-<button class="btn btn-success" type="submit">Create Reply</button>
+<button class="btn btn-success" type="submit" ng-disabled="vm.check">Create Reply</button>
 </form>
 </div>

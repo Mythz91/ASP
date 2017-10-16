@@ -1,11 +1,18 @@
 angular.module("app.home")
     .controller("replyCtrl",replyCtrl)
     function replyCtrl(replyService, addReplyService,$window){
+        if(!$window.localStorage.getItem("auth-token")){
+            $location.path("/");
+        }
         var vm = this;
         vm.userName = $window.localStorage.getItem("to");
         vm.topic = $window.localStorage.getItem("topic");
         vm.replyText="";
         vm.data;
+        vm.check=true;
+        vm.checkStatus=function(){
+            vm.check=false;
+        }
        vm.previousReplies=function(){
         replyService.getReplies( vm.userName,vm.topic).then(function(success){
             

@@ -3,7 +3,10 @@
         .module('app.home')
         .controller('previousController', previous)
 
-    function previous(prevService) {
+    function previous(prevService,$window) {
+        if(!$window.localStorage.getItem("auth-token")){
+            $location.path("/");
+        }
         var previous = this;
         previous.appointments;
         previous.show=false;

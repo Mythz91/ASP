@@ -18,6 +18,12 @@
         templateUrl: 'templates/redirect.html',
         
       })
+      .state('msgs',{
+        url:'/msgs',
+        templateUrl:'app/msgs/msg.html',
+        controller:'MessageCtrl as vm'
+
+      })
       .state('getLogin',{
         url:'/getLogin',
         templateUrl:'app/login/login.html',
@@ -53,11 +59,12 @@
         templateUrl:'app/previousAppointments/previous.html',
         controller:'previousController as data'
       })
-      .state("doc",{
+      .state('doc',{
         url:'/doc',
-        templateUrl : 'app/doctorFinder/finder.html',
-        controller:'finderCtrl as vm'
+        templateUrl:'app/docFinder/finder.html',
+        controller:'docFinder as vm'
       })
+  
       .state('update',{
         url:'/update',
         templateUrl:'app/update/update.html',

@@ -3,7 +3,10 @@
         .module('app.home')
         .controller('appointmentCtrl', appoint)
 
-    function appoint(appointmentService) {
+    function appoint(appointmentService,$location,$window) {
+        if(!$window.localStorage.getItem("auth-token")){
+            $location.path("/");
+        }
         var appoint = this;
         appoint.userName = "";
         appoint.user="";
@@ -23,8 +26,12 @@
         appoint.validate = "";
         appoint.show = false;
         appoint.res = "";
+        appoint.findDoc=function(){
+            $location.path("/doc")
+        }
         appoint.checkContact = function () {
             var contact = appoint.contact;
+
             if (appoint.contact.startsWith('+')) {
                 contact = appoint.contact.replace("+", "")
             }

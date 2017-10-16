@@ -1,9 +1,10 @@
-<header data-ng-include="'templates/loginHeader.html'"></header>
+<header data-ng-include="'templates/loginHeader.html'" class="navbar-fixed-top"></header>
+<div class="shift">
 <h2 class="text-success">Make a Appointment</h2>
-<div id="login" class="shift">
+<div id="login">
 
     <form ng-submit-"">
-        <p> Name
+        <p> Name :
                 <input type="text" class="form-control" id="name" placeholder="enter your name" ng-model="appoint.userName" ng-blur="appoint.verifyUserName()" minlength="5" ng-keypress="appoint.clear()" required /><span>{{appoint.user}}</span>
             </p>
             <p>Age :
@@ -60,4 +61,5 @@
                 </table>
                 {{appoint.res}}
             </div>
+        </div>
 </div>
