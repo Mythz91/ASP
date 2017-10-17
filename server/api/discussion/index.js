@@ -98,7 +98,7 @@ mongoC.connect(url, function (err, db) {
                         "reply": data.reply,
                         "from": data.user,
                         "time": dateFormat(new Date()),
-                        replies: []
+
                     }
 
                 }
@@ -143,6 +143,7 @@ mongoC.connect(url, function (err, db) {
             });
 
     })
+
     router.post("/messages", function (req, res) {
         var data = req.body;
 
@@ -162,27 +163,31 @@ mongoC.connect(url, function (err, db) {
                 throw err;
             } else {
                 if (reply.length) {
-                    var obj = {};
+
                     var data = [];
-                    var data = reply[0].discussions;
-                    var replies = [];
-                    data.forEach(function (element) {
-                      
-                      
-                            obj.userName = element.userName;
-                            obj.topic = element.topic;
-                            obj.discussion = element.discussion;
-                            obj.time = element.time;
-                          
+                    var resp = reply[0].discussions;
 
-                            element.replies.forEach(function (ele) {
-                                replies.push(ele);
+                    resp.forEach(function (element) {
+                        var obj = {};
+                        var replies = [];
+                        obj.userName = element.userName;
+                        obj.topic = element.topic;
+                        obj.discussion = element.discussion;
+                        obj.time = element.time;
 
-                            })
-                            obj.reply = replies;
-                            data.push(obj);
-                     
+
+                        element.replies.forEach(function (ele) {
+                            replies.push(ele);
+
+                        })
+
+                        obj.reply = replies;
+
+                        data.push(obj);
+                        console.log(data);
+
                     })
+                    // console.log(data);
                     res.send(data).end();
                 }
 
@@ -195,24 +200,85 @@ mongoC.connect(url, function (err, db) {
 
     router.post('/delete', function (req, res) {
         console.log(req.body);
-        db.collection('discussionList').update({}, {
-            $pull: {
-                discussions: {
-                    "userName": req.body.user,
-                    'topic': req.body.topic,
-                    'discussion': req.body.discussion,
-                    'time': req.body.time
+        db.collection('discussionList')
+            .findAndModify(
+
+                {
+                    "_id": 1
+                }, [], {
+                    $pull: {
+                        "discussions": {
+                            "userName": req.body.user,
+                            'topic': req.body.topic,
+                            'discussion': req.body.discussion,
+                            'time': req.body.time
+
+                        }
+
+                    }
+                }, {
+                    new: true,
+                    upsert: true,
+                },
+
+                function (err, reply) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        console.log('Here');
+                        db.collection("discussionList").find({
+                            $and: [{
+                                "_id": 1,
+                                "discussions": {
+                                    $elemMatch: {
+                                        "userName": req.body.user
+
+                                    }
+                                }
+                            }]
+                        }).toArray(function (err, reply) {
+
+                            if (err) {
+                                throw err;
+                            } else {
+                                console.log('here2');
+                                if (reply.length) {
+
+                                    var data = [];
+                                    var resp = reply[0].discussions;
+
+                                    resp.forEach(function (element) {
+                                        var obj = {};
+                                        var replies = [];
+                                        obj.userName = element.userName;
+                                        obj.topic = element.topic;
+                                        obj.discussion = element.discussion;
+                                        obj.time = element.time;
+
+
+                                        element.replies.forEach(function (ele) {
+                                            replies.push(ele);
+
+                                        })
+
+                                        obj.reply = replies;
+
+                                        data.push(obj);
+                                        console.log(data);
+
+                                    })
+                                    // console.log(data);
+                                    res.send(data).end();
+                                }else{
+                                    res.send("1");
+                                }
+
+                            }
+                        })
+
+                    }
                 }
-            },
-            function (err, reply) {
-                if (err) {
-                    throw err;
-                } else {
-                    console.log(reply);
-                    res.send('1').end();
-                }
-            }
-        })
+            )
 
     })
 

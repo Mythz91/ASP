@@ -1,8 +1,16 @@
 <header data-ng-include="'templates/loginHeader.html'" class="navbar-fixed-top"> </header>
 <div class="shift" ng-init='vm.getData()'>
-<h3>Discussion Details :</h3>
+<h3 ng-show="vm.disp">Discussion Details :</h3>
 
-<table  class="table table-hover"> 
+<table  class="table table-hover" ng-show="vm.disp"> 
+    <thead>
+        <th>UserName</th>
+        <th>Topic</th>
+        <th>Discussion</th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody>
     <tr ng-repeat="(key,value) in vm.data">
         <td>{{value.userName}}</td>
         <td>{{value.topic}}</td>
@@ -13,7 +21,7 @@
             <p>
             <table class="table table-hover">
                     <td class="text-success">Replies</td>
-                <tr ng-repeat="item in value.replies">
+                <tr ng-repeat="item in value.reply">
                     
                     <td>{{item.reply}}</td>
                     <td>{{item.from}}</td>
@@ -24,6 +32,7 @@
         </td>
         
     </tr>
-   
+</tbody>
 </table>
+<h3 ng-show="vm.show">{{vm.empty}}</h3>
 </div>

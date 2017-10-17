@@ -60,6 +60,7 @@ var FormCtrl = function ($scope, $rootScope, $uibModalInstance, userForm,discuss
  
     $scope.form = {}
     $scope.submitForm = function (topic,discussion) {
+      
         if(!topic || !discussion){
            
             return 0;
