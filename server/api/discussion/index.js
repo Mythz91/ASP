@@ -58,7 +58,7 @@ mongoC.connect(url, function (err, db) {
                         }
                     }]
                 }).toArray(function (err, reply) {
-                   
+
                     if (err) {
                         throw err;
                     } else {
@@ -67,7 +67,7 @@ mongoC.connect(url, function (err, db) {
                             data.forEach(function (element) {
                                 if (element.userName == req.body.userName && element.topic == req.body.topic) {
                                     res.send(element.replies);
-                                 
+
                                 }
                             })
                         }
@@ -121,7 +121,7 @@ mongoC.connect(url, function (err, db) {
                             }
                         }]
                     }).toArray(function (err, reply) {
-                       
+
                         if (err) {
                             throw err;
                         } else {
@@ -129,18 +129,90 @@ mongoC.connect(url, function (err, db) {
                                 var data = reply[0].discussions;
                                 data.forEach(function (element) {
                                     if (element.userName == req.body.to && element.topic == req.body.topic) {
-                                       
-                                       res.send(element.replies);
+
+                                        res.send(element.replies);
                                     }
                                 })
                             }
                         }
                     })
-                    
+
 
                 }
 
             });
+
+    })
+    router.post("/messages", function (req, res) {
+        var data = req.body;
+
+        db.collection("discussionList").find({
+            $and: [{
+                "_id": 1,
+                "discussions": {
+                    $elemMatch: {
+                        "userName": req.body.user
+
+                    }
+                }
+            }]
+        }).toArray(function (err, reply) {
+
+            if (err) {
+                throw err;
+            } else {
+                if (reply.length) {
+                    var obj = {};
+                    var data = [];
+                    var data = reply[0].discussions;
+                    var replies = [];
+                    data.forEach(function (element) {
+                      
+                      
+                            obj.userName = element.userName;
+                            obj.topic = element.topic;
+                            obj.discussion = element.discussion;
+                            obj.time = element.time;
+                          
+
+                            element.replies.forEach(function (ele) {
+                                replies.push(ele);
+
+                            })
+                            obj.reply = replies;
+                            data.push(obj);
+                     
+                    })
+                    res.send(data).end();
+                }
+
+            }
+        })
+
+
+
+    })
+
+    router.post('/delete', function (req, res) {
+        console.log(req.body);
+        db.collection('discussionList').update({}, {
+            $pull: {
+                discussions: {
+                    "userName": req.body.user,
+                    'topic': req.body.topic,
+                    'discussion': req.body.discussion,
+                    'time': req.body.time
+                }
+            },
+            function (err, reply) {
+                if (err) {
+                    throw err;
+                } else {
+                    console.log(reply);
+                    res.send('1').end();
+                }
+            }
+        })
 
     })
 
@@ -157,7 +229,7 @@ mongoC.connect(url, function (err, db) {
                 }
             }]
         }).toArray(function (err, reply) {
-           
+
             if (err) {
                 throw err;
             } else {
@@ -165,8 +237,8 @@ mongoC.connect(url, function (err, db) {
                     var data = reply[0].discussions;
                     data.forEach(function (element) {
                         if (element.userName == name && element.topic == topic) {
-                           
-                           data=(element.replies);
+
+                            data = (element.replies);
                         }
                     })
                 }
@@ -174,10 +246,7 @@ mongoC.connect(url, function (err, db) {
         })
         return data;
     }
-    router.post("/messages",function(req,res){
-        var data = req.body;
-       
-    })
+
 
 });
 
