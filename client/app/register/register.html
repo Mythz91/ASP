@@ -16,7 +16,7 @@
                             <br/>{{vm.mailErr}} </p>
                         <p>Address:</p>
                         <span>Street Address  :</span>   <input type="text" class="form-control" ng-model="vm.address" minlength="6" required/> <br/>
-                        <span>City :</span>   <input type="text" class="form-control" ng-model="vm.city" minlength="4" ng-blur="vm.verifyCity()" required/><span>{{vm.cityErr}}</span> <br/><br/>
+                        <span>City :</span>   <input type="text" class="form-control" ng-model="vm.city" minlength="4" ng-blur="vm.verifyCity()" required/> <br/><span>{{vm.cityErr}}</span><br/>
                         <span>State  :</span> <select ng-model="vm.states" ng-blur="vm.verifyState()" ng-options="state as state for state in vm.state" required></select> 
                             <br/> 
                         <p>Zip:

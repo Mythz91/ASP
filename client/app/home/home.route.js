@@ -11,7 +11,7 @@
       .state('home', {
         url: '/',
         templateUrl: 'app/home/home.html',
-        controller: 'HomeCtrl as vm'
+        
       })
       .state('login', {
         url: '/login',

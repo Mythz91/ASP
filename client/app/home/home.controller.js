@@ -3,22 +3,10 @@
 
   angular
     .module('app.home')
-    .controller('HomeCtrl', HomeCtrl)
-    .controller('HeaderCtrl', HeaderCtrl);;
+   
+    .controller('HeaderCtrl', HeaderCtrl);
 
-    HomeCtrl.$inject = ['$http'];
     HeaderCtrl.$inject = ['$location'];
-
-    function HomeCtrl($http){
-
-      var self = this;
-      self.service = null;
-
-     
-
-    
-
-    }
 
     function HeaderCtrl($location){
       var vm = this;

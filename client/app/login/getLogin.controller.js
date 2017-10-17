@@ -30,6 +30,9 @@ var reg = "";
             vm.PassErr = "";
         }
         vm.verifyPass = function () {
+            if(!vm.password){
+                vm.PassErr="please enter password to proceed";
+            }
             if (!(vm.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g))) {
                 vm.passErr = "please enter  at least one number, one lowercase and one uppercase letter at least four characters long password";
             }
