@@ -127,7 +127,7 @@
             }
         }
         appoint.clearSymp = function () {
-            appoint.symp = "";
+            appoint.symp = ""; 
         }
         appoint.appointment = function () {
             appoint.disable = true;

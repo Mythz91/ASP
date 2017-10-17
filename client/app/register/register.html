@@ -15,10 +15,10 @@
                             <input type="email" class="form-control" ng-model="vm.mail" ng-blur="vm.verifyEmail()" ng-keypress="vm.clearMail()" required />
                             <br/>{{vm.mailErr}} </p>
                         <p>Address:</p>
-                        <span>Street Address  :</span>   <input type="text" class="form-control" ng-model="vm.address" minlength="6" required/> <br/>
+                        <span>Street Address  :</span>   <input type="text" class="form-control" ng-model="vm.address" ng-blur="vm.checkStreet()" ng-keypress="vm.clearStreet()" minlength="6" required/> <br/><span>{{vm.streetErr}}</span><br/>
                         <span>City :</span>   <input type="text" class="form-control" ng-model="vm.city" minlength="4" ng-blur="vm.verifyCity()" required/> <br/><span>{{vm.cityErr}}</span><br/>
-                        <span>State  :</span> <select ng-model="vm.states" ng-blur="vm.verifyState()" ng-options="state as state for state in vm.state" required></select> 
-                            <br/> 
+                        <span>State  :</span> <select ng-model="vm.states" ng-options="state as state for state in vm.state" required ng-blur="vm.checkState()" ng-change="vm.clearState()"></select> 
+                            <br/> <span>{{vm.verifyState}}</span><br/>
                         <p>Zip:
                             <input type="text" class="form-control". ng-blur="vm.verifyZip()" ng-model="vm.zip" ng-keypress="vm.clearZip()"  required minlength="5" maxlength="5"/>
                             <br/>

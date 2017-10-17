@@ -16,6 +16,7 @@
         vm.address = "";
         vm.city="";
         vm.cityErr="";
+        vm.streetErr="";
         vm.states;
         vm.zip="";
         vm.zipErr="";
@@ -24,6 +25,7 @@
         vm.passwordConfirm="";
         vm.confirmErr="";
         vm.data="";
+        vm.verifyState = "";
 
         vm.state = ["AK - Alaska",
         "AL - Alabama",
@@ -81,10 +83,32 @@
         "WV - West Virginia",
         "WY - Wyoming"
     ];
+    vm.checkState = function(){
+        if(vm.states=""||vm.states== undefined){
+            console.log("here");
+            vm.verifyState = "Please select a state";
+        }
+    }
+    vm.clearState=function(){
+        vm.verifyState="";
+    }
+
+    vm.checkStreet=function(){
+        if(!vm.address){
+            vm.streetErr="Please provide street address";
+        }
+    }
+    vm.clearStreet = function(){
+        vm.streetErr="";
+    }
     vm.verifyUserName = function(){
+        if(!vm.userName){
+            
+            vm.uNameErr="please enter a user name";
+        }
         
         if(!vm.userName && !(vm.userName.match(/^[A-Za-z]+$/g))){
-            vm.uName="Please enter a valid user name";
+            vm.uNameErr="Please enter a valid user name";
         }
     }
     vm.verifyReg = function(){

@@ -2,7 +2,7 @@
     angular
         .module('app.home')
         .controller('updateCtrl', update)
-    function update(updateService, updateInfo,$window) {
+    function update(updateService, updateInfo,$window,$location) {
         if(!$window.localStorage.getItem("auth-token")){
             $location.path("/");
         }

@@ -3,9 +3,13 @@
 <h2 class="text-success">Make a Appointment</h2>
 <div id="login">
 
-    <form ng-submit-"">
+    <form ng-submit-"" novalidate>
         <p> Name :
                 <input type="text" class="form-control" id="name" placeholder="enter your name" ng-model="appoint.userName" ng-blur="appoint.verifyUserName()" minlength="5" ng-keypress="appoint.clear()" required /><span>{{appoint.user}}</span>
+                <span style="color:red" ng-show="myForm.appoint.userName.$dirty && myForm.appoint.userName.$invalid">
+                        <span ng-show="myForm.appoint.userName.$error.required">Username is required.</span>
+                        </span>
+                      
             </p>
             <p>Age :
                 <input type="number" class="form-control" id="age" min="1" max="90" ng-model="appoint.age" ng-blur="appoint.verifyAge()" ng-keypress="appoint.clearAge()" required/><span>{{appoint.ageCheck}}</span>
@@ -24,7 +28,7 @@
                 <textarea id="problem" rows="5" cols="50" ng-blur="appoint.checkSymptoms()" ng-model="appoint.symptoms" ng-keypress="appoint.clearSymp()" required></textarea>
             </p>
             <p>Contact :
-                <input type="text" placeholder="999-#######" ng-model="appoint.contact" ng-blur="appoint.checkContact()" ng-keypress="appoint.clearContact()" required/>
+                <input type="text" placeholder="999#######" ng-model="appoint.contact" ng-blur="appoint.checkContact()" ng-keypress="appoint.clearContact()" required/>
             </p><span>{{appoint.contactCheck}}</span>
             <p>
                 <button class="btn btn-success"  type="submit" ng-click="appoint.confirmAppointment()">Make a Appointment!</button>
