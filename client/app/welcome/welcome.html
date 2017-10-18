@@ -15,7 +15,8 @@
         <td>{{value.topic}}</td>
         <td>{{value.discussion}}</td>
         <td>{{value.time |date : "MM/dd/yy : hh:mm:ss"}}</td>
-        <td><button class="btn btn-primary" ng-click="vm.reply(value.userName,value.topic)">Respond</button></td>
+        <td><button class="btn btn-primary" ng-click="vm.reply(value.userName,value.topic)">Respond</button> &nbsp; &nbsp; &nbsp;<button class="btn btn-success" ng-click="vm.email(value.userName,value.topic)">Email</button></td>
+       
         </tr>
     </tbody>
    

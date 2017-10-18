@@ -36,13 +36,18 @@
       })
       .state('about', {
         url: '/about',
-        templateUrl: 'templates/about.html'
+        templateUrl: 'app/about/about.html',
+        controller:'aboutCtrl'
        
       })
       .state('welcome',{
         url:'/welcome',
         templateUrl : 'app/welcome/welcome.html',
         controller:'welcomeCtrl as vm'
+      })
+      .state('news',{
+        url:'/news',
+        templateUrl:'app/news/feed.html'
       })
       .state("reply",{
         url:'/reply',
@@ -61,8 +66,8 @@
       })
       .state('doc',{
         url:'/doc',
-        templateUrl:'app/docFinder/finder.html',
-        controller:'docFinder as vm'
+        templateUrl:'templates/finder.html',
+      
       })
   
       .state('update',{
