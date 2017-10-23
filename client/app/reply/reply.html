@@ -4,6 +4,11 @@
         <div class="shift">
 <h2 class="text-success">{{vm.topic}}</h2>
 <div class="shift-right text-danger"><h4>-{{vm.userName}}</h4></div>
+<form ng-submit="vm.addReply(vm.replyText)">
+    <textarea class="form-control" rows="5" id="comment" ng-model="vm.replyText" ng-keypress="vm.checkStatus()" required></textarea>
+    
+    <button class="btn btn-success" type="submit" ng-disabled="vm.check">Create Reply</button>
+    </form>
 <h3>Previous Replies:</h3>
 <table class="table table-hover">
     <thead>
@@ -12,17 +17,13 @@
         <th>Time</th>
     </thead>
     <tbody>
-        <tr ng-repeat="(key,value) in  vm.data">
+        <tr ng-repeat="(key,value) in  vm.data| orderBy:'value.time':true">
         <td class="text-success">{{value.reply}}</td>
         <td class="text-danger">{{value.from}}</td>
         <td>@ {{value.time|date : "MM/dd/yy : hh:mm:ss"}}</td>
         </tr>
     </tbody>
 </table>
-<form ng-submit="vm.addReply(vm.replyText)">
-<textarea class="form-control" rows="5" id="comment" ng-model="vm.replyText" ng-keypress="vm.checkStatus()" required></textarea>
 
-<button class="btn btn-success" type="submit" ng-disabled="vm.check">Create Reply</button>
-</form>
 </div>
 </div>

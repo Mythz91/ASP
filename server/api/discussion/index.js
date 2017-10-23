@@ -6,6 +6,15 @@ const mailer = require("nodemailer");
 var config = require('../../config/environment');
 const dateFormat = require("dateformat");
 var url = "mongodb://localhost:27017/medicalInsights";
+
+var transporter = mailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'medicalinglobal@gmail.com',
+        pass: 'medGlo.123'
+    }
+});
+
 mongoC.connect(url, function (err, db) {
     if (err) throw err;
     router.post("/", function (req, res) {
@@ -19,6 +28,7 @@ mongoC.connect(url, function (err, db) {
                 "discussions": {
 
                     "userName": text.userName,
+                    "email":text.email,
                     "topic": text.post,
                     "discussion": text.detail,
                     "time": dateFormat(new Date()),
@@ -31,6 +41,27 @@ mongoC.connect(url, function (err, db) {
             res.send(rep).end();
         })
     });
+    router.post("/mail", function(req,res){
+        var data = req.body;
+        console.log(data)
+        var sendMail = {
+            from: 'medicalinglobal@gmail.com',
+            to: data.to,
+            subject : data.sub,
+            html:'<p> This is in reply to the discussion posted by you : </p><p><strong><i>'+data.content+'</i><strong></p> <p> from : </p> <p>'+data.from+'</p> <p> -- Sent via Medical Insights </p>'
+
+        }
+        transporter.sendMail(sendMail, function (error, info) {
+            if(error) {throw error}else{
+                res.send("email has been sent successfully");
+                res.end();
+            }
+
+        })
+
+
+        
+    })
     router.get("/getData", function (req, res) {
         db.collection("discussionList").find().toArray(function (err, rep) {
             if (err) throw err;

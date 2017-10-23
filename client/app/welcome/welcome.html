@@ -1,7 +1,15 @@
 <header data-ng-include="'templates/loginHeader.html'" class="navbar-fixed-top"></header>
 <div class="shift">
 <h1>Welcome <span id="uName"><i class="text-success">{{vm.userName}}</i></span> </h1>
-<button class="btn btn-success" ng-click="vm.showForm()">Start a discussion!</button> <br/><span>{{vm.err}}</span>
+
+<button class="btn btn-success" ng-click="vm.showForm()">Start a discussion!</button> <br/><br/>
+
+      <div uib-alert class="alert alert-danger"  close="vm.closeOne()" ng-if="vm.err" >
+            You can either check discussions or start one here!
+      </div><br/>
+      <div uib-alert class="alert alert-success"  close="vm.closeAlert()" ng-if="vm.bool" >
+          The email has been sent successfully
+    </div><br/>
 <table class="table table-hover">
     <thead ng-init="vm.getData()">
         <th>User</th>
@@ -10,12 +18,12 @@
         <th>Time</th>
     </thead>
     <tbody>
-       <tr ng-repeat="(key,value) in  vm.discussion | orderBy:'-value.time'"> 
+       <tr ng-repeat="(key,value) in  vm.discussion | orderBy:'value.time':true"> 
            <td>{{value.userName}}</td>
         <td>{{value.topic}}</td>
         <td>{{value.discussion}}</td>
         <td>{{value.time |date : "MM/dd/yy : hh:mm:ss"}}</td>
-        <td><button class="btn btn-primary" ng-click="vm.reply(value.userName,value.topic)">Respond</button> &nbsp; &nbsp; &nbsp;<button class="btn btn-success" ng-click="vm.email(value.userName,value.topic)">Email</button></td>
+        <td><button class="btn btn-primary" ng-click="vm.reply(value.userName,value.topic)">Respond</button> &nbsp; &nbsp; &nbsp;<button class="btn btn-success" ng-click="vm.email(value.userName,value.topic, value.email)">Email</button></td>
        
         </tr>
     </tbody>

@@ -30,7 +30,8 @@ router.post("/",authenticate, function(req,res){
                 }, jwtSecret)
             res.send({
                 token : token,
-                username: reply[0].user.userName
+                username: reply[0].user.userName,
+                email:reply[0].user.email
             })
             }else{
                 res.status(401).end("Please enter a valid registration number and password, Login denied");

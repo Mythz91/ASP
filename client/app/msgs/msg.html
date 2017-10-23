@@ -13,7 +13,7 @@
         <th></th>
     </thead>
     <tbody>
-    <tr ng-repeat="(key,value) in vm.data">
+    <tr ng-repeat="(key,value) in vm.data| orderBy:'value.time':true">
         
         <td>{{value.topic}}</td>
         <td>{{value.discussion}}</td>
@@ -27,7 +27,7 @@
                      <th>Reply</th>
                      <th>Time</th>
                  </tr>
-                <tr ng-repeat="item in value.reply">
+                <tr ng-repeat="item in value.reply| orderBy:'item.time':true">
                     
                     <td>{{item.from}}</td>
                     <td>{{item.reply}}</td>

@@ -11,6 +11,7 @@
         previous.appointments;
         previous.show=false;
         previous.hide = true;
+    
         previous.getData = function () {
 
             prevService.getData().then(function (res) {

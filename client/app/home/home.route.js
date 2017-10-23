@@ -45,10 +45,7 @@
         templateUrl : 'app/welcome/welcome.html',
         controller:'welcomeCtrl as vm'
       })
-      .state('news',{
-        url:'/news',
-        templateUrl:'app/news/feed.html'
-      })
+     
       .state("reply",{
         url:'/reply',
         templateUrl:'app/reply/reply.html',

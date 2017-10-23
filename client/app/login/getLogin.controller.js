@@ -16,7 +16,7 @@ var reg = "";
         vm.errUser = "";
         vm.verifyUser = function () {
          
-            if(!(vm.regNum.match(/^\d+$/g))){
+            if(!vm.regNum && !(vm.regNum.match(/^\d+$/g))){
                 if(vm.regNum.charAt(0)==0||vm.regNum.charAt(0)=="0"){
                 vm.errUser = "Please enter a valid registration number";
                 }
@@ -49,6 +49,7 @@ var reg = "";
                     $window.localStorage.setItem("user",res.username);
                     $window.localStorage.setItem("reg",regNum);
                     $window.localStorage.setItem("pass",password);
+                    $window.localStorage.setItem("email",res.email);
                     if(res.token){
                         authTokenFactory.setToken(res.token);
                         $location.path('/welcome');
