@@ -15,7 +15,8 @@
             <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
               <div class="nav-main-wrapper">
                 <ul class="nav navbar-nav nav-main ">
-                  <li ng-class="vm.getClass('/app')"><a href="/app">Appointments</li>
+                  <li ng-class="vm.getClass('/app')"><a href="/app">Appointments</a></li>
+                    <li ng-class="vm.getClass('/review')"><a href="/review">Reviews</a></li>
                     <li ng-controller="getLogin as vm" ng-class="vm.getClass('/')"><a ng-click="vm.logout()"><img class="logout" src="./assets/images/logout.jpg"/></a></li>
                 </ul>
               </div>

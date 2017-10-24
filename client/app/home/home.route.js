@@ -39,6 +39,11 @@
         templateUrl:'app/adminAppointments/appointmentsHistory.html',
         controller:'appCtrl as vm'
       })
+      .state('review',{
+        url:'/review',
+        templateUrl:'app/adminReview/review.html',
+        controller:'reviewCtrl as vm'
+      })
       .state('register',{
         url:'/register',
         templateUrl:'app/register/register.html',

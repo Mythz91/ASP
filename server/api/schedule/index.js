@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const mongoC = require("mongodb").MongoClient;
 const mailer = require("nodemailer");
+const dateFormat = require("dateformat");
 
 var config = require('../../config/environment');
 var transporter = mailer.createTransport({
@@ -52,6 +53,24 @@ mongoC.connect(url, function (err, db) {
             }
 
         })
+    })
+
+    router.post('/remind',function(req,res){
+        var data = req.body;
+        var sendMail = {
+            from: 'medicalinglobal@gmail.com',
+            to: data.mail,
+            subject: 'Medical Insights-Appointment Reminder '+data.regUser,
+            html: '<h1>Greetings</h1><p>The following appointment is been scheduled for today:</p> <p> The appointment was scheduled for '+data.pt+' of age '+data.age+' '+data.sex+' with symptoms of '+data.sym+' at '+ dateFormat(data.date,"ddd mmm dd yyyy HH:MM:ss")+"</p> <h4>Please revert back to us as soon as possible</h4> <p>-Medical Insights</p>"
+        };
+
+
+        transporter.sendMail(sendMail, function (error, info) {
+            if (error) throw error;
+            res.send('mail sent')
+        })
+
+       
     })
 });
 module.exports = router;
