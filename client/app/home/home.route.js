@@ -29,6 +29,16 @@
         templateUrl:'app/login/login.html',
         controller : 'getLogin as vm'
       })
+      .state('admin',{
+        url:'/admin',
+        templateUrl:'app/admin/admin.html',
+        controller:'adminCtrl as vm'
+      })
+      .state('app',{
+        url:'/app',
+        templateUrl:'app/adminAppointments/appointmentsHistory.html',
+        controller:'appCtrl as vm'
+      })
       .state('register',{
         url:'/register',
         templateUrl:'app/register/register.html',

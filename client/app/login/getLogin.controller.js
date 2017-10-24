@@ -50,7 +50,11 @@ var reg = "";
                     $window.localStorage.setItem("reg",regNum);
                     $window.localStorage.setItem("pass",password);
                     $window.localStorage.setItem("email",res.email);
-                    if(res.token){
+                    if(res.username=='admin'&& res.token){
+                        authTokenFactory.setToken(res.token);
+                        $location.path('/admin')
+                    }
+                   else if(res.token){
                         authTokenFactory.setToken(res.token);
                         $location.path('/welcome');
                     }
