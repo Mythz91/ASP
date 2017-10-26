@@ -22,6 +22,8 @@ body {
   /* Margin bottom by footer height */
   font-family:"NHG-W01-55-Txt";
   margin-bottom: 90px;
+ background-image: url("http://hdflowerwallpaper.com/wallpaper/2015/10/gray-and-white-flower-wallpaper-16-cool-hd-wallpaper.jpg");
+
 
   .container {
     padding: 20px 15px 0;
@@ -42,8 +44,18 @@ body {
 }
 .shift{
   margin-top:100px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.9;
+  
 }
 .shiftDown{
   margin-top:200px;
 }
 .angular-google-map-container { height: 400px; }
+input.ng-invalid.ng-touched {
+  border-color: red;
+}
+input.ng-dirty{
+  background-color:#F5F5DC;
+}
