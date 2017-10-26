@@ -1,145 +1,146 @@
 <header data-ng-include="'templates/adminHeader.html'" class="navbar-fixed-top"></header>
 <div class="row shift" ng-init="vm.loadDetails()">
-<legend><h2>The Scheduled Appointments</h2></legend>
-<h3>Today:</h3>
-<div uib-alert class="alert alert-success"  close="vm.closeAlert()" ng-if="vm.bool" >
+    <legend>
+        <h2>The Scheduled Appointments</h2>
+    </legend>
+    <h3>Today:</h3>
+    <div uib-alert class="alert alert-success" close="vm.closeAlert()" ng-if="vm.bool">
         The email has been sent successfully
-  </div><br/>
-<div>
-    <table class="table table-hover">
-            <thead>
-                    <tr>
-                        <th>Appointment Details</th>
-                      
-                    </tr>
-                </thead>
-              
-              <td>  <table class="table table-hover">
-                    
-                            <tr>
-                                     <th>#</th>
-                                     <th>Patient Name</th>
-                                     <th>Age</th>
-                                     <th>Sex</th>
-                                     <th>Contact</th>
-                                     <th>Symptoms</th>
-                                     <th>Date</th>
-                                     <th>User Details</th>
-                                     <th></th>
-                                     
-                                 </tr> 
-                                 <tr ng-repeat="(key,value) in  vm.present ">
-                                         <td>{{$index+1}}</td>
-                                         <td>{{value.appoint.user}}</td>
-                                         <td>{{value.appoint.age}}</td>
-                                         <td>{{value.appoint.sex}}</td>
-                                         <td>{{value.appoint.contact}}</td>
-                                         <td>{{value.appoint.symptoms}}</td>
-                                         <td>{{value.appoint.date| date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
-                                         <td><b>User Name: </b>&nbsp;{{value.user.userName}} <br/> 
-                                             <b>Registration Number:</b>&nbsp;{{value.user.reg}} <br/>
-                                              <b>Email:</b>&nbsp;{{value.user.email}} <br/>
-                                              <b>Address:</b><br/>
-                                              {{value.user.addr.street}} <br/>
-                                              {{value.user.addr.city}} <br/>
-                                              {{value.user.addr.state}}&nbsp;&nbsp;<br/>{{value.user.addr.zip}}</td>
-                                              <td><button class="btn btn-success">Review</button> &nbsp;&nbsp;<button class="btn btn-danger" ng-click="vm.remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)" ng-disabled="vm.dis[$index+1]">Remind</button></td>
-                                     </tr>
-                               
-                 </table>
-            </td>
-    </table>
-</div>
-<h3>Appointments in future:</h3>
-
-<div>
+    </div><br/>
+    <div>
         <table class="table table-hover">
-                <thead>
-                        <tr>
-                            <th>Appointment Details</th>
-                            
-                        </tr>
-                    </thead>
-                  
-                  <td> <table class="table table-hover">
-                        
-                                <tr>
-                                         <th>#</th>
-                                         <th>Patient Name</th>
-                                         <th>Age</th>
-                                         <th>Sex</th>
-                                         <th>Contact</th>
-                                         <th>Symptoms</th>
-                                         <th>Date</th>
-                                         <th>User Details</th>
-                                         <th></th>
-                                         
-                                     </tr> 
-                                     <tr ng-repeat="(key,value) in  vm.future | orderBy:'value.appoint.time':true">
-                                             <td>{{$index+1}}</td>
-                                             <td>{{value.appoint.user}}</td>
-                                             <td>{{value.appoint.age}}</td>
-                                             <td>{{value.appoint.sex}}</td>
-                                             <td>{{value.appoint.contact}}</td>
-                                             <td>{{value.appoint.symptoms}}</td>
-                                             <td>{{value.appoint.date| date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
-                                             <td><b>User Name: </b>&nbsp;{{value.user.userName}} <br/> 
-                                                 <b>Registration Number:</b>&nbsp;{{value.user.reg}} <br/>
-                                                  <b>Email:</b>&nbsp;{{value.user.email}} <br/>
-                                                  <b>Address:</b><br/>
-                                                  {{value.user.addr.street}} <br/>
-                                                  {{value.user.addr.city}} <br/>
-                                                  {{value.user.addr.state}}&nbsp;&nbsp;<br/>{{value.user.addr.zip}}</td>
-                                                  <!-- <td><button class="btn btn-warning">Change</button></td> -->
-                                         </tr>
-                                   
-                     </table>
-                </td>
+            <thead>
+                <tr>
+                    <th>Details of Appointments:</th>
+
+                </tr>
+            </thead>
+
+            <td>
+                <table class="table table-hover">
+
+                    <tr>
+                        <th>#</th>
+                        <th>Patient Name</th>
+                        <th>Age</th>
+                        <th>Sex</th>
+                        <th>Contact</th>
+                        <th>Symptoms</th>
+                        <th>Date</th>
+                        <th>User Details</th>
+                        <th></th>
+
+                    </tr>
+                    <tr ng-repeat="(key,value) in  vm.present ">
+                        <td>{{$index+1}}</td>
+                        <td>{{value.appoint.user}}</td>
+                        <td>{{value.appoint.age}}</td>
+                        <td>{{value.appoint.sex}}</td>
+                        <td>{{value.appoint.contact}}</td>
+                        <td>{{value.appoint.symptoms}}</td>
+                        <td>{{value.appoint.date| date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
+                        <td><b>User Name: </b>&nbsp;{{value.user.userName}} <br/>
+                            <b>Registration Number:</b>&nbsp;{{value.user.reg}} <br/>
+                            <b>Email:</b>&nbsp;{{value.user.email}} <br/>
+                            <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
+                            <br/>{{value.user.addr.zip}}</td>
+                        <td><button class="btn btn-success" ng-click="vm.review(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)">Review</button>                            &nbsp;&nbsp;
+                            <button class="btn btn-danger" ng-click="vm.remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
+                                ng-disabled="vm.dis[$index+1]">Remind</button>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
         </table>
     </div>
-<h3>Previous Appointments:</h3>
+    <h3>Appointments in future:</h3>
 
-<div>
+    <div>
         <table class="table table-hover">
-                <thead>
-                        <tr>
-                            <th>Appointment Details</th>
-                          
-                        </tr>
-                    </thead>
-                  
-                  <td>  <table class="table table-hover">
-                       
-                               <tr>
-                                        <th>#</th>
-                                        <th>Patient Name</th>
-                                        <th>Age</th>
-                                        <th>Sex</th>
-                                        <th>Contact</th>
-                                        <th>Symptoms</th>
-                                        <th>Date</th>
-                                        <th>User Details</th>
-                                        
-                                    </tr> 
-                                    <tr ng-repeat="(key,value) in  vm.past | orderBy:'value.appoint.time':true">
-                                            <td>{{$index+1}}</td>
-                                            <td>{{value.appoint.user}}</td>
-                                            <td>{{value.appoint.age}}</td>
-                                            <td>{{value.appoint.sex}}</td>
-                                            <td>{{value.appoint.contact}}</td>
-                                            <td>{{value.appoint.symptoms}}</td>
-                                            <td>{{value.appoint.date| date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
-                                            <td><b>User Name: </b>&nbsp;{{value.user.userName}} <br/> 
-                                                <b>Registration Number:</b>&nbsp;{{value.user.reg}} <br/>
-                                                 <b>Email:</b>&nbsp;{{value.user.email}} <br/>
-                                                 <b>Address:</b><br/>
-                                                 {{value.user.addr.street}} <br/>
-                                                 {{value.user.addr.city}} <br/>
-                                                 {{value.user.addr.state}}&nbsp;&nbsp;<br/>{{value.user.addr.zip}}</td>
-                                        </tr>
-                                  
-                    </table>
-                </td>
-             </table>
-             </div>
-     
+            <thead>
+                <tr>
+                    <th>Details of Appointments:</th>
+
+                </tr>
+            </thead>
+
+            <td>
+                <table class="table table-hover">
+
+                    <tr>
+                        <th>#</th>
+                        <th>Patient Name</th>
+                        <th>Age</th>
+                        <th>Sex</th>
+                        <th>Contact</th>
+                        <th>Symptoms</th>
+                        <th>Date</th>
+                        <th>User Details</th>
+                        <th></th>
+
+                    </tr>
+                    <tr ng-repeat="(key,value) in  vm.future | orderBy:'value.appoint.date':true">
+                        <td>{{$index+1}}</td>
+                        <td>{{value.appoint.user}}</td>
+                        <td>{{value.appoint.age}}</td>
+                        <td>{{value.appoint.sex}}</td>
+                        <td>{{value.appoint.contact}}</td>
+                        <td>{{value.appoint.symptoms}}</td>
+                        <td>{{value.appoint.date| date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
+                        <td><b>User Name: </b>&nbsp;{{value.user.userName}} <br/>
+                            <b>Registration Number:</b>&nbsp;{{value.user.reg}} <br/>
+                            <b>Email:</b>&nbsp;{{value.user.email}} <br/>
+                            <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
+                            <br/>{{value.user.addr.zip}}</td>
+                        <!-- <td><button class="btn btn-warning">Change</button></td> -->
+                    </tr>
+
+                </table>
+            </td>
+        </table>
+    </div>
+    <h3>Previous Appointments:</h3>
+
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Details of Appointments:</th>
+
+                </tr>
+            </thead>
+
+            <td>
+                <table class="table table-hover">
+
+                    <tr>
+                        <th>#</th>
+                        <th>Patient Name</th>
+                        <th>Age</th>
+                        <th>Sex</th>
+                        <th>Contact</th>
+                        <th>Symptoms</th>
+                        <th>Date</th>
+                        <th>User Details</th>
+
+                    </tr>
+                    <tr ng-repeat="(key,value) in  vm.past | orderBy:'value.appoint.date':true">
+                        <td>{{$index+1}}</td>
+                        <td>{{value.appoint.user}}</td>
+                        <td>{{value.appoint.age}}</td>
+                        <td>{{value.appoint.sex}}</td>
+                        <td>{{value.appoint.contact}}</td>
+                        <td>{{value.appoint.symptoms}}</td>
+                        <td>{{value.appoint.date| date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
+                        <td><b>User Name: </b>&nbsp;{{value.user.userName}} <br/>
+                            <b>Registration Number:</b>&nbsp;{{value.user.reg}} <br/>
+                            <b>Email:</b>&nbsp;{{value.user.email}} <br/>
+                            <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
+                            <br/>{{value.user.addr.zip}}</td>
+                    </tr>
+
+                </table>
+            </td>
+        </table>
+    </div>

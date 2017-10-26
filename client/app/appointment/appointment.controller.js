@@ -9,52 +9,37 @@
         }
         var appoint = this;
         appoint.userName = "";
-        appoint.user="";
+       
         appoint.age;
-        appoint.ageCheck;
+       
         appoint.sex = ["male", "female", "not interested to disclose"];
         appoint.sext;
         appoint.selection = "";
         appoint.date = "";
-
+        appoint.delete=false;
         appoint.dateCheck = "";
         appoint.disable = false;
         appoint.symptoms = "";
-        appoint.symp = "";
+       
         appoint.contact = "";
-        appoint.contactCheck = "";
-        appoint.validate = "";
+       
+        appoint.validate = false;
+        appoint.showres=false;
         appoint.show = false;
         appoint.res = "";
-        appoint.findDoc=function(){
-            $location.path("/doc")
-        }
-        appoint.checkContact = function () {
-            var contact = appoint.contact;
-
-            if (appoint.contact.startsWith('+')) {
-                contact = appoint.contact.replace("+", "")
-            }
-            var i;
-            for (i = 0; i < appoint.contact.length; i++) {
-                if (appoint.contact[i] == "-") {
-                    appoint.contactCheck = "please insert contact number without '-'";
-                    break;
-                }
-
-            }
-            if (i < 10 || i > 10) {
-                appoint.contactCheck = "please insert correct contact number";
-            }
-        }
-        appoint.clearContact = function () {
-            appoint.contactCheck = "";
-        }
+       
+    
         appoint.clear = function () {
             appoint.show = false;
             appoint.user = "";
 
 
+        }
+        appoint.clearDate= function(){
+            appoint.dateCheck="";
+        }
+        appoint.closeRes = function(){
+            appoint.showres=false;
         }
         appoint.verifyUserName = function () {
             if (!appoint.userName) {
@@ -79,25 +64,8 @@
 
 
         }
-        appoint.clearAge = function () {
-            appoint.ageCheck = "";
-        }
-        appoint.checkSelection = function () {
-            console.log(appoint.sext)
-            if (appoint.sext == undefined) {
-                appoint.selection = "please select any one";
-            }
-        }
-        appoint.clearSelect = function () {
-            appoint.selection = "";
-        }
-        appoint.verifyAge = function () {
-
-
-            if (appoint.age == undefined) {
-                appoint.ageCheck = "please enter valid age"
-            }
-        }
+       
+     
         appoint.verifyDate = function () {
             if(!appoint.date){
                 appoint.dateCheck = "please select a date and time";
@@ -108,9 +76,9 @@
             var today = new Date();
             var check = new Date(appoint.date);
 
-            if (check < today || check == today) {
-                appoint.dateCheck = "please select a date of future occurance";
-            }
+            // if (check < today || check == today) {
+            //     appoint.dateCheck = "please select a date of future occurance";
+            // }
             var todayTime = today.getTime();
             var checkTime = check.getTime();
 
@@ -121,19 +89,20 @@
 
         }
 
-        appoint.checkSymptoms = function () {
-            if (appoint.symptoms.trim() == "") {
-                appoint.symp = "Please enter valid symptoms";
-            }
+        appoint.closeOne = function(){
+            appoint.validate=false;
         }
-        appoint.clearSymp = function () {
-            appoint.symp = ""; 
+        appoint.close = function(){
+            appoint.delete=false;
         }
+       
         appoint.appointment = function () {
             appoint.disable = true;
-            if (appoint.userName == "" || appoint.contact == "" || appoint.date == "" || appoint.age == undefined || appoint.symptoms == "" || appoint.sext == "") {
-                appoint.validate = "Please enter valid information in the given fields"
+      
+            if (appoint.userName == "" || appoint.contact == "" || appoint.date == "" || appoint.date == undefined || appoint.age == undefined || appoint.symptoms == "" || appoint.sext == "") {
+                appoint.validate = true;
             } else {
+
                 var data = {
                     userName: appoint.userName,
                     regNum: reg,
@@ -144,8 +113,21 @@
                     symptoms: appoint.symptoms,
                     sex: appoint.sext
                 }
+                appoint.userName = "";
+                appoint.contact = "";
+                appoint.date = "";
+                appoint.age = undefined;
+                appoint.symptoms = "";
+                appoint.sext = ""
+                 appoint.validate = false;
+                 appoint.show = false;
+                 appoint.res = "";
+
+                
+                 
                 appointmentService.createAppointment(data).then(function (data) {
-                    appoint.res = data;
+                    appoint.showres=true;
+                 
                 }, function (err) {
                     console.log(err);
                 })
@@ -155,7 +137,7 @@
         appoint.confirmAppointment = function () {
             if (!appoint.userName || !appoint.contact || !appoint.date || appoint.age == undefined || !appoint.symptoms || !appoint.sext) {
                 appoint.show = false;
-                appoint.validate = "please enter the information in the given fields";
+                appoint.validate = true;
             } else {
                 appoint.show = true;
             }
@@ -169,6 +151,7 @@
             appoint.age = undefined;
             appoint.symptoms = "";
             appoint.sext = ""
+            appoint.delete=true;
         }
 
 

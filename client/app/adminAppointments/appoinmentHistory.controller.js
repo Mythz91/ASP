@@ -53,6 +53,9 @@
 
 
         }
+        vm.review = function(userName ,email,user,age,sex,symptoms,date,index){
+           
+        }
     }
 
     function seggregate(data) {

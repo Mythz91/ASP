@@ -17,6 +17,7 @@ mongoC.connect(url, function(err, db) {
     if(err) throw err;
 router.post("/",authenticate, function(req,res){
     var data = req.body;
+    console.log(req.body)
    
     db.collection("UserDetails").find({ $and: [{ "user.registrationNumber": req.body.user, "user.password": req.body.pass}] }).toArray(function(err, reply) {
         if (err) {
@@ -24,7 +25,8 @@ router.post("/",authenticate, function(req,res){
             res.status(500).end("Error in obtaining information");
         } else {
             console.log(reply);
-            if (reply.length == 1) {
+            if (reply.length) {
+               
                 var token = jwt.sign({
                     username: reply[0].user.userName
                 }, jwtSecret)
@@ -33,6 +35,7 @@ router.post("/",authenticate, function(req,res){
                 username: reply[0].user.userName,
                 email:reply[0].user.email
             })
+            console.log("here");
             }else{
                 res.status(401).end("Please enter a valid registration number and password, Login denied");
             }

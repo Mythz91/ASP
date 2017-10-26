@@ -8,7 +8,7 @@
    'ui.bootstrap',
    'uiGmapgoogle-maps',
  
-
+   'ngMessages',
      // 3rd Party Modules
 
      // Custom Modules

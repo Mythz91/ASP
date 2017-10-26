@@ -6158,7 +6158,7 @@ header {
   padding: 2px; }
 
 #login {
-  width: 300px;
+  width: 600px;
   float: left; }
 
 #view {
@@ -6168,6 +6168,9 @@ header {
 .shift-right {
   float: right;
   margin-right: 200px; }
+
+.warn {
+  color: red; }
 
 .shift-left {
   float: left;

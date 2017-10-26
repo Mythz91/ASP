@@ -20,10 +20,3 @@ gulp.task('e2e:update',               require('./tasks/test').e2eUpdate);
 gulp.task('e2e',        ['serve'],    require('./tasks/test').e2eTests);
 gulp.task('test',                     require('./tasks/test').test);
 
-gulp.task('docker', ['build'], $.shell.task([
-  'docker build -t suhail .'
-]));
-
-gulp.task('deploy', ['docker'], $.shell.task([
-  'docker run -d -p 5000:9000 --restart=always -e NODE_ENV=production --name site suhail'
-]));

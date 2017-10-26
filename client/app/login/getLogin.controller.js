@@ -55,6 +55,7 @@ var reg = "";
                         $location.path('/admin')
                     }
                    else if(res.token){
+                       console.log("token");
                         authTokenFactory.setToken(res.token);
                         $location.path('/welcome');
                     }
@@ -82,6 +83,7 @@ var reg = "";
         .service("UserService", function ($http, $q) {
 
             this.login = function (regNum, password, URL) {
+              
                 var defer = $q.defer();
                 $http({
                     url: URL + 'login',
@@ -94,8 +96,10 @@ var reg = "";
                         pass: password
                     }
                 }).success(function (data) {
+                    console.log(data)
                     defer.resolve(data);
                 }).error(function (err) {
+                    console.log(err);
                     defer.reject(err);
                 })
                 return defer.promise;
