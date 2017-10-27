@@ -59,3 +59,15 @@ input.ng-invalid.ng-touched {
 input.ng-dirty{
   background-color:#F5F5DC;
 }
+.change:hover {
+  padding: 0px;
+  font-size: 24px;
+  color: $black;
+  font-family:"NHG-W01-75-DspBd";
+  &:hover {
+    color: $red;
+  }
+}
+.sidenav{
+  height:530px;
+}

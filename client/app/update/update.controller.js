@@ -7,25 +7,26 @@
             $location.path("/");
         }
         var vm = this;
-        vm.uNameErr = "";
+   
         vm.userName = "";
         vm.regNum = "";
-        vm.regErr = "";
+       
         vm.mail = "";
-        vm.mailErr = "";
+       
         vm.address = "";
         vm.city = "";
-        vm.cityErr = "";
+      
         vm.states;
         vm.zip = "";
-        vm.zipErr = "";
+      
         vm.password = "";
         vm.passErr = "";
         vm.passwordConfirm = "";
         vm.confirmErr = "";
-        vm.data = "";
+        vm.data = false;
         vm.show = true;
-        vm.msg = "";
+        vm.msg = false;
+        vm.msg2=false;
         vm.state = ["AK - Alaska",
             "AL - Alabama",
             "AR - Arkansas",
@@ -82,68 +83,46 @@
             "WV - West Virginia",
             "WY - Wyoming"
         ];
-        vm.verifyUserName = function () {
-
-            if (!vm.userName && !(vm.userName.match(/^[A-Za-z]+$/g))) {
-                vm.uName = "Please enter a valid user name";
-            }
-        }
-        vm.verifyReg = function () {
-            if (!(vm.regNum.match(/^\d+$/g))) {
-                vm.regErr = "Please enter a valid registration number";
-            }
-        }
-        vm.verifyEmail = function () {
-            if (!(vm.mail.match(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/))) {
-                vm.mailErr = "Please enter a valid email";
-            }
-        }
-        vm.verifyCity = function () {
-            if (!(vm.city.match(/^[A-Za-z]+$/g))) {
-                vm.cityErr = "please enter a valid city";
-            }
-        }
-        vm.verifyZip = function () {
-            if (!(vm.zip.match(/^\d+$/g))) {
-                vm.zipErr = "please enter a valid zip";
-            }
-        }
+      
         vm.verifyPass = function () {
-            if (!vm.password && !(vm.password.match(vm.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g)))) {
+            if ( !(vm.password.match(vm.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g)))) {
                 vm.passErr = "please enter  at least one number, one lowercase and one uppercase letter at least four characters long password"
+            return false;
             }
+            return true;
         }
         vm.confirmPass = function () {
-            if (!vm.passwordConfirm && !(vm.passwordConfirm.match(vm.passwordConfirm.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g)))) {
+            if (!(vm.passwordConfirm.match(vm.passwordConfirm.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g)))) {
                 vm.confirmErr = "please enter  at least one number, one lowercase and one uppercase letter at least four characters long password"
+          return false
             }
-            if ((!vm.password && !vm.passwordConfirm) && !(vm.password == vm.passwordConfirm)) {
+            if ( !(vm.password == vm.passwordConfirm)) {
                 vm.confirmErr = "please enter same password for confirmation";
                 vm.passwordConfirm = "";
+                return false
             }
+        return true;
 
-
         }
-        vm.clearUser = function () {
-            vm.uName = "";
-        }
-        vm.clearReg = function () {
-            vm.regErr = "";
-        }
-        vm.clearMail = function () {
-            vm.mailErr = "";
-        }
-        vm.clearZip = function () {
-            vm.zipErr = "";
-        }
+       
         vm.clearPassErr = function () {
             vm.passErr = "";
         }
         vm.clearPassCErr = function () {
             vm.confirmErr = "";
         }
+        vm.close = function(){
+            vm.data=false;
+        }
+        vm.closeMsg= function(){
+            vm.msg=false;
+        }
+        vm.closeMsg2 = function(){
+            vm.msg2=false;
+        }
 
         vm.updateInfo = function (userName, regNum, mail, addr, city, state, zip, password) {
+            if(vm.verifyPass() && vm.confirmPass){
             vm.show = false;
             var data = {
                 userName: userName,
@@ -161,17 +140,18 @@
             try{
                 updateInfo.update(data).then(function(success){
                   
-                    vm.msg="Update of information is successful";
+                   vm.data=true;
                     
                 },function(err){
 
-                    vm.msg="there is a error in updating data, please try again";
+                    vm.msg=true;
                 })
             }catch(error){
-                vm.msg="please try again later";
+                vm.msg2=true;
             }
 
         }
+    }
 
         vm.updateData = function () {
             vm.msg = "";

@@ -15,6 +15,7 @@ var url = "mongodb://localhost:27017/medicalInsights";
 mongoC.connect(url, function (err, db) {
     router.post("/", function (req, res) {
         var data = req.body;
+ 
      db.collection("UserDetails").updateOne({ "user.registrationNumber": data.registration }, {
             $set: {
                 "user.userName": data.userName,
@@ -36,8 +37,7 @@ mongoC.connect(url, function (err, db) {
                 transporter.sendMail(sendMail, function(error, info) {
                     if (error) {
 
-                        //throw err;
-                        res.status(500).end('something failed!');
+                        res.send('updated but mail sending failed');
                     } else {
                         console.log("here");
                         //res.send();

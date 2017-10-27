@@ -6157,7 +6157,7 @@ header {
 .login-spacing {
   padding: 2px; }
 
-#login {
+.login {
   width: 600px;
   float: left; }
 
@@ -6267,3 +6267,14 @@ input.ng-invalid.ng-touched {
 
 input.ng-dirty {
   background-color: #F5F5DC; }
+
+.change:hover {
+  padding: 0px;
+  font-size: 24px;
+  color: #000000;
+  font-family: "NHG-W01-75-DspBd"; }
+  .change:hover:hover {
+    color: #04692E; }
+
+.sidenav {
+  height: 530px; }

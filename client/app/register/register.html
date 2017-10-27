@@ -2,7 +2,7 @@
 <div>
 
 
-    <div id="login" class="input-group input-group shift">
+    <div  class="input-group input-group shift login">
             <legend><h2 class="text-success">Get Registered</h2></legend>
             <div uib-alert class="alert alert-success"  close="vm.close()" ng-if="vm.data" >
                Registration is complete!
@@ -40,8 +40,8 @@
                             <p class="warn" ng-message="minlength">Please enter your street address</p>
                             <p class="warn" ng-message="required">Your Street address is required.</p>
                         </div>
-                        <span>City :</span>   <input type="text" class="form-control" ng-model="vm.city" minlength="4"  required onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)|| event.charCode==32"/> <br/>
-                        <div ng-messages="register.reg.$error">
+                        <span>City :</span>   <input type="text" name="city" class="form-control" ng-model="vm.city" minlength="4"  required onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)|| event.charCode==32"/> <br/>
+                        <div ng-messages="register.city.$error">
                             <p class="warn" ng-message="minlength">Please enter you city name</p>
                             <p class="warn" ng-message="required">City is required.</p>
                         </div>
@@ -54,7 +54,7 @@
                         <p>Zip:
                             <input type="text" name="zip" class="form-control" ng-model="vm.zip"   required minlength="5" maxlength="5" onkeyup="this.value=this.value.replace(/[^\d]/,'')"/>
                             <br/>
-                            <div ng-messages="register.reg.$error">
+                            <div ng-messages="register.zip.$error">
                                 <p class="warn" ng-message="minlength">Please enter Zip </p>
                                 <p class="warn" ng-message="required">Zip is required.</p>
                             </div>
