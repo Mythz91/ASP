@@ -39,7 +39,7 @@
                                         <div class="form-group col-xs-12">
                                             <label for="password"><span class="text-danger" style="margin-right:5px;">*</span>Password:</label>
                                             <div class="input-group">
-                                                    <input type="password" name="password" required class="form-control" minlength="4"  ng-keypress="vm.clearPassErr()" ng-model="vm.password"  ng-blur=" vm.verifyPass()" ><br/>
+                                                    <input type="password" name="password" required class="form-control" minlength="4"  ng-keypress="vm.clearPassErr()" ng-model="vm.password"  ng-blur=" vm.verifyPass()" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"><br/>
                                                 <span class="input-group-btn">
                                                     <label class="btn btn-success"><span class="glyphicon glyphicon-lock" aria-hidden="true"></label>
                                                 </span>
@@ -48,7 +48,8 @@
                                         </div>
                                         <div ng-messages="login.password.$error">
                                                 <p class="warn" ng-message="required">Please enter your password.</p>
-                                                <p class="warn" ng-message="minlength">Your password must be at least one number, one lowercase and one uppercase letter at least four characters long</p>
+                                                <p class="warn" ng-message="minlength">Your password must be  at least five characters long</p>
+                                                <p class="warn" ng-message="pattern">Your password must be at least one number, one lowercase and one uppercase letter at least four characters long</p>
                                                 <span class="warn">{{vm.PassErr }}</span><br/>
                                            </div>
                                     
