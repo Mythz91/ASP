@@ -18,7 +18,7 @@ mongoC.connect(url, function (err, db) {
     if (err) throw err;
     router.post("/", function (req, res) {
         var data = req.body;
-        console.log(data);
+       
        
         db.collection("UserDetails"). find({"reg":"userReg"},{"registrationList":data.registration}).toArray(function(err, reply) {
             var count =1;

@@ -13,7 +13,6 @@ var mongoC = require("mongodb").MongoClient;
 var jwt = require("jsonwebtoken");
 var expressJwt = require("express-jwt");
 
-// var mailer = require("nodemailer"); -- use express-mailer and check--> not working for present version
 
 module.exports = function (app) {
 

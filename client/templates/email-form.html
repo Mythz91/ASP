@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h3>Start a Discussion!</h3>
+</div>
+<form name="form.emailForm" ng-submit="submitForm(mail,topic,data)" ng-init="getData()" novalidate>
+    <div class="modal-body">
+        <div class="form-group">
+            <label>To:</label>
+            <input type="email" name="email" class="form-control" ng-model="mail" readonly>
+        </div>
+        <!-- Topic -->
+        <div class="form-group">
+            <label>Topic</label>
+            <input type="text" name="topic" class="form-control" ng-model="topic" readonly>
+           
+        </div>
+
+        <!-- Discussion -->
+        <div class="form-group">
+            <label>Content</label><br/>
+            <textarea rows="5" cols="50" ng-model="data" ng-minlength="2" ng-maxlength="500" required></textarea>
+            <p ng-show="form.emailForm.data.$error.minlength" class="help-block">Mail content is too short.</p>
+            <p ng-show="form.emailForm.data.$error.maxlength" class="help-block">Mail content is too long.</p>
+        </div>
+
+      
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" ng-disabled="form.emailForm.$invalid">Send</button>
+        <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

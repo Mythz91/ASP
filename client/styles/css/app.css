@@ -5892,6 +5892,12 @@ button.close {
     .color-container .color-swatch.brand-danger {
       background-color: #d9534f; }
 
+header {
+  position: relative; }
+
+#nav {
+  position: absolute; }
+
 .navbar.navbar-cd {
   margin-bottom: 0px;
   width: 100%;
@@ -6152,7 +6158,7 @@ button.close {
   padding: 2px; }
 
 #login {
-  width: 300px;
+  width: 600px;
   float: left; }
 
 #view {
@@ -6163,6 +6169,61 @@ button.close {
   float: right;
   margin-right: 200px; }
 
+.warn {
+  color: red; }
+
+.shift-left {
+  float: left;
+  width: 250px; }
+
+.shift-rightt {
+  float: right;
+  width: 80px; }
+
+.sizing {
+  height: 780px; }
+
+.down {
+  margin-top: 20px; }
+
+.lapse {
+  width: 25%; }
+
+#map {
+  float: right;
+  width: 500px;
+  height: 500px; }
+
+#addr {
+  float: left;
+  width: 400px;
+  height: 500px; }
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px; }
+
+.sidenav a {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block; }
+
+.sidenav a:hover {
+  color: #f1f1f1; }
+
+.main {
+  margin-left: 70px;
+  /* Same as the width of the sidenav */ }
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -6172,7 +6233,8 @@ html {
 body {
   /* Margin bottom by footer height */
   font-family: "NHG-W01-55-Txt";
-  margin-bottom: 90px; }
+  margin-bottom: 90px;
+  background-image: url("http://hdflowerwallpaper.com/wallpaper/2015/10/gray-and-white-flower-wallpaper-16-cool-hd-wallpaper.jpg"); }
   body .container {
     padding: 20px 15px 0; }
 
@@ -6189,4 +6251,19 @@ body {
   max-width: 1690px; }
 
 .shift {
-  margin-top: 30px; }
+  margin-top: 100px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.9; }
+
+.shiftDown {
+  margin-top: 200px; }
+
+.angular-google-map-container {
+  height: 400px; }
+
+input.ng-invalid.ng-touched {
+  border-color: red; }
+
+input.ng-dirty {
+  background-color: #F5F5DC; }

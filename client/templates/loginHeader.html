@@ -15,9 +15,11 @@
       <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
         <div class="nav-main-wrapper">
           <ul class="nav navbar-nav nav-main ">
+         
+              <li ng-class="vm.getClass('/msgs')"><a href="/msgs">Messages</a></li>
             <li ng-class="vm.getClass('/appointment')"><a href="/appointment">Make Appointment</a></li>
             <li ng-class="vm.getClass('/previous')"><a href="/previous">Appointments</a></li>
-            <li ng-class="vm.getClass('/doctor')"><a href="/doc">Find Doctor</a></li>
+           
             <li ng-class="vm.getClass('/update')"><a href="/update">Settings</a></li>
             
             <li ng-controller="getLogin as vm" ng-class="vm.getClass('/')"><a ng-click="vm.logout()"><img class="logout" src="./assets/images/logout.jpg"/></a></li>

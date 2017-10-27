@@ -15,13 +15,15 @@ var reg = "";
         vm.err = "";
         vm.errUser = "";
         vm.verifyUser = function () {
-         
-            if(!(vm.regNum.match(/^\d+$/g))){
+     
+            if( (vm.regNum.match(/^\d+$/g))){
                 if(vm.regNum.charAt(0)==0||vm.regNum.charAt(0)=="0"){
                 vm.errUser = "Please enter a valid registration number";
+              return false;
                 }
-                vm.errUser = "Please enter a valid registration number";
+              return true;
             }
+
         }
         vm.clearUserErr = function () {
             vm.errUser = "";
@@ -30,6 +32,7 @@ var reg = "";
             vm.PassErr = "";
         }
         vm.verifyPass = function () {
+           
             if (!(vm.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g))) {
                 vm.passErr = "please enter  at least one number, one lowercase and one uppercase letter at least four characters long password";
             }
@@ -37,6 +40,7 @@ var reg = "";
         }
         vm.login = login;
         function login(regNum, password) {
+            if(vm.verifyUser()){
            try {
                 UserService.login(regNum, password, URL).then(function (res) {
                     console.log(res);
@@ -46,7 +50,13 @@ var reg = "";
                     $window.localStorage.setItem("user",res.username);
                     $window.localStorage.setItem("reg",regNum);
                     $window.localStorage.setItem("pass",password);
-                    if(res.token){
+                    $window.localStorage.setItem("email",res.email);
+                    if(res.username=='admin'&& res.token){
+                        authTokenFactory.setToken(res.token);
+                        $location.path('/admin')
+                    }
+                   else if(res.token){
+                       console.log("token");
                         authTokenFactory.setToken(res.token);
                         $location.path('/welcome');
                     }
@@ -58,12 +68,14 @@ var reg = "";
             }
 
         }
+    }
         vm.logout = logout;
         function logout(){
             authTokenFactory.setToken("");
             vm.userName = "";
             $window.localStorage.clear();
             $location.path("/");
+           
         }
 
     }
@@ -73,6 +85,7 @@ var reg = "";
         .service("UserService", function ($http, $q) {
 
             this.login = function (regNum, password, URL) {
+              
                 var defer = $q.defer();
                 $http({
                     url: URL + 'login',
@@ -85,8 +98,10 @@ var reg = "";
                         pass: password
                     }
                 }).success(function (data) {
+                    console.log(data)
                     defer.resolve(data);
                 }).error(function (err) {
+                    console.log(err);
                     defer.reject(err);
                 })
                 return defer.promise;
