@@ -96,9 +96,9 @@
                             <b>Email:</b>&nbsp;{{value.user.email}} <br/>
                             <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
                             <br/>{{value.user.addr.zip}}</td>
-                            <td><button class="btn btn-info" ng-click="vm.edit(value.user.userName ,value.user.reg,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)">Edit</button>                            &nbsp;&nbsp;
+                            <td><button class="btn btn-info" ng-click="vm.edit(value.user.userName ,value.user.reg,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.appoint.contact,$index+1)">Edit</button>                            &nbsp;&nbsp;
                                 <button class="btn btn-danger" ng-click="vm.delete(value.user.userName ,value.user.reg, value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
-                                    ng-disabled="vm.dis[$index+1]">Delete</button>
+                                  >Delete</button>
                             </td>
                     </tr>
 
