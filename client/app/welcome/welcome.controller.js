@@ -4,7 +4,7 @@ var data, mail;
     angular
         .module('app.home').controller("welcomeCtrl", welcomeCtrl)
 
-    function welcomeCtrl($uibModal, DataService, $rootScope, $location, $window, $scope, $timeout) {
+    function welcomeCtrl($uibModal, DataService, $rootScope, $location, $window, $scope) {
         if (!$window.localStorage.getItem("auth-token")) {
             $location.path("/");
         }

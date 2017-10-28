@@ -7,6 +7,9 @@
     <div uib-alert class="alert alert-success" close="vm.closeAlert()" ng-if="vm.bool">
         The email has been sent successfully
     </div><br/>
+    <div uib-alert class="alert alert-warning" close="vm.closeDel()" ng-if="vm.del">
+        The Appointment is deleted
+    </div><br/>
     <div>
         <table class="table table-hover">
             <thead>
@@ -45,7 +48,7 @@
                             <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
                             <br/>{{value.user.addr.zip}}</td>
                         <td><button class="btn btn-success" ng-click="vm.review(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)">Review</button>                            &nbsp;&nbsp;
-                            <button class="btn btn-danger" ng-click="vm.remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
+                            <button class="btn btn-warning" ng-click="vm.remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
                                 ng-disabled="vm.dis[$index+1]">Remind</button>
                         </td>
                     </tr>
@@ -93,7 +96,10 @@
                             <b>Email:</b>&nbsp;{{value.user.email}} <br/>
                             <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
                             <br/>{{value.user.addr.zip}}</td>
-                        <!-- <td><button class="btn btn-warning">Change</button></td> -->
+                            <td><button class="btn btn-info" ng-click="vm.edit(value.user.userName ,value.user.reg,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)">Edit</button>                            &nbsp;&nbsp;
+                                <button class="btn btn-danger" ng-click="vm.delete(value.user.userName ,value.user.reg, value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
+                                    ng-disabled="vm.dis[$index+1]">Delete</button>
+                            </td>
                     </tr>
 
                 </table>

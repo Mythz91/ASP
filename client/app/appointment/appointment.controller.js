@@ -41,29 +41,7 @@
         appoint.closeRes = function(){
             appoint.showres=false;
         }
-        appoint.verifyUserName = function () {
-            if (!appoint.userName) {
-                appoint.user = "please enter valid name of length atleast of 5 characters long";
-                console.log(appoint.user);
-            }
-
-            if (!appoint.userName && appoint.userName.length != 0) {
-                var i;
-                for (i = 0; i < appoint.userName.length; i++) {
-                    if (appoint.userName[i].match(/\d+/g)) {
-                        appoint.user = "please enter valid name"
-                        break;
-                    }
-                }
-            }
-            if (i < 5) {
-                appoint.user = "please enter valid name"
-            } else {
-                appoint.user = "";
-            }
-
-
-        }
+       
        
      
         appoint.verifyDate = function () {

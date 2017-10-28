@@ -4,7 +4,9 @@ var gulp = require('gulp');
 var $    = require('gulp-load-plugins')({ lazy: true });
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
+// gulp.task("name",function(){
+//     console.log("printing name......")
+// }) running: gulp name
 gulp.task('default',    ['serve']);
 gulp.task('nodemon',    ['watch'],    require('./tasks/serve').nodemon);
 gulp.task('serve',      ['nodemon'],  require('./tasks/serve').bsync);
