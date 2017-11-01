@@ -4,7 +4,7 @@
 <div uib-alert class="alert alert-danger" close="close()" ng-if="disp">
    Please select a PDF file for upload
 </div><br/>
-<form name="form.reviewForm" ng-submit="submitForm(data,file)" ng-init="getData()" enctype="multipart/form-data" novalidate>
+<form name="form.reviewForm" ng-submit="submitForm(data)" ng-init="getData()" enctype="multipart/form-data" novalidate>
 
    <div>
        <p><strong>Patient Name: </strong>{{userName}}</p>
@@ -17,7 +17,6 @@
             <p ng-show="form.reviewForm.data.$error.maxlength" class="help-block">Review is too long.</p>
         </div>
 
-        <input type="file" name="file" file-model='file'/>
 
     </div>
     <div class="modal-footer">

@@ -56,6 +56,7 @@ mongoC.connect(url, function (err, db) {
     })
     router.post("/delete", function (req, res) {
         var data = req.body;
+        console.log(data);
         db.collection("UserDetails").updateOne({ $and: [{ "user.registrationNumber": data.regNum, "user.userName": data.regUser }] }, { $pull: { "user.appointment": { "user": data.pt, "date": data.date, "symptoms": data.sym, "sex": data.sex, "age": data.age } } }, function (err, reply) {
             if (err) { throw err; } else {
               

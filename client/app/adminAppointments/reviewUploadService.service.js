@@ -3,10 +3,7 @@ angular
     .service("ReviewUploadService", ReviewUploadService)
 
 function ReviewUploadService($http, $q) {
-    this.upload = function (file) {
-        console.log(file)
-
-    }
+   
 
     this.writeReview = function (text) {
         var defer = $q.defer();

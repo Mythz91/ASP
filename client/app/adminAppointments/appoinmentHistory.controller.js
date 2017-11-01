@@ -92,12 +92,13 @@
 
         }
         vm.review = function (userName, email, user, age, sex, symptoms, date,reg, index) {
-            $rootScope.userDetails.user = user;
+            $rootScope.userDetails.user = userName;
             $rootScope.userDetails.age = age;
             $rootScope.userDetails.sex = sex;
             $rootScope.userDetails.symptoms = symptoms;
             $rootScope.userDetails.date = date;
             $rootScope.userDetails.reg =reg;
+      
             
             var modal = $uibModal.open({
                 templateUrl : 'templates/review-form.html',
