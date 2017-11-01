@@ -1,6 +1,7 @@
 <header data-ng-include="'templates/loginHeader.html'" class="navbar-fixed-top"></header>
 <div class="shift">
 <h1>Welcome <span id="uName"><i class="text-success">{{vm.userName}}</i></span> </h1>
+<h4>{{vm.greet}}</h4>
 
 <button class="btn btn-success" ng-click="vm.showForm()">Start a discussion!</button> <br/><br/>
 
@@ -18,7 +19,7 @@
         <th>Time</th>
     </thead>
     <tbody>
-       <tr ng-repeat="(key,value) in  vm.discussion | orderBy:'value.time':true"> 
+       <tr  class="animate" ng-repeat="(key,value) in  vm.discussion | orderBy:'value.time':true"> 
            <td>{{value.userName}}</td>
         <td>{{value.topic}}</td>
         <td>{{value.discussion}}</td>

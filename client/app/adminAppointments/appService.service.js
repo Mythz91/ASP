@@ -53,7 +53,6 @@ this.deleteApp = function (text) {
 
 }
 this.editAppointment=function(text){
-    console.log("called");
     var defer = $q.defer();
     $http({
         method: 'POST',

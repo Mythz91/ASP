@@ -4,11 +4,12 @@ var data, mail;
     angular
         .module('app.home').controller("welcomeCtrl", welcomeCtrl)
 
-    function welcomeCtrl($uibModal, DataService, $rootScope, $location, $window, $scope) {
+    function welcomeCtrl($uibModal, DataService, $rootScope, $location, $window, $scope,date) {
         if (!$window.localStorage.getItem("auth-token")) {
             $location.path("/");
         }
         var vm = this;
+        vm.greet=date.showGreet();
         vm.userName = $window.localStorage.getItem("user");
         vm.pass = pass;
         vm.err = false;

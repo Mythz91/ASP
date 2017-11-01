@@ -21,6 +21,7 @@ module.exports = function (app) {
   app.use('/api/v1/update', require('./api/update'));
   app.use('/api/v1/discussion', require('./api/discussion'));
   app.use('/api/v1/schedule', require('./api/schedule'));
+  app.use('/api/v1/review',require('./api/review'));
 
   // Return API Version
   app.route('/api').get(function (req, res) {

@@ -1,1 +1,13 @@
 <header data-ng-include="'templates/adminHeader.html'" class="navbar-fixed-top"></header>
+<div class="shift row" ng-init="vm.getRegister()">
+    <h3>Choose a registration number to find reviews:</h3>
+    <div> <select ng-model="vm.choice" ng-options="choice as choice for choice in vm.choices" ng-change="vm.change()"></select></div>
+    <br/>
+    <button class="btn btn-success" ng-disabled="!vm.choice" ng-click="vm.getReviews(vm.choice)">Get Review!</button>
+    <div reviews ng-if="vm.choiceMade">
+        <reviews></reviews>
+    </div>
+    <div uib-alert class="alert alert-info" close="vm.closeAlert()" ng-if="vm.err">
+        There are no reviews for the appointments to display!
+    </div>
+</div>

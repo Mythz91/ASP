@@ -19,7 +19,7 @@
             </thead>
             <tbody ng-show="data.show">
 
-                <tr ng-repeat="(key,value) in  data.appointments | filter:searchText |  orderBy:'value.time':true">
+                <tr  class="pull" ng-repeat="(key,value) in  data.appointments | filter:searchText |  orderBy:'value.time':true">
                     <td>{{$index+1}}</td>
                     <td>{{value.user}}</td>
                     <td>{{value.age}}</td>

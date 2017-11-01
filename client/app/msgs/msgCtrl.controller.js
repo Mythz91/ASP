@@ -24,12 +24,14 @@
         vm.delete = function (topic, discussion, time) {
             vm.data=null;
             MessageDeleteService.delete(topic, discussion, time).then(function (success) {
+               
               if(success=="1"){
                 vm.disp=false;
                 vm.show=true;
                 vm.empty="No discussions available";
               }
-              vm.data=success;
+
+              vm.getData();
 
             }, function (err) {
 

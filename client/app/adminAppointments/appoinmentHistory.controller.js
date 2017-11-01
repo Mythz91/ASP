@@ -15,6 +15,7 @@
         vm.regUser;
         vm.reg;
         vm.email;
+        $rootScope.review = false;
       
 
         $rootScope.$on("changes1", function (event, data) {
@@ -46,6 +47,9 @@
         }
         vm.closeAlert = function () {
             vm.bool = false;
+        }
+        vm.close = function(){
+            $rootScope.review=false;
         }
      
         vm.loadDetails = function () {
@@ -87,7 +91,23 @@
 
 
         }
-        vm.review = function (userName, email, user, age, sex, symptoms, date, index) {
+        vm.review = function (userName, email, user, age, sex, symptoms, date,reg, index) {
+            $rootScope.userDetails.user = user;
+            $rootScope.userDetails.age = age;
+            $rootScope.userDetails.sex = sex;
+            $rootScope.userDetails.symptoms = symptoms;
+            $rootScope.userDetails.date = date;
+            $rootScope.userDetails.reg =reg;
+            
+            var modal = $uibModal.open({
+                templateUrl : 'templates/review-form.html',
+                controller: reviewCtrl,
+                resolve:{
+                    reviewForm : function(){
+                        return vm.reviewForm;
+                    }
+                }
+            })
 
         }
         vm.edit = function (userName, reg, email, user, age, sex, symptoms, date, contact, index) {
@@ -102,7 +122,6 @@
             $rootScope.userDetails.symptoms = symptoms;
             $rootScope.userDetails.date = date;
 
-            console.log(userName, reg, email, user, age, sex, symptoms, date, index);
             var modalInstance = $uibModal.open({
                 templateUrl: 'templates/edit-form.html',
                 controller: EditCtrl,

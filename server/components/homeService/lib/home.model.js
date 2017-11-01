@@ -10,7 +10,7 @@ var Model = function(args){
   }
 
   if(!args.message) {
-    args.message = 'Irving User Interface Team';
+    args.message = 'Medical Insights Team';
   }
 
   if(!args.generator) {
