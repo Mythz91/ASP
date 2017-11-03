@@ -6,9 +6,11 @@
 
     function appCtrl(appService, $location, $window, $uibModal, $rootScope) {
         var vm = this;
+      
         var data;
         vm.bool = false;
-        vm.dis = {};
+        $rootScope.dis = {};
+        $rootScope.rev={};
         vm.del = false;
         $rootScope.userDetails = {};
       vm.contact;
@@ -16,7 +18,11 @@
         vm.reg;
         vm.email;
         $rootScope.review = false;
-      
+      $rootScope.$on("change2",function(event,data){
+          $rootScope.val.push($rootScope.index);
+        $rootScope.rev[$rootScope.index] = true;
+        $rootScope.dis[$rootScope.index] =true;
+      })
 
         $rootScope.$on("changes1", function (event, data) {
             var changes = {
@@ -60,6 +66,8 @@
                 vm.present = res.present;
                 vm.future = res.future;
                 vm.past = res.past;
+                $rootScope.rev[$rootScope.index] = true;
+                $rootScope.dis[$rootScope.index] =true;
 
             }, function (err) {
 
@@ -83,7 +91,7 @@
             appService.sendMail(text).then(function (success) {
 
                 vm.bool = true;
-                vm.dis[index] = true;
+                $rootScope.dis[index] = true;
 
             }, function (err) {
 
@@ -92,12 +100,14 @@
 
         }
         vm.review = function (userName, email, user, age, sex, symptoms, date,reg, index) {
+           
             $rootScope.userDetails.user = userName;
             $rootScope.userDetails.age = age;
             $rootScope.userDetails.sex = sex;
             $rootScope.userDetails.symptoms = symptoms;
             $rootScope.userDetails.date = date;
             $rootScope.userDetails.reg =reg;
+            $rootScope.index=index;
       
             
             var modal = $uibModal.open({

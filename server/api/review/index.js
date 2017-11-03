@@ -17,55 +17,97 @@ var transporter = mailer.createTransport({
 
 mongoC.connect(url, function (err, db) {
     if (err) throw err;
-router.get("/",function(req,res){
-  
-    db.collection("UserDetails").find().toArray(function(err, reply) {
-        if(err) throw err;
-        if(reply.length){
-            var arr = [];
-            reply[0].registrationList.forEach(function(element){
-             
-                if(element.length == 7 && element!== '9999999'){
-                    arr.push(element);
-                }
-            })
-           res.send(arr);
-        }
-    })
-})
-router.post("/getReviews",function(req,res){
-    console.log(req.body)
-    var data = req.body.reg;
-    db.collection("review").find().toArray(function(err,reply){
-        if(err) {throw err;}
-        if(reply.length){
-            var arr= [];
-            reply[0].reviews.forEach(function(element){
-                if(element.regNum == data){
-                    arr.push(element);
+    router.get("/", function (req, res) {
 
-                }
-            })
-            console.log(arr);
-            res.send(arr);
-        }
-       
-    })
-})
-router.post("/upload", function(req,res){
+        db.collection("UserDetails").find().toArray(function (err, reply) {
+            if (err) throw err;
+            if (reply.length) {
+                var arr = [];
+                reply[0].registrationList.forEach(function (element) {
 
-})
-router.post("/review", function(req,res){
-    console.log(req.body)
-
-    db.collection("review").update({"_id":1},{$push:{"reviews": req.body}},function(err,result){
-        if(err) {throw err;}
-        else{
-            res.send("success");
-        }
+                    if (element.length == 7 && element !== '9999999') {
+                        arr.push(element);
+                    }
+                })
+                res.send(arr);
+            }
+        })
     })
-    
-})
+    router.post("/getReview", function (req, res) {
+        var data = req.body;
+        console.log(data.regNum,data.date);
+       db.collection("review").find(  //{
+        //     reviews: {
+        //         $elemMatch: {
+        //             "regNum": data.regNum,
+        //             "date": data.date,
+        //             "sext": data.sex,
+        //             "symptoms": data.symptoms,
+        //             "userName": data.user
+        //         }
+        //     }}
+        ).toArray(function (err, reply) {
+            if (err) {
+                throw err;
+            } else {
+                if(reply.length){
+                   var rev = {
+                       review : ""
+                   };
+                reply[0].reviews.forEach(function(element){
+                    if(element.userName == data.user && element.regNum == data.regNum && element.date == data.date){
+                        console.log(element.review);
+                        rev.review = element.review;
+                       
+                    }
+                })
+               res.send(rev); 
+            }
+            }
+        });
+    })
+    router.post("/getReviews", function (req, res) {
+
+        var data = req.body.reg;
+        db.collection("review").find().toArray(function (err, reply) {
+            if (err) {
+                throw err;
+            }
+            if (reply.length) {
+                var arr = [];
+                reply[0].reviews.forEach(function (element) {
+                    if (element.regNum == data) {
+                        arr.push(element);
+
+                    }
+                })
+                console.log(arr);
+                res.send(arr);
+            }
+
+        })
+    })
+    router.post("/upload", function (req, res) {
+
+    })
+    router.post("/review", function (req, res) {
+        console.log(req.body)
+
+        db.collection("review").update({
+            "_id": 1
+        }, {
+            $push: {
+                "reviews": req.body
+            }
+        }, function (err, result) {
+            if (err) {
+                throw err;
+            } else {
+                res.send("success");
+            }
+        })
+
+    })
 
 
 });

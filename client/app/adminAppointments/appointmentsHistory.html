@@ -52,9 +52,9 @@
                             <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
                             <br/>{{value.user.addr.zip}}</td>
                         <td>
-                            <button  class="btn btn-success" ng-click="vm.review(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.user.reg,$index+1)">Review</button>                            &nbsp;&nbsp;
-                            <button class="btn btn-warning" ng-click="vm.remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
-                                ng-disabled="vm.dis[$index+1]">Remind</button>
+                            <button  class="btn btn-success" ng-click="vm.review(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.user.reg,$index+1)" ng-disabled="rev[$index+1]">Review</button>                            &nbsp;&nbsp;
+                            <button class="btn btn-warning" ng-click="remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
+                                ng-disabled="dis[$index+1]">Remind</button>
                         </td>
                     </tr>
 

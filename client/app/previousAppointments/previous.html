@@ -2,35 +2,24 @@
     <header data-ng-include="'templates/loginHeader.html'" class="navbar-fixed-top"></header>
     <div class="body-content">
       <div class="shift">
-        <div>
-                <label><span class="text-success"><b>Search Criteria:</b></span> <input ng-model="searchText" ng-disabled="data.hide"></label>
-        <table class="table table-hover" ng-init="data.getData()">
+        <div ng-init="data.getData()">
+               <div> <label><span class="text-success"><b>Search Criteria:</b></span> <input ng-model="searchText" ng-disabled="data.hide"></label></div>
+        
 
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>User Name </th>
-                    <th>Age</th>
-                    <th>Sex</th>
-                    <th>Phone</th>
-                    <th>Date</th>
-                    <th>Symptoms</th>
-                </tr>
-            </thead>
-            <tbody ng-show="data.show">
+                <div ng-show="data.show" class="listDown pull" ng-repeat="(key,value) in  data.appointments | filter:searchText |  orderBy:'value.time':true">
+                  <div class="prevData"> 
+                      <div class="prevHead"> <strong>#</strong> <span>{{$index+1}}</span> <br/></div>
+                   <strong>User Name : </strong> <span>{{value.user}}</span><br/>
+                    <strong>Age :</strong> <span>{{value.age}}</span><br/>
+                   <strong>Sex :</strong> <span>{{value.sex}}</span><br/>
+                   <strong>Phone :</strong><span>{{value.contact}}</span><br/>
+                   <strong>Date :</strong> <span>{{value.date | date : "MMMM/dd/yyyy : hh:mm:ss"}}</span><br/>
+                   <strong>Symptoms :</strong> <span>{{value.symptoms}}</span> <br/>
+                   <button class="btn btn-success" ng-click="data.getReview($index+1,value.date,value.user,value.sex,value.symptoms)">Get review</button>
+                </div>
+                <br/>
+                </div>
 
-                <tr  class="pull" ng-repeat="(key,value) in  data.appointments | filter:searchText |  orderBy:'value.time':true">
-                    <td>{{$index+1}}</td>
-                    <td>{{value.user}}</td>
-                    <td>{{value.age}}</td>
-                    <td>{{value.sex}}</td>
-                    <td>{{value.contact}}</td>
-                    <td>{{value.date | date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
-                    <td>{{value.symptoms}}</td>
-                </tr>
-
-            </tbody>
-        </table>
     </div>
     <div><span ng-show="data.hide" class="text-success">No previous appointments to show</span></div>
     </div>

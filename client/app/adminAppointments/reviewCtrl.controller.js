@@ -6,13 +6,13 @@ var reviewCtrl = function ($scope, $rootScope, $uibModalInstance, $window, Revie
 
 $scope.disp = false;
 $scope.getData = function () {
-    console.log("here")
+   
     $scope.userName = $rootScope.userDetails.user;
     $scope.age = $rootScope.userDetails.age;
     $scope.sext = $rootScope.userDetails.age;
     $scope.date = $rootScope.userDetails.date;
     $scope.symptoms = $rootScope.userDetails.symptoms;
-    console.log($rootScope.userDetails.user,$rootScope.userDetails.age,$rootScope.userDetails.age)
+    
 
 }
 
@@ -30,13 +30,17 @@ $scope.submitForm = function (review) {
        review :review
     } 
     ReviewUploadService.writeReview(data).then(function(success){
+        console.log("here")
         $rootScope.review = true;
+        $rootScope.$emit("change2",true);
+     
         },function(err){
 
        })
         $uibModalInstance.close('closed');
 
     };
+
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };

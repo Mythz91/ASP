@@ -1,9 +1,9 @@
-(function () {
+
     angular
         .module('app.home')
         .controller('previousController', previous)
 
-    function previous(prevService,$window) {
+    function previous($uibModal,$rootScope,prevService,$window,dataFactory) {
         if(!$window.localStorage.getItem("auth-token")){
             $location.path("/");
         }
@@ -15,7 +15,7 @@
         previous.getData = function () {
 
             prevService.getData().then(function (res) {
-              console.log(res);
+             
                 previous.show=true;
                 previous.hide=false;
                 previous.appointments = res;
@@ -25,8 +25,32 @@
                 console.log(err);
             })
         }
+        previous.getReview = function(index,date,user,sex,symptoms){
+          var  data = {
+              index : index,
+              date : date,
+              user : user,
+              sex : sex,
+              symptoms : symptoms,
+              regNum : $window.localStorage.getItem("reg")
+
+          }
+            dataFactory.setData(data);
+        
+            var modalInstance = $uibModal.open({
+                templateUrl: 'templates/review.html',
+                controller: ReviewCtrl,
+                resolve: {
+                    review: function () {
+                        return previous.review;
+                    }
+                }
+        })
 
 
-    };
-})();
+
+}
+    }
+
+
 
