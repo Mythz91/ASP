@@ -2,7 +2,7 @@ angular
     .module('app.home')
     .controller("EditCtrl", EditCtrl)
 
-var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $window) {
+var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $window,appService) {
     $scope.getData = function () {
         $scope.userName = $rootScope.userDetails.user;
         $scope.age = $rootScope.userDetails.age;
@@ -51,16 +51,18 @@ var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $windo
     $scope.form = {}
     $scope.submitForm = function (userName, age, sext, date, symptoms) {
         if ($scope.verifyDate()) {
-         
+            var change = {
+                userName: userName,
+                age: age,
+                sex: sext,
+                date: date,
+                symptoms: symptoms
+            }
+            $rootScope.$emit("changesEdit",change);
+          
+           
         }
-        var change = {
-            userName: userName,
-            age: age,
-            sex: sext,
-            date: date,
-            symptoms: symptoms
-        }
-        $rootScope.$emit("changes1",change);
+       
             $uibModalInstance.close('closed');
 
     };

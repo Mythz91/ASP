@@ -1,17 +1,18 @@
 angular
 .module('app.home')
 
-.controller('reviewCtrl', reviewCtrl);
-var reviewCtrl = function ($scope, $rootScope, $uibModalInstance, $window, ReviewUploadService) {
-
+.controller('ReviewCtrlStart', ReviewCtrlStart)
+var ReviewCtrlStart = function ($scope, $rootScope, $uibModalInstance, $window,appService,ReviewFactory) {
+var data;
 $scope.disp = false;
 $scope.getData = function () {
-   
-    $scope.userName = $rootScope.userDetails.user;
-    $scope.age = $rootScope.userDetails.age;
-    $scope.sext = $rootScope.userDetails.age;
-    $scope.date = $rootScope.userDetails.date;
-    $scope.symptoms = $rootScope.userDetails.symptoms;
+    console.log("called")
+   data = ReviewFactory.getData()
+    $scope.userName =data.user;
+    $scope.age =data.age;
+    $scope.sext =data.sex;
+    $scope.date =data.date;
+    $scope.symptoms =data.symptoms;
     
 
 }
@@ -21,18 +22,18 @@ $scope.close = function () {
 }
 $scope.submitForm = function (review) {
     var data = {
-        userName : $rootScope.userDetails.user,
-       age : $rootScope.userDetails.age,
-       sext : $rootScope.userDetails.sex,
-       date : $rootScope.userDetails.date,
-       symptoms : $rootScope.userDetails.symptoms,
-       regNum : $rootScope.userDetails.reg,
+        userName : data.user,
+       age : data.age,
+       sext : data.sex,
+       date : data.date,
+       symptoms : data.symptoms,
+       regNum : data.reg,
        review :review
     } 
-    ReviewUploadService.writeReview(data).then(function(success){
-     
+    appService.writeReview(data).then(function(success){
+       
         $rootScope.review = true;
-        $rootScope.$emit("change2",true);
+      
      
         },function(err){
 
