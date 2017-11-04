@@ -4,13 +4,12 @@
 
         .controller('appCtrl', appCtrl);
 
-    function appCtrl(appService, $location, $window, $uibModal, $rootScope) {
+    function appCtrl(appService, $location, $window, $uibModal, $rootScope,ReviewFactory) {
         var vm = this;
-      
+      var index;
         var data;
         vm.bool = false;
-        $rootScope.dis = {};
-        $rootScope.rev={};
+      
         vm.del = false;
         $rootScope.userDetails = {};
       vm.contact;
@@ -18,13 +17,9 @@
         vm.reg;
         vm.email;
         $rootScope.review = false;
-      $rootScope.$on("change2",function(event,data){
-          $rootScope.val.push($rootScope.index);
-        $rootScope.rev[$rootScope.index] = true;
-        $rootScope.dis[$rootScope.index] =true;
-      })
-
-        $rootScope.$on("changes1", function (event, data) {
+     
+       
+        $rootScope.$on("changesEdit", function (event, data) {
             var changes = {
                 regUser:vm.regUser,
                 reg:vm.reg,
@@ -44,6 +39,8 @@
             }
             appService.editAppointment(changes).then(function(success){
                 vm.loadDetails();
+      
+
             }, function(err){
 
             })
@@ -66,8 +63,7 @@
                 vm.present = res.present;
                 vm.future = res.future;
                 vm.past = res.past;
-                $rootScope.rev[$rootScope.index] = true;
-                $rootScope.dis[$rootScope.index] =true;
+            
 
             }, function (err) {
 
@@ -89,9 +85,8 @@
                 date: date
             }
             appService.sendMail(text).then(function (success) {
-
                 vm.bool = true;
-                $rootScope.dis[index] = true;
+                vm.dis[index] = true;
 
             }, function (err) {
 
@@ -99,26 +94,31 @@
 
 
         }
-        vm.review = function (userName, email, user, age, sex, symptoms, date,reg, index) {
+        vm.review = function (userName, user, age, sex, symptoms, date,reg, index) {
+            var val ={
+                userReg:userName,
+                user:user,
+                age:age,
+                sex:sex,
+                symp:symptoms,
+                date:date,
+                reg:reg,
+                index:index
+
+            }
+
+            ReviewFactory.setData(val);
            
-            $rootScope.userDetails.user = userName;
-            $rootScope.userDetails.age = age;
-            $rootScope.userDetails.sex = sex;
-            $rootScope.userDetails.symptoms = symptoms;
-            $rootScope.userDetails.date = date;
-            $rootScope.userDetails.reg =reg;
-            $rootScope.index=index;
-      
-            
-            var modal = $uibModal.open({
-                templateUrl : 'templates/review-form.html',
-                controller: reviewCtrl,
-                resolve:{
-                    reviewForm : function(){
+            var modalInstance = $uibModal.open({
+              templateUrl: 'templates/review-form.html',
+                controller: ReviewCtrlStart,
+                resolve: {
+                    reviewForm: function () {
                         return vm.reviewForm;
                     }
                 }
             })
+    
 
         }
         vm.edit = function (userName, reg, email, user, age, sex, symptoms, date, contact, index) {
