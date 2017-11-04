@@ -54,7 +54,7 @@ mongoC.connect(url, function (err, db) {
                         }, function (err, result) {
                             if (err) throw err;
                             if (result) {
-                                console.log(result);
+                              
                                 var sendMail = {
                                     from: 'medicalinglobal@gmail.com',
                                     to: data.email,
@@ -89,7 +89,7 @@ mongoC.connect(url, function (err, db) {
                                         res.end();
         
                                     } else {
-                                        console.log('Email sent');
+                                   
                                         res.send("you have got successfully registered a email is sent for your reference");
                                         res.end();
                                     }

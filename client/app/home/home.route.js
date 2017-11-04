@@ -5,7 +5,15 @@
     .module('app.home')
     .config(config);
 
-  function config($stateProvider) {
+  function config($stateProvider, dateProvider) {
+    var time =(dateProvider.$get().showDate());
+    if(time>0 && time <12){
+      dateProvider.setGreet("Good Morning!");
+    }else if(time>=12 && time < 17){
+      dateProvider.setGreet("Good After-Noon!");
+    }else{
+      dateProvider.setGreet("Good Evening!");
+    }
 
     $stateProvider
       .state('home', {
@@ -76,11 +84,7 @@
         templateUrl:'app/previousAppointments/previous.html',
         controller:'previousController as data'
       })
-      .state('doc',{
-        url:'/doc',
-        templateUrl:'templates/finder.html',
-      
-      })
+     
   
       .state('update',{
         url:'/update',

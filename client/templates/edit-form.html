@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <h3>Edit Appointment</h3>
+</div>
+<form name="form.editForm" ng-submit="submitForm(userName,age,sext,date,symptoms)" novalidate ng-init="getData()">
+    <p> Name :
+          <input type="text" class="form-control"  placeholder="enter your name" name="userName" ng-model="userName" minlength="5"  maxlength="20" required onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)|| event.charCode==32"/>
+     
+       </p>
+       <div ng-messages="form.editForm.userName.$error">
+               <p class="warn" ng-message="minlength">Your name is too short.</p>
+               <p class="warn" ng-message="maxlength">Your name is too long.</p>
+               <p  class="warn" ng-message="required">Your name is required.</p>
+           </div>
+       <p>Age :
+           <input type="number" class="form-control" name="age" min="1" max="90" ng-model="age"  required/>
+        
+       </p>
+       <div ng-messages="form.editForm.age.$error">
+               <p class="warn" ng-message="min">Please enter a positive age</p>
+               <p class="warn" ng-message="max">Please enter age between 1-90</p>
+               <p class="warn" ng-message="required">Your age is required.</p>
+           </div>
+       <p> Sex :
+           <select required ng-model="sext" name="sex" ng-options="sex as sex for sex in sex"  >
+           </select>
+          <br/> 
+       </p>
+       <div ng-messages="form.editForm.sex.$error">
+                <p class="warn" ng-message="required">Please select your Sex.</p>
+           </div>
+       <p>Date of Appointment:
+          
+           <input type="datetime-local" name="date" class="form-control" ng-model="date" id="datepicker" ng-blur="verifyDate()" ng-change="clearDate()"required/> <span class="warn">{{dateCheck}}</span>
+       </p>
+       <div ng-messages="form.editForm.date.$error">
+               <p class="warn" ng-message="required">Please a date as Date "mm/dd/yyyy : HH:MM AM/PM".</p>
+          </div>
+       <p>Enter the symptoms of the problem:
+           <br/>
+           <textarea id="problem" rows="5" cols="50" name="symptoms" minlength="5" ng-model="symptoms"  required></textarea>
+       </p>
+       <div ng-messages="form.editForm.symptoms.$error">
+               <p class="warn"  ng-message="required">Please enter your symptoms</p>
+               <p class="warn"  ng-message="minlength">Please provide a detailed description of your symptoms</p>
+
+          </div>
+   
+       <p>
+           <button class="btn btn-success"  type="submit">Change Appointment!</button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+           <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
+           <br/>
+
+       
+       </p>
+   </form>

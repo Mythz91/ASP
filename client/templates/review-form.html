@@ -1,43 +1,15 @@
 <div class="modal-header">
-    <h3>Start a Discussion!</h3>
+    <legend><h2>Review</h2></legend>
 </div>
-<form name="form.reviewForm" ng-submit="submitForm(name,regNum,mail,ptName,age,sex,symp,data)" ng-init="getData()" novalidate>
-    <div class="modal-body">
-        <div class="form-group">
-            <label>Name:</label>
-            <input type="text" name="name" class="form-control" ng-model="userName" readonly>
-        </div>
+<div uib-alert class="alert alert-danger" close="close()" ng-if="disp">
+   Please select a PDF file for upload
+</div><br/>
+<form name="form.reviewForm" ng-submit="" ng-init="getData()" enctype="multipart/form-data" novalidate>
 
-        <div class="form-group">
-            <label>Registration Number</label>
-            <input type="text" name="regNum" class="form-control" ng-model="regNum" readonly>
-
-        </div>
-        <div class="form-group">
-            <label>Email Address:</label>
-            <input type="email" name="email" class="form-control" ng-model="mail" readonly>
-        </div>
-        <div class="form-group">
-            <label>Patient Name</label>
-            <input type="text" name="ptName" class="form-control" ng-model="ptName" readonly>
-
-        </div>
-        <div class="form-group">
-            <label>Age</label>
-            <input type="text" name="age" class="form-control" ng-model="age" readonly>
-
-        </div>
-        <div class="form-group">
-            <label>Sex</label>
-            <input type="text" name="sex" class="form-control" ng-model="sex" readonly>
-
-        </div>
-        <div class="form-group">
-            <label>Symptoms</label>
-            <input type="text" name="symp" class="form-control" ng-model="symp" readonly>
-
-        </div>
-
+   <div>
+       <p><strong>Patient Name: </strong>{{userName}}</p>
+       <p><strong>Age  :</strong> {{age}} <strong>Sex :</strong> {{sext}} <strong>Symptoms : </strong>{{symptoms}} <strong>Date :</strong> {{date| date : "MMMM/dd/yyyy : hh:mm:ss"}} </p>
+   </div>
         <div class="form-group">
             <label>Review</label><br/>
             <textarea rows="5" cols="50" ng-model="data" ng-minlength="2" ng-maxlength="500" required></textarea>
@@ -46,10 +18,9 @@
         </div>
 
 
-
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-success" ng-disabled="form.reviewForm.$invalid">Save</button>
+        <button type="submit" class="btn btn-success" ng-disabled="form.reviewForm.$invalid" ng-click="submitForm(data)">Save</button>
         <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
     </div>
 </form>

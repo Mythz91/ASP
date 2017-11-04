@@ -39,11 +39,14 @@ var reg = "";
 
         }
         vm.login = login;
+        vm.clear= function(){
+            vm.err="";
+        }
         function login(regNum, password) {
             if(vm.verifyUser()){
            try {
                 UserService.login(regNum, password, URL).then(function (res) {
-                    console.log(res);
+                 
                     reg = regNum;
                    data=res.username;
                     pass=password;
@@ -56,7 +59,7 @@ var reg = "";
                         $location.path('/admin')
                     }
                    else if(res.token){
-                       console.log("token");
+                    
                         authTokenFactory.setToken(res.token);
                         $location.path('/welcome');
                     }
@@ -80,71 +83,6 @@ var reg = "";
 
     }
 
-    angular
-        .module('app.home')
-        .service("UserService", function ($http, $q) {
-
-            this.login = function (regNum, password, URL) {
-              
-                var defer = $q.defer();
-                $http({
-                    url: URL + 'login',
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: {
-                        user: regNum,
-                        pass: password
-                    }
-                }).success(function (data) {
-                    console.log(data)
-                    defer.resolve(data);
-                }).error(function (err) {
-                    console.log(err);
-                    defer.reject(err);
-                })
-                return defer.promise;
-            }
-
-            
-        })
 
 })();
 
-angular.module("app.home").factory("authTokenFactory", function($window){
-    var store = $window.localStorage;
-    var key = "auth-token";
-    return{
-        getToken : getToken,
-        setToken : setToken
-    }
-    ;
-    function getToken(){
-        return store.getItem(key);
-    }
-
-    function setToken(token){
-       
-        if(token){
-            store.setItem(key,token);
-        }else{
-            store.removeItem(key);
-        }
-    }
-})
-
-angular.module("app.home").factory("AuthInterceptor",function(authTokenFactory){
-    return{
-        request : addToken
-    }
-
-    function addToken(config){
-        var token = authTokenFactory.getToken();
-        if(token){
-            config.headers = config.headers || {};
-            config.headers.Authorization = 'Bearer '+token;
-        }
-        return config;
-    }
-})

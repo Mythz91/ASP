@@ -18,7 +18,7 @@ var transporter = mailer.createTransport({
 mongoC.connect(url, function (err, db) {
     if (err) throw err;
     router.post("/", function (req, res) {
-        console.log(req.body);
+
         var text = req.body;
 
         db.collection("discussionList").update({
@@ -43,7 +43,7 @@ mongoC.connect(url, function (err, db) {
     });
     router.post("/mail", function(req,res){
         var data = req.body;
-        console.log(data)
+       
         var sendMail = {
             from: 'medicalinglobal@gmail.com',
             to: data.to,
@@ -73,7 +73,7 @@ mongoC.connect(url, function (err, db) {
 
     });
     router.post("/getReply", function (req, res) {
-        console.log(req.body);
+
         db.collection("discussionList").find().toArray(function (err, rep) {
             if (err) {
                 throw err;
@@ -110,7 +110,7 @@ mongoC.connect(url, function (err, db) {
     })
     router.post("/addReply", function (req, res) {
         var data = req.body;
-        console.log(req.body);
+      
 
         db.collection("discussionList").findAndModify(
 
@@ -176,8 +176,7 @@ mongoC.connect(url, function (err, db) {
     })
 
     router.post("/messages", function (req, res) {
-        var data = req.body;
-
+     
         db.collection("discussionList").find({
             $and: [{
                 "_id": 1,
@@ -193,12 +192,15 @@ mongoC.connect(url, function (err, db) {
             if (err) {
                 throw err;
             } else {
+           
                 if (reply.length) {
 
                     var data = [];
                     var resp = reply[0].discussions;
 
                     resp.forEach(function (element) {
+                        
+                        if(element.userName==req.body.user){
                         var obj = {};
                         var replies = [];
                         obj.userName = element.userName;
@@ -215,7 +217,7 @@ mongoC.connect(url, function (err, db) {
                         obj.reply = replies;
 
                         data.push(obj);
-                        console.log(data);
+                    } 
 
                     })
                     // console.log(data);
@@ -230,13 +232,13 @@ mongoC.connect(url, function (err, db) {
     })
 
     router.post('/delete', function (req, res) {
-        console.log(req.body);
+
         db.collection('discussionList')
-            .findAndModify(
+            .update(
 
                 {
                     "_id": 1
-                }, [], {
+                }, {
                     $pull: {
                         "discussions": {
                             "userName": req.body.user,
@@ -247,65 +249,13 @@ mongoC.connect(url, function (err, db) {
                         }
 
                     }
-                }, {
-                    new: true,
-                    upsert: true,
                 },
 
                 function (err, reply) {
                     if (err) {
                         throw err;
                     } else {
-                        console.log('Here');
-                        db.collection("discussionList").find({
-                            $and: [{
-                                "_id": 1,
-                                "discussions": {
-                                    $elemMatch: {
-                                        "userName": req.body.user
-
-                                    }
-                                }
-                            }]
-                        }).toArray(function (err, reply) {
-
-                            if (err) {
-                                throw err;
-                            } else {
-                                console.log('here2');
-                                if (reply.length) {
-
-                                    var data = [];
-                                    var resp = reply[0].discussions;
-
-                                    resp.forEach(function (element) {
-                                        var obj = {};
-                                        var replies = [];
-                                        obj.userName = element.userName;
-                                        obj.topic = element.topic;
-                                        obj.discussion = element.discussion;
-                                        obj.time = element.time;
-
-
-                                        element.replies.forEach(function (ele) {
-                                            replies.push(ele);
-
-                                        })
-
-                                        obj.reply = replies;
-
-                                        data.push(obj);
-                                        console.log(data);
-
-                                    })
-                                    // console.log(data);
-                                    res.send(data).end();
-                                }else{
-                                    res.send("1");
-                                }
-
-                            }
-                        })
+                                          res.send("success");
 
                     }
                 }

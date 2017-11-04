@@ -9,6 +9,8 @@
    'uiGmapgoogle-maps',
  
    'ngMessages',
+   'ngAnimate',
+   'file-model',
      // 3rd Party Modules
 
      // Custom Modules

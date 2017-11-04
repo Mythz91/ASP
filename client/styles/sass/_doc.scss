@@ -53,3 +53,48 @@
 .main {
     margin-left: 70px; /* Same as the width of the sidenav */
 }
+
+.listDown{
+    border : 1px solid $charcoal;
+    padding:20px;
+    text-align: center;
+    background-color: $bg-gray;
+    margin:10px;
+    display:inline-block;
+ 
+}
+
+.prevHead{
+    background-color: $light-gray;
+    border : 1px solid $charcoal;
+    padding:10px;
+
+}
+.prevData{
+    text-align:center;
+   
+  
+}
+.prevData:hover{
+    background-color: $pop-green;
+}
+.msgs{
+    border : 1px solid green;
+    padding:50px;
+
+    margin:10px;
+}
+.msgHead{
+    padding:10px;
+    margin:-10px;
+
+}
+.msgFirstHead{
+    padding:2px;
+}
+.msgCenter{
+    text-align: center;
+}
+.msgButtons{
+    float:right;
+}

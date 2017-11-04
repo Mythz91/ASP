@@ -1,0 +1,28 @@
+<div>
+  <h4> The chosen Registration Number : {{vm.choice}}</h4>
+ <label>Search by :</label> <input type="text" ng-model="searchText"/>
+  <table  class="table table-hover">
+      <thead>
+          <th>#</th>
+      <th>User Name</th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>Date of Appointment</th>
+      <th>Symptoms</th>
+      <th>Review</th>
+    </thead>
+    <tbody>
+
+            <tr  class="pull" ng-repeat="(key,value) in  vm.data | filter:searchText |  orderBy:'value.date':true">
+                    <td>{{$index+1}}</td>
+                    <td>{{value.userName}}</td>
+                    <td>{{value.age}}</td>
+                    <td>{{value.sext}}</td>
+                    <td>{{value.date | date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
+                    <td>{{value.symptoms}}</td>
+                    <td>{{value.review}}</td>
+                </tr>
+
+    </tbody>
+  </table>
+</div>

@@ -3,10 +3,17 @@
     <legend>
         <h2>The Scheduled Appointments</h2>
     </legend>
-    <h3>Today:</h3>
+   
     <div uib-alert class="alert alert-success" close="vm.closeAlert()" ng-if="vm.bool">
         The email has been sent successfully
-    </div><br/>
+    </div>
+    <div uib-alert class="alert alert-success" close="vm.close()" ng-if="review">
+        The Review is created successfully
+    </div>
+    <div uib-alert class="alert alert-warning" close="vm.closeDel()" ng-if="vm.del">
+        The Appointment is deleted
+    </div>
+    <h3>Today:</h3>
     <div>
         <table class="table table-hover">
             <thead>
@@ -44,9 +51,10 @@
                             <b>Email:</b>&nbsp;{{value.user.email}} <br/>
                             <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
                             <br/>{{value.user.addr.zip}}</td>
-                        <td><button class="btn btn-success" ng-click="vm.review(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)">Review</button>                            &nbsp;&nbsp;
-                            <button class="btn btn-danger" ng-click="vm.remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
-                                ng-disabled="vm.dis[$index+1]">Remind</button>
+                        <td>
+                            <button  class="btn btn-success" ng-click="vm.review(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.user.reg,$index+1)" ng-disabled="rev[$index+1]">Review</button>                            &nbsp;&nbsp;
+                            <button class="btn btn-warning" ng-click="remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
+                                ng-disabled="dis[$index+1]">Remind</button>
                         </td>
                     </tr>
 
@@ -93,7 +101,9 @@
                             <b>Email:</b>&nbsp;{{value.user.email}} <br/>
                             <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
                             <br/>{{value.user.addr.zip}}</td>
-                        <!-- <td><button class="btn btn-warning">Change</button></td> -->
+                        <td><button class="btn btn-info" ng-click="vm.edit(value.user.userName ,value.user.reg,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.appoint.contact,$index+1)">Edit</button>                            &nbsp;&nbsp;
+                            <button class="btn btn-danger" ng-click="vm.delete(value.user.userName ,value.user.reg, value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)">Delete</button>
+                        </td>
                     </tr>
 
                 </table>
@@ -101,7 +111,7 @@
         </table>
     </div>
     <h3>Previous Appointments:</h3>
-
+<h6>Search : <input type="text" ng-model="search"/></h6>
     <div>
         <table class="table table-hover">
             <thead>
@@ -125,7 +135,7 @@
                         <th>User Details</th>
 
                     </tr>
-                    <tr ng-repeat="(key,value) in  vm.past | orderBy:'value.appoint.date':true">
+                    <tr ng-repeat="(key,value) in  vm.past | orderBy:'value.appoint.date':true |filter:search">
                         <td>{{$index+1}}</td>
                         <td>{{value.appoint.user}}</td>
                         <td>{{value.appoint.age}}</td>

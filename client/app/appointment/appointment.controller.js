@@ -25,6 +25,7 @@
        
         appoint.validate = false;
         appoint.showres=false;
+        appoint.fail = false;
         appoint.show = false;
         appoint.res = "";
        
@@ -35,35 +36,16 @@
 
 
         }
+        appoint.clearFail = function(){
+            appoint.fail = false;
+        }
         appoint.clearDate= function(){
             appoint.dateCheck="";
         }
         appoint.closeRes = function(){
             appoint.showres=false;
         }
-        appoint.verifyUserName = function () {
-            if (!appoint.userName) {
-                appoint.user = "please enter valid name of length atleast of 5 characters long";
-                console.log(appoint.user);
-            }
-
-            if (!appoint.userName && appoint.userName.length != 0) {
-                var i;
-                for (i = 0; i < appoint.userName.length; i++) {
-                    if (appoint.userName[i].match(/\d+/g)) {
-                        appoint.user = "please enter valid name"
-                        break;
-                    }
-                }
-            }
-            if (i < 5) {
-                appoint.user = "please enter valid name"
-            } else {
-                appoint.user = "";
-            }
-
-
-        }
+       
        
      
         appoint.verifyDate = function () {
@@ -71,10 +53,18 @@
                 appoint.dateCheck = "please select a date and time";
             }
             appoint.dateCheck = "";
-            console.log(appoint.date);
+        
 
             var today = new Date();
             var check = new Date(appoint.date);
+            if(check.getHours()>15 || check.getHours()<8){
+                appoint.dateCheck = "please select time from 8:00 AM to 03:00 PM";
+            }
+            
+            if(check.getTime()<today.getTime()){
+            
+                appoint.dateCheck = "please select time of future : "+"the current time is "+today.toLocaleTimeString();;
+            }
 
             // if (check < today || check == today) {
             //     appoint.dateCheck = "please select a date of future occurance";
@@ -126,10 +116,15 @@
                 
                  
                 appointmentService.createAppointment(data).then(function (data) {
-                    appoint.showres=true;
-                 
+                    if(data == "failed"){
+                        appoint.fail = true;
+                    }else{
+  
+                        appoint.showres=true;
+                    }
+          
                 }, function (err) {
-                    console.log(err);
+               
                 })
             }
         }
@@ -157,22 +152,3 @@
 
     }
 })();
-angular.module("app.home")
-    .service("appointmentService", ['$http', '$q', function ($http, $q) {
-        this.createAppointment = function (text) {
-            var defer = $q.defer();
-            $http({
-                method: 'POST',
-                data: text,
-                url: 'http://localhost:9000/api/v1/appointment/appointment',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).success(function (result) {
-                defer.resolve(result);
-            }).error(function (err) {
-                defer.resolve(err)
-            })
-            return defer.promise;
-        }
-    }]);

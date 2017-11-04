@@ -1,9 +1,9 @@
-(function () {
+
     angular
         .module('app.home')
         .controller('previousController', previous)
 
-    function previous(prevService,$window) {
+    function previous($uibModal,$rootScope,prevService,$window,dataFactory) {
         if(!$window.localStorage.getItem("auth-token")){
             $location.path("/");
         }
@@ -15,40 +15,42 @@
         previous.getData = function () {
 
             prevService.getData().then(function (res) {
-              console.log(res);
+             
                 previous.show=true;
                 previous.hide=false;
                 previous.appointments = res;
 
             }, function (err) {
              
-                console.log(err);
+              
             })
         }
+        previous.getReview = function(index,date,user,sex,symptoms){
+          var  data = {
+              index : index,
+              date : date,
+              user : user,
+              sex : sex,
+              symptoms : symptoms,
+              regNum : $window.localStorage.getItem("reg")
 
-
-    };
-})();
-
-angular.module("app.home")
-    .service("prevService", ['$http', '$q','$window', function ($http, $q, $window) {
-        this.getData = function () {
-            var defer = $q.defer();
-            $http({
-                method: 'POST',
-                url: 'http://localhost:9000/api/v1/getAppointments',
-                data : {
-                    regNum : $window.localStorage.getItem("reg"),
-                    password: $window.localStorage.getItem("pass")
-                },
-                headers: {
-                    'Content-Type': 'application/json'
+          }
+            dataFactory.setData(data);
+        
+            var modalInstance = $uibModal.open({
+                templateUrl: 'templates/review.html',
+                controller: ReviewCtrl,
+                resolve: {
+                    review: function () {
+                        return previous.review;
+                    }
                 }
-            }).success(function (data) {
-                defer.resolve(data);
-            }).error(function (err) {
-                defer.reject(err);
-            })
-            return defer.promise;
-        }
-    }])
+        })
+
+
+
+}
+    }
+
+
+
