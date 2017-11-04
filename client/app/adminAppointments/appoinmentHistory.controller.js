@@ -108,7 +108,7 @@
             }
 
             ReviewFactory.setData(val);
-            console.log(ReviewFactory.getData())
+           
             var modalInstance = $uibModal.open({
               templateUrl: 'templates/review-form.html',
                 controller: ReviewCtrlStart,

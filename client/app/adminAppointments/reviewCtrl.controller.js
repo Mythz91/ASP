@@ -6,7 +6,7 @@ var ReviewCtrlStart = function ($scope, $rootScope, $uibModalInstance, $window,a
 var data;
 $scope.disp = false;
 $scope.getData = function () {
-    console.log("called")
+    
    data = ReviewFactory.getData()
     $scope.userName =data.user;
     $scope.age =data.age;
