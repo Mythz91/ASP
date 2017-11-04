@@ -3,16 +3,16 @@ angular
 
 .controller('ReviewCtrlStart', ReviewCtrlStart)
 var ReviewCtrlStart = function ($scope, $rootScope, $uibModalInstance, $window,appService,ReviewFactory) {
-var data;
+var val;
 $scope.disp = false;
 $scope.getData = function () {
     
-   data = ReviewFactory.getData()
-    $scope.userName =data.user;
-    $scope.age =data.age;
-    $scope.sext =data.sex;
-    $scope.date =data.date;
-    $scope.symptoms =data.symptoms;
+   val = ReviewFactory.getData()
+    $scope.userName =val.user;
+    $scope.age =val.age;
+    $scope.sext =val.sex;
+    $scope.date =val.date;
+    $scope.symptoms =val.symptoms;
     
 
 }
@@ -21,13 +21,14 @@ $scope.close = function () {
     $scope.disp = false;
 }
 $scope.submitForm = function (review) {
+
     var data = {
-        userName : data.user,
-       age : data.age,
-       sext : data.sex,
-       date : data.date,
-       symptoms : data.symptoms,
-       regNum : data.reg,
+        userName : val.user,
+       age : val.age,
+       sext : val.sex,
+       date : val.date,
+       symptoms : val.symptoms,
+       regNum : val.reg,
        review :review
     } 
     appService.writeReview(data).then(function(success){
