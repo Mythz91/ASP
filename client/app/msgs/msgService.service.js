@@ -1,7 +1,7 @@
 angular
 .module('app.home')
 .service('MessageService', function ($http, $q, $window) {
-    console.log("here");
+  
     this.getData = function () {
         var defer = $q.defer();
         $http({

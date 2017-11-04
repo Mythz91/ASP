@@ -167,7 +167,7 @@
                 vm.zip = details.zip;
 
             }, function (err) {
-                console.log(err);
+              
 
             })
         }

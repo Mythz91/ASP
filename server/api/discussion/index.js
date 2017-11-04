@@ -192,7 +192,7 @@ mongoC.connect(url, function (err, db) {
             if (err) {
                 throw err;
             } else {
-                console.log(reply)
+           
                 if (reply.length) {
 
                     var data = [];

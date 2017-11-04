@@ -51,7 +51,7 @@ var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $windo
     $scope.form = {}
     $scope.submitForm = function (userName, age, sext, date, symptoms) {
         if ($scope.verifyDate()) {
-            console.log(userName, age, sext, date, symptoms)
+         
         }
         var change = {
             userName: userName,

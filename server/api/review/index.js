@@ -35,18 +35,8 @@ mongoC.connect(url, function (err, db) {
     })
     router.post("/getReview", function (req, res) {
         var data = req.body;
-        console.log(data.regNum,data.date);
-       db.collection("review").find(  //{
-        //     reviews: {
-        //         $elemMatch: {
-        //             "regNum": data.regNum,
-        //             "date": data.date,
-        //             "sext": data.sex,
-        //             "symptoms": data.symptoms,
-        //             "userName": data.user
-        //         }
-        //     }}
-        ).toArray(function (err, reply) {
+      
+       db.collection("review").find().toArray(function (err, reply) {
             if (err) {
                 throw err;
             } else {
@@ -56,7 +46,6 @@ mongoC.connect(url, function (err, db) {
                    };
                 reply[0].reviews.forEach(function(element){
                     if(element.userName == data.user && element.regNum == data.regNum && element.date == data.date){
-                        console.log(element.review);
                         rev.review = element.review;
                        
                     }
@@ -81,7 +70,6 @@ mongoC.connect(url, function (err, db) {
 
                     }
                 })
-                console.log(arr);
                 res.send(arr);
             }
 
@@ -91,8 +79,6 @@ mongoC.connect(url, function (err, db) {
 
     })
     router.post("/review", function (req, res) {
-        console.log(req.body)
-
         db.collection("review").update({
             "_id": 1
         }, {

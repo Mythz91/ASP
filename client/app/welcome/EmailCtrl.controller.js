@@ -9,7 +9,7 @@ var EmailCtrl = function ($scope, $rootScope, $uibModalInstance, emailForm, emai
         $scope.topic = data;
     }
     $scope.submitForm = function (email, topic, data) {
-        console.log(email, topic, data, $window.localStorage.getItem("email"));
+      
         if(data==undefined){
             $scope.cancel();
         }

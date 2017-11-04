@@ -9,7 +9,7 @@ var FormCtrl = function ($scope, $rootScope, $uibModalInstance, userForm, discus
     
                 return 0;
             }
-            console.log(topic, discussion);
+       
             var text = {
                 userName: $window.localStorage.getItem("user"),
                 email: $window.localStorage.getItem("email"),
@@ -17,9 +17,9 @@ var FormCtrl = function ($scope, $rootScope, $uibModalInstance, userForm, discus
                 detail: discussion
             }
             discussionStartService.startDiscussion(text).then(function (success) {
-                console.log(success);
+             
                 DataService.getData().then(function (data) {
-                    console.log(data);
+                  
     
                     $rootScope.$emit("change", data);
     

@@ -22,7 +22,7 @@
 
             }, function (err) {
              
-                console.log(err);
+              
             })
         }
         previous.getReview = function(index,date,user,sex,symptoms){

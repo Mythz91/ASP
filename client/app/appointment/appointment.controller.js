@@ -25,6 +25,7 @@
        
         appoint.validate = false;
         appoint.showres=false;
+        appoint.fail = false;
         appoint.show = false;
         appoint.res = "";
        
@@ -34,6 +35,9 @@
             appoint.user = "";
 
 
+        }
+        appoint.clearFail = function(){
+            appoint.fail = false;
         }
         appoint.clearDate= function(){
             appoint.dateCheck="";
@@ -49,10 +53,18 @@
                 appoint.dateCheck = "please select a date and time";
             }
             appoint.dateCheck = "";
-            console.log(appoint.date);
+        
 
             var today = new Date();
             var check = new Date(appoint.date);
+            if(check.getHours()>15 || check.getHours()<8){
+                appoint.dateCheck = "please select time from 8:00 AM to 03:00 PM";
+            }
+            
+            if(check.getTime()<today.getTime()){
+            
+                appoint.dateCheck = "please select time of future : "+"the current time is "+today.toLocaleTimeString();;
+            }
 
             // if (check < today || check == today) {
             //     appoint.dateCheck = "please select a date of future occurance";
@@ -104,10 +116,15 @@
                 
                  
                 appointmentService.createAppointment(data).then(function (data) {
-                    appoint.showres=true;
-                 
+                    if(data == "failed"){
+                        appoint.fail = true;
+                    }else{
+  
+                        appoint.showres=true;
+                    }
+          
                 }, function (err) {
-                    console.log(err);
+               
                 })
             }
         }

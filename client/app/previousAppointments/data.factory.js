@@ -4,11 +4,11 @@ angular
  
     var data;
     this.setData = function(value){
-        console.log("called")
+       
        data = value;
     }
 this.getData = function(){
-    console.log("called")
+   
     return data;
 }
 return{

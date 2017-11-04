@@ -8,6 +8,9 @@
             <div uib-alert class="alert alert-danger"  close="appoint.closeOne()" ng-if="appoint.validate" >
                     Please fill in all the details
               </div>
+              <div uib-alert class="alert alert-danger"  close="appoint.clearFail()" ng-if="appoint.fail" >
+               You already have a appointment around that time. Please try another time for appointment
+          </div>
               <div uib-alert class="alert alert-success"  close="appoint.closeRes()" ng-if="appoint.showres" >
                    Your appointment is confirmed
               </div>

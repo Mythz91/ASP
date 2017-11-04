@@ -84,11 +84,7 @@
         templateUrl:'app/previousAppointments/previous.html',
         controller:'previousController as data'
       })
-      .state('doc',{
-        url:'/doc',
-        templateUrl:'templates/finder.html',
-      
-      })
+     
   
       .state('update',{
         url:'/update',

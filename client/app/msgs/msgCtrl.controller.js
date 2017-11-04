@@ -15,7 +15,7 @@
         vm.empty="";
         vm.getData = function () {
             MessageService.getData().then(function (success) {
-                 console.log(success);
+               
                 vm.data = success;
             }, function (err) {
 

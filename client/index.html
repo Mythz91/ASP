@@ -34,22 +34,7 @@
   <div class="container body-content"  ui-view></div>
   <footer data-ng-include=" 'templates/footer.html'"></footer>
 
-  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
- <!-- <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-XXXXX-X');
-    ga('send', 'pageview');
-  </script> -->
 
-  <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-  <![endif]-->
-
-  <!-- build:js vendor.js -->
   <!-- bower:js -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -85,14 +70,10 @@
   <script src="app/adminReview/registerService.service.js"></script>
   <script src="app/adminReview/review.controller.js"></script>
   <script src="app/adminReview/reviews.directive.js"></script>
-  <script src="app/appointment/appointment.controller.js"></script>
-  <script src="app/appointment/appointmentService.service.js"></script>
   <script src="app/home/home.controller.js"></script>
   <script src="app/home/home.route.js"></script>
-  <script src="app/login/authInterceptor.factory.js"></script>
-  <script src="app/login/getLogin.controller.js"></script>
-  <script src="app/login/tokenFactory.factory.js"></script>
-  <script src="app/login/userService.service.js"></script>
+  <script src="app/appointment/appointment.controller.js"></script>
+  <script src="app/appointment/appointmentService.service.js"></script>
   <script src="app/msgs/msgCtrl.controller.js"></script>
   <script src="app/msgs/msgDelete.service.js"></script>
   <script src="app/msgs/msgService.service.js"></script>
@@ -102,6 +83,10 @@
   <script src="app/previousAppointments/review.controller.js"></script>
   <script src="app/register/register.controller.js"></script>
   <script src="app/register/registrationService.service.js"></script>
+  <script src="app/login/authInterceptor.factory.js"></script>
+  <script src="app/login/getLogin.controller.js"></script>
+  <script src="app/login/tokenFactory.factory.js"></script>
+  <script src="app/login/userService.service.js"></script>
   <script src="app/reply/addReplyService.service.js"></script>
   <script src="app/reply/reply.controller.js"></script>
   <script src="app/reply/replyService.service.js"></script>

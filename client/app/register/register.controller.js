@@ -102,20 +102,20 @@
     }
     vm.verifyPass = function(){
         if(!(vm.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g))){
-            console.log("here")
+          
             vm.passErr= "please enter  at least one number, one lowercase and one uppercase letter at least four characters long password"
         return false;
         }
         return true;
     }
     vm.confirmPass=function(){
-        console.log("here")
+        
         if(!(vm.passwordConfirm.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g))){
             vm.confirmErr= "please enter  at least one number, one lowercase and one uppercase letter at least four characters long password"
         return false;
         }
       if(!(vm.password==vm.passwordConfirm)){
-          console.log("not match")
+        
         vm.confirmErr="please enter same password for confirmation";
         vm.passwordConfirm="";
         vm.password="";

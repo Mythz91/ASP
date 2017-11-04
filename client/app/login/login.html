@@ -39,7 +39,7 @@
                                         <div class="form-group col-xs-12">
                                             <label for="password"><span class="text-danger" style="margin-right:5px;">*</span>Password:</label>
                                             <div class="input-group">
-                                                    <input type="password" name="password" required class="form-control" minlength="4"  ng-keypress="vm.clearPassErr()" ng-model="vm.password"  ng-blur=" vm.verifyPass()" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"><br/>
+                                                    <input type="password" name="password" ng-Change="vm.clear()" required class="form-control" minlength="4"  ng-keypress="vm.clearPassErr()" ng-model="vm.password"  ng-blur=" vm.verifyPass()" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"><br/>
                                                 <span class="input-group-btn">
                                                     <label class="btn btn-success"><span class="glyphicon glyphicon-lock" aria-hidden="true"></label>
                                                 </span>

@@ -39,11 +39,14 @@ var reg = "";
 
         }
         vm.login = login;
+        vm.clear= function(){
+            vm.err="";
+        }
         function login(regNum, password) {
             if(vm.verifyUser()){
            try {
                 UserService.login(regNum, password, URL).then(function (res) {
-                    console.log(res);
+                 
                     reg = regNum;
                    data=res.username;
                     pass=password;
@@ -56,7 +59,7 @@ var reg = "";
                         $location.path('/admin')
                     }
                    else if(res.token){
-                       console.log("token");
+                    
                         authTokenFactory.setToken(res.token);
                         $location.path('/welcome');
                     }

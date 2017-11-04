@@ -56,7 +56,6 @@ mongoC.connect(url, function (err, db) {
     })
     router.post("/delete", function (req, res) {
         var data = req.body;
-        console.log(data);
         db.collection("UserDetails").updateOne({ $and: [{ "user.registrationNumber": data.regNum, "user.userName": data.regUser }] }, { $pull: { "user.appointment": { "user": data.pt, "date": data.date, "symptoms": data.sym, "sex": data.sex, "age": data.age } } }, function (err, reply) {
             if (err) { throw err; } else {
               
@@ -77,7 +76,6 @@ mongoC.connect(url, function (err, db) {
     })
     router.post("/editApp", function (req, res) {
       var data = req.body;
-      console.log("called");
         db.collection("UserDetails").updateOne({ $and: [{ "user.registrationNumber": data.reg, "user.userName": data.regUser }] }, { $pull: { "user.appointment": { "user": data.pastPt, "date": data.pastDate, "symptoms": data.pastSymp, "sex": data.pastSex, "age": data.pastAge } } }, function (err, reply) {
             if (err) { throw err } else {
             
@@ -86,7 +84,6 @@ mongoC.connect(url, function (err, db) {
                     if (err1) {
                         throw err1;
                     } else {
-                        console.log("inserted");
                         var sendMail = {
                             from: 'medicalinglobal@gmail.com',
                             to: data.email,

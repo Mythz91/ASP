@@ -17,10 +17,10 @@
                     pass: password
                 }
             }).success(function (data) {
-                console.log(data)
+             
                 defer.resolve(data);
             }).error(function (err) {
-                console.log(err);
+               
                 defer.reject(err);
             })
             return defer.promise;

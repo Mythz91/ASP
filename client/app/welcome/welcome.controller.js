@@ -71,8 +71,7 @@ var data, mail;
             data = topic;
             mail = email;
 
-            console.log(userName, topic, email);
-
+       
             var modal = $uibModal.open({
                 templateUrl: 'templates/email-form.html',
                 controller: EmailCtrl,

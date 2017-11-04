@@ -30,7 +30,7 @@ $scope.submitForm = function (review) {
        review :review
     } 
     ReviewUploadService.writeReview(data).then(function(success){
-        console.log("here")
+     
         $rootScope.review = true;
         $rootScope.$emit("change2",true);
      

@@ -39,8 +39,7 @@ mongoC.connect(url, function (err, db) {
 
                         res.send('updated but mail sending failed');
                     } else {
-                        console.log("here");
-                        //res.send();
+                     
                         res.end("Update of information is successful");
                     }
 
