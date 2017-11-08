@@ -87,8 +87,8 @@ mongoC.connect(url, function (err, db) {
                         var mail = {
                             from: 'medicalinglobal@gmail.com',
                             to: data.email,
-                            subject: 'Medical Insights-Appointment has been re-scheduled ' + data.regUser,
-                            html: '<h1>Greetings</h1><p>The following appointment is been re-scheduled for today:</p> <p> The appointment was scheduled for ' + data.pt + ' of age ' + data.age + ' ' + data.sex + ' with symptoms of ' + data.symptoms + ' at ' + dateFormat(data.date, "ddd mmm dd yyyy HH:MM:ss") + "</p> <h4>Please revert back to us for more information</h4> <p>-Medical Insights</p>"
+                            subject: 'Medical Insights-Appointment has been Edited ' + data.regUser,
+                            html: '<h1>Greetings</h1><p>The following appointment is been edited today:</p> <p> The appointment was scheduled for ' + data.pt + ' of age ' + data.age + ' ' + data.sex + ' with symptoms of ' + data.symptoms + ' at ' + dateFormat(data.date, "ddd mmm dd yyyy HH:MM:ss") + "</p> <h4>Please revert back to us for more information</h4> <p>-Medical Insights</p>"
                         };
                         transporter.sendMail(mail, function (error, info) {
                             if (error) throw error;

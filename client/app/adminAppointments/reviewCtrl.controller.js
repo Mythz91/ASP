@@ -12,7 +12,7 @@ $scope.getData = function () {
     $scope.age =val.age;
     $scope.sext =val.sex;
     $scope.date =val.date;
-    $scope.symptoms =val.symptoms;
+    $scope.symptoms =val.symp;
     
 
 }
@@ -20,16 +20,25 @@ $scope.getData = function () {
 $scope.close = function () {
     $scope.disp = false;
 }
-$scope.submitForm = function (review) {
+$scope.submitForm = function (review,drugs) {
+
+var drug;
+if(drugs==null||drugs==undefined||drugs==""){
+    drug=["no drugs prescribed"];
+}
+else if(drugs.includes(" ")){
+    drug=drugs.split(" ");
+}
 
     var data = {
         userName : val.user,
        age : val.age,
        sext : val.sex,
        date : val.date,
-       symptoms : val.symptoms,
+       symptoms : val.symp,
        regNum : val.reg,
-       review :review
+       review :review,
+       drugs:drug
     } 
     appService.writeReview(data).then(function(success){
        

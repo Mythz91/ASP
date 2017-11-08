@@ -7,6 +7,7 @@
 
     function registerCtrl(RegistrationService){
         var vm = this;
+        vm.disp=true;
       var statesList=["AK - Alaska",
       "AL - Alabama",
       "AR - Arkansas",
@@ -70,7 +71,10 @@
       
         vm.address = "";
         vm.city="";
-     
+        vm.Errdata=false;
+        vm.closeErr1 = function(){
+            vm.Errdata=false;
+        }
         vm.states;
         vm.zip="";
         vm.zipErr="";
@@ -134,6 +138,7 @@
 
         vm.getRegistered = function(userName,regNum,mail,addr,city,state,zip,password){
             if(vm.confirmPass() && vm.verifyPass() && vm.verifyZip()){
+                vm.disp=false;
             var data ={
                userName: userName,
                registration: regNum,
@@ -165,7 +170,12 @@
             vm.verifyState = "";
            try{
             RegistrationService.register(data,URL).then(function(success){
-                vm.data=true;
+                if(success=="the registration number is already in use"){
+                    vm.Errdata=true;
+                }else{
+                    vm.data=true;
+                }
+            
                
             },function(err){
                 vm.dataErr=true;

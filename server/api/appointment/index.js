@@ -112,6 +112,3 @@ mongoC.connect(url, function (err, db) {
 });
 
 module.exports = router;
-// else {
-//     
-// }

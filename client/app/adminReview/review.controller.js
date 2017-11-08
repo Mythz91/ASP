@@ -18,6 +18,7 @@
         vm.getRegister = function(){
             registerService.getData().then(function(success){
                 vm.choices=success;
+                
               
             }, function(error){
 
@@ -41,6 +42,7 @@
                 }else{
                 vm.choiceMade=true;
                 vm.data = success;
+                console.log(vm.data);
            
                 }
             },function(error){
