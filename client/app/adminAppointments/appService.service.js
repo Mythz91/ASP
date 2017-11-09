@@ -89,4 +89,24 @@ this.writeReview = function (text) {
 
 
 }
+
+this.findReview = function(text){
+    var defer = $q.defer();
+    $http({
+        method: 'POST',
+        url: 'http://localhost:9000/api/v1/review/checkReview',
+        data: text,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+
+    }).success(function (res) {
+        defer.resolve(res)
+    }).error(function (err) {
+        defer.reject(err)
+    })
+    return defer.promise;
+
+
+}
 }

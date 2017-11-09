@@ -9,13 +9,14 @@
       var index;
         var data;
         vm.bool = false;
-      
+      vm.found=false;
         vm.del = false;
         $rootScope.userDetails = {};
       vm.contact;
         vm.regUser;
         vm.reg;
         vm.email;
+        
         $rootScope.review = false;
      
        
@@ -53,6 +54,9 @@
         }
         vm.close = function(){
             $rootScope.review=false;
+        }
+        vm.closeFound = function(){
+            vm.found=false;
         }
      
         vm.loadDetails = function () {
@@ -106,18 +110,30 @@
                 index:index
 
             }
+          
+            appService.findReview(val).then(function(success){
+                console.log(typeof success)
+               if(success=="found"){
+                vm.found =true
+               }
+              else{
+                ReviewFactory.setData(val);
+                
+                 var modalInstance = $uibModal.open({
+                   templateUrl: 'templates/review-form.html',
+                     controller: ReviewCtrlStart,
+                     resolve: {
+                         reviewForm: function () {
+                             return vm.reviewForm;
+                         }
+                     }
+                 })
+               }
+            },function(err){
 
-            ReviewFactory.setData(val);
-           
-            var modalInstance = $uibModal.open({
-              templateUrl: 'templates/review-form.html',
-                controller: ReviewCtrlStart,
-                resolve: {
-                    reviewForm: function () {
-                        return vm.reviewForm;
-                    }
-                }
             })
+
+       
     
 
         }

@@ -26,17 +26,16 @@ mongoC.connect(url, function (err, db) {
             
             else{if(reply.length){
                 var arr = reply[0].registrationList;
-               arr.forEach(function(element){
-                   if(data.registration ==element){
+               for(var i=0;i<arr.length;i++){
+                   if(data.registration ==arr[i]){
                        count=0;
                        res.send("the registration number is already in use");
                        res.end();
+                       break;
                     
-                   }else{
-                       count=1;
-                       
+                   } 
                    }
-               })
+               }
             
                 if(count==1){
                       db.collection("UserDetails").update({"reg":"userReg"},{$push:{ "registrationList": data.registration }}, function (err, result) {
@@ -103,7 +102,7 @@ mongoC.connect(url, function (err, db) {
                 })
             }
             }
-        }
+        
         })
       
     })

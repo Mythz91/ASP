@@ -10,6 +10,7 @@
       <th>Date of Appointment</th>
       <th>Symptoms</th>
       <th>Review</th>
+      <th>Drugs</th>
     </thead>
     <tbody>
 
@@ -21,6 +22,10 @@
                     <td>{{value.date | date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
                     <td>{{value.symptoms}}</td>
                     <td>{{value.review}}</td>
+                    <td >
+                      <div ng-repeat="d in value.drugs"> <span>{{d}}</span><br/></div>
+                     
+                    </td>
                 </tr>
 
     </tbody>

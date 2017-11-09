@@ -14,6 +14,7 @@ var jwt = require("jsonwebtoken");
 var expressJwt = require("express-jwt");
 
 
+
 module.exports = function (app) {
 
   var env = config.env;
@@ -32,7 +33,7 @@ module.exports = function (app) {
   // app.use(expressJwt({
   //   secret : jwtSecret
   // }).unless({
-  //   path :['/login']
+  //   path :['/login','/register']
   // }));
   if (env === 'development' || env === 'test') {
     app.use(require('errorhandler')());

@@ -42,6 +42,7 @@
         templateUrl:'app/admin/admin.html',
         controller:'adminCtrl as vm'
       })
+      
       .state('app',{
         url:'/app',
         templateUrl:'app/adminAppointments/appointmentsHistory.html',
@@ -63,6 +64,7 @@
         controller:'aboutCtrl'
        
       })
+      
       .state('welcome',{
         url:'/welcome',
         templateUrl : 'app/welcome/welcome.html',
@@ -84,7 +86,7 @@
         templateUrl:'app/previousAppointments/previous.html',
         controller:'previousController as data'
       })
-     
+      
   
       .state('update',{
         url:'/update',

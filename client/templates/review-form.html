@@ -14,11 +14,16 @@
             <p ng-show="form.reviewForm.data.$error.minlength" class="help-block">Review is too short.</p>
             <p ng-show="form.reviewForm.data.$error.maxlength" class="help-block">Review is too long.</p>
         </div>
+        <div class="form-group">
+            <label>Drugs</label><br/>
+            <input type="text" ng-model="drugs" />
+
+        </div>
 
 
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-success" ng-disabled="form.reviewForm.$invalid" ng-click="submitForm(data)">Save</button>
+        <button type="submit" class="btn btn-success" ng-disabled="form.reviewForm.$invalid" ng-click="submitForm(data,drugs)">Save</button>
         <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
     </div>
 </form>

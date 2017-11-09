@@ -4,7 +4,7 @@
 <div id="login">
         <div class="shift">
     <legend><h2 class="text-success">Make a Appointment</h2></legend>
-    <form name="appointment" ng-submit-"" novalidate>
+   
             <div uib-alert class="alert alert-danger"  close="appoint.closeOne()" ng-if="appoint.validate" >
                     Please fill in all the details
               </div>
@@ -17,67 +17,7 @@
               <div uib-alert class="alert alert-warning"  close="appoint.close()" ng-if="appoint.delete" >
                     The appointment is cancelled
                </div>
-
-        <p> Name :
-             
-               
-
-                <input type="text" class="form-control"  placeholder="enter your name" name="userName" ng-model="appoint.userName" minlength="5"  maxlength="20" required onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)|| event.charCode==32"/>
-          
-            </p>
-            <div ng-messages="appointment.userName.$error">
-                    <p class="warn" ng-message="minlength">Your name is too short.</p>
-                    <p class="warn" ng-message="maxlength">Your name is too long.</p>
-                    <p  class="warn" ng-message="required">Your name is required.</p>
-                </div>
-            <p>Age :
-                <input type="number" class="form-control" name="age" min="1" max="90" ng-model="appoint.age"  required/>
-             
-            </p>
-            <div ng-messages="appointment.age.$error">
-                    <p class="warn" ng-message="min">Please enter a positive age</p>
-                    <p class="warn" ng-message="max">Please enter age between 1-90</p>
-                    <p class="warn" ng-message="required">Your age is required.</p>
-                </div>
-            <p> Sex :
-                <select required ng-model="appoint.sext" name="sex" ng-options="sex as sex for sex in appoint.sex"  >
-                </select>
-               <br/> 
-            </p>
-            <div ng-messages="appointment.sex.$error">
-                     <p class="warn" ng-message="required">Please select your Sex.</p>
-                </div>
-            <p>Date of appointment:
-               
-                <input type="datetime-local" name="date" class="form-control" ng-model="appoint.date" id="datepicker" ng-blur="appoint.verifyDate()" ng-change="appoint.clearDate()"required/> <span class="warn">{{appoint.dateCheck}}</span>
-            </p>
-            <div ng-messages="appointment.date.$error">
-                    <p class="warn" ng-message="required">Please a date as Date "mm/dd/yyyy : HH:MM AM/PM".</p>
-               </div>
-            <p>Enter the symptoms of the problem:
-                <br/>
-                <textarea id="problem" rows="5" cols="50" name="symptoms" minlength="5" ng-model="appoint.symptoms"  required></textarea>
-            </p>
-            <div ng-messages="appointment.symptoms.$error">
-                    <p class="warn"  ng-message="required">Please enter your symptoms</p>
-                    <p class="warn"  ng-message="minlength">Please provide a detailed description of your symptoms</p>
-
-               </div>
-            <p>Contact :
-                <input type="text" placeholder="999#######" name="contact" minlength="10" maxlength="10" ng-model="appoint.contact" ng-blur="appoint.checkContact()" required onkeyup="this.value=this.value.replace(/[^\d]/,'')"/>
-            </p>
-            <div ng-messages="appointment.contact.$error">
-                    <p class="warn" ng-message="required">Please enter your Contact information</p>
-                  
-
-               </div>
-            <p>
-                <button class="btn btn-success"  type="submit" ng-click="appoint.confirmAppointment()">Make a Appointment!</button>
-                <br/>
-    
-            
-            </p>
-        </form>
+               <appoint ng-show="appoint.app"></appoint>
             <div ng-show="appoint.show">
                 <table>
                     <tr>
