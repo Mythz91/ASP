@@ -22,12 +22,16 @@ $scope.close = function () {
 }
 $scope.submitForm = function (review,drugs) {
 
-var drug;
-if(drugs==null||drugs==undefined||drugs==""){
-    drug=["no drugs prescribed"];
+var drug=[];
+if(!drugs){
+    drug.push("no drugs prescribed");
 }
+
 else if(drugs.includes(" ")){
     drug=drugs.split(" ");
+}
+else if(drugs){
+    drug.push(drugs);
 }
 
     var data = {

@@ -69,11 +69,13 @@ mongoC.connect(url, function (err, db) {
                 reply[0].reviews.forEach(function (element) {
               if(element.regNum == data.reg && element.date==data.date && element.symptoms==data.symp){
                   rep=1;
-                res.send("found")
+               
              }
             })
             if(rep==0){
                 res.send("empty");
+            }else{
+                res.send("found")
             }
         }
 

@@ -86,16 +86,7 @@
         templateUrl:'app/previousAppointments/previous.html',
         controller:'previousController as data'
       })
-      .state('req',{
-        url:'/req',
-        templateUrl:'app/req/req.html',
-        controller:'reqCtrl as vm'
-      })
-      .state('reqs',{
-        url:'/reqs',
-        templateUrl:'app/adminReq/reqs.html',
-        controller:'adminReqs as vm'
-      })
+      
   
       .state('update',{
         url:'/update',
