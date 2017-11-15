@@ -50,10 +50,10 @@ var reg = "";
                     reg = regNum;
                    data=res.username;
                     pass=password;
-                    $window.localStorage.setItem("user",res.username);
-                    $window.localStorage.setItem("reg",regNum);
-                    $window.localStorage.setItem("pass",password);
-                    $window.localStorage.setItem("email",res.email);
+                    $window.sessionStorage.setItem("user",res.username);
+                    $window.sessionStorage.setItem("reg",regNum);
+                    $window.sessionStorage.setItem("pass",password);
+                    $window.sessionStorage.setItem("email",res.email);
                     if(res.username=='Admin'&& res.token && regNum=="9999999"){
                         authTokenFactory.setToken(res.token);
                         $location.path('/admin')
@@ -76,7 +76,7 @@ var reg = "";
         function logout(){
             authTokenFactory.setToken("");
             vm.userName = "";
-            $window.localStorage.clear();
+            $window.sessionStorage.clear();
             $location.path("/");
            
         }

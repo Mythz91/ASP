@@ -16,7 +16,7 @@ var transporter = mailer.createTransport({
 
 mongoC.connect(url, function (err, db) {
     router.post("/appointment", function (req, res) {
-        console.log("here1")
+    
         var data = req.body;
         db.collection("UserDetails").find({
             $and: [{
@@ -24,7 +24,7 @@ mongoC.connect(url, function (err, db) {
                 "user.password": req.body.password
             }]
         }).toArray(function (er, response) {
-            console.log("here2")
+  
             if (er) {
                 console.log(er);
             } else {

@@ -7,7 +7,7 @@ angular.module('app.home')
         $http({
             url: 'http://localhost:9000/api/v1/discussion/delete',
             data: {
-                user: $window.localStorage.getItem("user"),
+                user: $window.sessionStorage.getItem("user"),
                 topic: topic,
                 discussion: discussion,
                 time: time

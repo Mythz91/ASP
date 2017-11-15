@@ -1,5 +1,5 @@
 <div>
-    <form name="appointment" ng-submit- "" novalidate>
+    <form name="appointment" ng-submit- "" novalidate >
         <p> Name :
 
 
@@ -23,7 +23,7 @@
             <p class="warn" ng-message="max">Please enter age between 1-90</p>
             <p class="warn" ng-message="required">Your age is required.</p>
         </div>
-        <p> Sex :
+        <p> Gender :
             <select required ng-model="appoint.sext" name="sex" ng-options="sex as sex for sex in appoint.sex">
                 </select>
             <br/>
@@ -31,13 +31,37 @@
         <div ng-messages="appointment.sex.$error">
             <p class="warn" ng-message="required">Please select your Sex.</p>
         </div>
+        <div>Department:
+            <select required ng-model="appoint.selectDept" name="dept" ng-change="appoint.changeDoc(appoint.selectDept)" ng-options="dept as dept for dept in appoint.dept"></select>
+            <div ng-messages="appointment.dept.$error">
+                <p class="warn" ng-message="required">Please select Department.</p>
+            </div>
+        </div>
+        <br/>
+        <div>
+            Doctor:
+            <select required ng-model="appoint.selectDoc" name="doc"  ng-options="doc as doc for doc in appoint.doc"></select>
+            <div ng-messages="appointment.doc.$error">
+                <p class="warn" ng-message="required">Please select a Doctor.</p>
+            </div>
+
+        </div>
         <p>Date of appointment:
 
             <input type="datetime-local" name="date" class="form-control" ng-model="appoint.date" id="datepicker" ng-blur="appoint.verifyDate()"
                 ng-change="appoint.clearDate()" required/> <span class="warn">{{appoint.dateCheck}}</span>
         </p>
+        
         <div ng-messages="appointment.date.$error">
             <p class="warn" ng-message="required">Please a date as Date "mm/dd/yyyy : HH:MM AM/PM".</p>
+        </div>
+        <div ng-show="appoint.selectedDet">
+            <p>Availability of Doctor <b>{{appoint.selectDoc}}</b></p>
+            <table border="1px">
+                <tr>
+                    <th>For the Date : <b>{{appoint.date | date : "MMMM/dd/yyyy :  hh:mm:ss"}}</b></th>
+              <td><button class="btn btn-success" ng-click="appoint.checkAvailability(appoint.selectDoc,appoint.date, appoint.selectDept)">Check Availability</button></td></tr>
+            </table>
         </div>
         <p>Enter the symptoms of the problem:
             <br/>
@@ -54,7 +78,8 @@
         </p>
         <div ng-messages="appointment.contact.$error">
             <p class="warn" ng-message="required">Please enter your Contact information</p>
-            <p class="warn" ng-message="pattern">Please enter another contact number</p>
+            <p class="warn" ng-message="minlength">Please enter 10 digit contact number</p>
+            <p class="warn" ng-message="pattern">Please enter another contact number. Contact number cannot start with '0'</p>
 
 
         </div>

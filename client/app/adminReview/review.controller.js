@@ -12,7 +12,7 @@
       vm.err=false;
       
 
-        if (!$window.localStorage.getItem("auth-token")) {
+        if (!$window.sessionStorage.getItem("auth-token")) {
             $location.path("/");
         }
         vm.getRegister = function(){

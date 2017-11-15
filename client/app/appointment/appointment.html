@@ -2,7 +2,7 @@
 
 
 <div id="login">
-        <div class="shift">
+        <div class="shift" ng-init="appoint.getData()">
     <legend><h2 class="text-success">Make a Appointment</h2></legend>
    
             <div uib-alert class="alert alert-danger"  close="appoint.closeOne()" ng-if="appoint.validate" >
@@ -31,6 +31,12 @@
                         <th>Sex : </th><td>{{appoint.sext}}</td>
                     </tr>
                     <tr>
+                        <th>Appointment with Department:</th> <td>{{appoint.selectDept}}</td>
+                    </tr>
+                    <tr>
+                        <th>Doctor:</th> <td>{{appoint.selectDoc}}</td>
+                    </tr>
+                    <tr>
                         <th>Appointment confirmation Date :</th> <td>{{appoint.date | date : "MMMM/dd/yyyy :  hh:mm:ss"}}</td>
                     </tr>
                     <tr>
@@ -41,7 +47,7 @@
                     </tr>
                     <tr>
                         <td><button  id ="appoint" class="btn btn-success" ng-click="appoint.appointment()">Confim Appointment</button></td>
-                        <td><button id="dis" class="btn btn-danger" ng-click="appoint.drop()" ng-disabled="appoint.disable">Drop Appointment</button></td>
+                        <td><button id="dis" class="btn btn-danger" ng-click="appoint.drop()" >Drop Appointment</button></td>
                     </tr>
                 </table>
                 {{appoint.res}}

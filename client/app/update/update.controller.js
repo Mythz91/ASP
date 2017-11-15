@@ -3,7 +3,7 @@
         .module('app.home')
         .controller('updateCtrl', update)
     function update(updateService, updateInfo,$window,$location) {
-        if(!$window.localStorage.getItem("auth-token")){
+        if(!$window.sessionStorage.getItem("auth-token")){
             $location.path("/");
         }
         var vm = this;

@@ -57,4 +57,4 @@ function authenticate(req,res,next){
 
  });
 
-module.exports = router;
+module.exports = {router, jwtSecret}

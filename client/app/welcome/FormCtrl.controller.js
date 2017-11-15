@@ -11,8 +11,8 @@ var FormCtrl = function ($scope, $rootScope, $uibModalInstance, userForm, discus
             }
        
             var text = {
-                userName: $window.localStorage.getItem("user"),
-                email: $window.localStorage.getItem("email"),
+                userName: $window.sessionStorage.getItem("user"),
+                email: $window.sessionStorage.getItem("email"),
                 post: topic,
                 detail: discussion
             }

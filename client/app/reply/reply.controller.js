@@ -1,12 +1,12 @@
 angular.module("app.home")
     .controller("replyCtrl",replyCtrl)
     function replyCtrl(replyService, addReplyService,$window){
-        if(!$window.localStorage.getItem("auth-token")){
+        if(!$window.sessionStorage.getItem("auth-token")){
             $location.path("/");
         }
         var vm = this;
-        vm.userName = $window.localStorage.getItem("to");
-        vm.topic = $window.localStorage.getItem("topic");
+        vm.userName = $window.sessionStorage.getItem("to");
+        vm.topic = $window.sessionStorage.getItem("topic");
         vm.replyText="";
         vm.data;
         vm.check=true;
@@ -26,7 +26,7 @@ angular.module("app.home")
         vm.replyText="";
            var text = {
                reply : text,
-               user : $window.localStorage.getItem("user"),
+               user : $window.sessionStorage.getItem("user"),
                topic:vm.topic,
                to:vm.userName
            }

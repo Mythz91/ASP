@@ -52,6 +52,7 @@
             <div ng-messages="register.zip.$error">
                 <p class="warn" ng-message="minlength">Please enter Zip </p>
                 <p class="warn" ng-message="required">Zip is required.</p>
+                <p>{{vm.zipErr}}</p>
             </div>
         </p>
         <p> Password:

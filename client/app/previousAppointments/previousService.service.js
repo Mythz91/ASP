@@ -6,8 +6,8 @@ angular.module("app.home")
             method: 'POST',
             url: 'http://localhost:9000/api/v1/getAppointments',
             data : {
-                regNum : $window.localStorage.getItem("reg"),
-                password: $window.localStorage.getItem("pass")
+                regNum : $window.sessionStorage.getItem("reg"),
+                password: $window.sessionStorage.getItem("pass")
             },
             headers: {
                 'Content-Type': 'application/json'

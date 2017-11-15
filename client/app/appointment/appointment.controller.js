@@ -4,12 +4,12 @@
         .controller('appointmentCtrl', appoint)
 
     function appoint(appointmentService, $location, $window) {
-        if (!$window.localStorage.getItem("auth-token")) {
+        if (!$window.sessionStorage.getItem("auth-token")) {
             $location.path("/");
         }
         var appoint = this;
         appoint.userName = "";
-
+        appoint.selectedDet=false;
         appoint.age;
         appoint.app = true;
         appoint.sex = ["male", "female", "not interested to disclose"];
@@ -18,7 +18,7 @@
         appoint.date = "";
         appoint.delete = false;
         appoint.dateCheck = "";
-        appoint.disable = false;
+        appoint.disable = true;
         appoint.symptoms = "";
 
         appoint.contact = "";
@@ -43,6 +43,7 @@
         }
         appoint.clearDate = function () {
             appoint.dateCheck = "";
+            appoint.selectedDet=false;
         }
         appoint.closeRes = function () {
             appoint.showres = false;
@@ -53,8 +54,11 @@
 
 
         appoint.verifyDate = function () {
+           var bool=false;
             if (!appoint.date) {
                 appoint.dateCheck = "please select a date and time";
+                appoint.selectedDet=false;
+                return false;
             }
             appoint.dateCheck = "";
 
@@ -63,11 +67,15 @@
             var check = new Date(appoint.date);
             if (check.getHours() > 15 || check.getHours() < 8) {
                 appoint.dateCheck = "please select time from 8:00 AM to 03:00 PM";
+                appoint.selectedDet=false;
+                return false;
+
             }
 
             if (check.getTime() < today.getTime()) {
-
+                appoint.selectedDet=false;
                appoint.dateCheck = "please select time of future : " + "the current time is " + today.toLocaleTimeString();;
+            return false;
             }
 
             // if (check < today || check == today) {
@@ -78,11 +86,31 @@
 
             var diff = Math.round(Math.abs((todayTime - checkTime) / (24 * 60 * 60 * 1000)));
             if (diff > 6) {
+                appoint.selectedDet=false;
                 appoint.dateCheck = "please select a date which is within a week from today " + (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+           return false;
+            }
+            bool=true;
+            if(appoint.selectDept && appoint.selectDoc && bool){
+              
+                appoint.selectedDet=true;
+                return true;
             }
 
         }
+        appoint.checkAvailability = function(selectDoc,date, selectDept){
+         
+            var obj = {
+                doc : selectDoc,
+                date : date,
+                dept : selectDept
+            }
+            appointmentService.docTime(obj).then(function(success){
+                console.log(success);
+            },function(err){
 
+            })
+        }
         appoint.closeOne = function () {
             appoint.validate = false;
         }
@@ -148,6 +176,7 @@
 
         }
         appoint.drop = function () {
+          
             appoint.app = true;
             appoint.show = false;
             appoint.userName = "";
@@ -158,7 +187,34 @@
             appoint.sext = ""
             appoint.delete = true;
         }
-
+        appoint.dept=[];
+        appoint.selectDept;
+        var data;
+        appoint.getData = function(){
+            appointmentService.getDocDetails().then(function(success){
+               for(var i=0;i<success.length;i++){
+                appoint.dept.push(success[i].dept);
+               }
+                data=success;
+            },function(err){
+                console.log(err);
+            })
+        }
+        appoint.doc=[];
+        appoint.selectDoc;
+        appoint.changeDoc = function(dep){
+            appoint.doc=[];
+            for(var i=0;i<data.length;i++){
+                if(data[i].dept == dep){
+                    data[i].docs.forEach(function(ele){
+                        appoint.doc.push(ele);
+                    })
+                }
+                
+               }
+        }
+        
 
     }
+  
 })();

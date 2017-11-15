@@ -4,7 +4,7 @@
         .controller('previousController', previous)
 
     function previous($uibModal,$rootScope,prevService,$window,dataFactory) {
-        if(!$window.localStorage.getItem("auth-token")){
+        if(!$window.sessionStorage.getItem("auth-token")){
             $location.path("/");
         }
         var previous = this;
@@ -32,7 +32,7 @@
               user : user,
               sex : sex,
               symptoms : symptoms,
-              regNum : $window.localStorage.getItem("reg")
+              regNum : $window.sessionStorage.getItem("reg")
 
           }
             dataFactory.setData(data);

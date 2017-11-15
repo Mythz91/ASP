@@ -5,7 +5,7 @@
 
     function MessageCtrl(MessageService, MessageDeleteService, $location, $window) {
 
-        if (!$window.localStorage.getItem("auth-token")) {
+        if (!$window.sessionStorage.getItem("auth-token")) {
             $location.path("/");
         }
         var vm = this;
