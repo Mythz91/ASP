@@ -5,12 +5,12 @@ var data, mail;
         .module('app.home').controller("welcomeCtrl", welcomeCtrl)
 
     function welcomeCtrl($uibModal, DataService, $rootScope, $location, $window, $scope,date) {
-        if (!$window.localStorage.getItem("auth-token")) {
+        if (!$window.sessionStorage.getItem("auth-token")) {
             $location.path("/");
         }
         var vm = this;
         vm.greet=date.showGreet();
-        vm.userName = $window.localStorage.getItem("user");
+        vm.userName = $window.sessionStorage.getItem("user");
         vm.pass = pass;
         vm.err = false;
         vm.discussion;
@@ -27,8 +27,8 @@ var data, mail;
         vm.err = false;
        }
         vm.reply = function (userName, topic) {
-            $window.localStorage.setItem("to", userName);
-            $window.localStorage.setItem("topic", topic);
+            $window.sessionStorage.setItem("to", userName);
+            $window.sessionStorage.setItem("topic", topic);
             $location.path("/reply");
 
         }

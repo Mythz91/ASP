@@ -18,7 +18,7 @@ var EmailCtrl = function ($scope, $rootScope, $uibModalInstance, emailForm, emai
                 to : email,
                 sub:" In response to the discussion: "+topic,
                 content:data,
-                from :$window.localStorage.getItem("user")+" mail at :" +$window.localStorage.getItem("email") 
+                from :$window.sessionStorage.getItem("user")+" mail at :" +$window.sessionStorage.getItem("email") 
             }
             
             emailService.sendMail(text).then(function(success){

@@ -10,8 +10,8 @@ var config = require('./environment');
 var multer = require("multer");
 var upload = multer();
 var mongoC = require("mongodb").MongoClient;
-var jwt = require("jsonwebtoken");
-var expressJwt = require("express-jwt");
+
+
 
 
 
@@ -30,11 +30,7 @@ module.exports = function (app) {
   app.set('appPath', 'client');
   app.use(cors());
  
-  // app.use(expressJwt({
-  //   secret : jwtSecret
-  // }).unless({
-  //   path :['/login','/register']
-  // }));
+  
   if (env === 'development' || env === 'test') {
     app.use(require('errorhandler')());
   }

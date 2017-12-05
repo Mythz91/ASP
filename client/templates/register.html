@@ -10,19 +10,22 @@
             <p class="warn" ng-message="required">Your name is required.</p>
         </div>
         <p>Registration Number :
-            <input type="text" class="form-control" name="reg" ng-model="vm.regNum" required minlength="7" maxlength="7" onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-            />
+            <input type="text" class="form-control" name="reg" ng-model="vm.regNum" required   minlength="7" maxlength="7" onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+          />
             <br/> </p>
         <div ng-messages="register.reg.$error">
             <p class="warn" ng-message="minlength">Please enter a 7 digit Registration Number</p>
             <p class="warn" ng-message="required">Your Registration Number is required.</p>
+       
         </div>
         <p>Email:
-            <input type="email" class="form-control" name="email" ng-model="vm.mail" required />
+            <input type="email" class="form-control" name="email" ng-model="vm.mail" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            />
             <br/></p>
         <div ng-messages="register.email.$error">
             <p class="warn" ng-message="email">Please enter a valid email</p>
             <p class="warn" ng-message="required">Your email-id is required.</p>
+            <p class="warn" ng-message="pattern">Please enter valid email-id</p>
         </div>
         <p>Address:</p>
         <span>Street Address  :</span> <input type="text" class="form-control" ng-model="vm.address" name="street" minlength="6"
@@ -52,6 +55,7 @@
             <div ng-messages="register.zip.$error">
                 <p class="warn" ng-message="minlength">Please enter Zip </p>
                 <p class="warn" ng-message="required">Zip is required.</p>
+                <p>{{vm.zipErr}}</p>
             </div>
         </p>
         <p> Password:

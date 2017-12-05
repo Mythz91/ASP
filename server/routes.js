@@ -6,15 +6,21 @@
 
 var errors = require('./components/errors');
 var path = require('path');
+var jwt = require("jsonwebtoken");
+var expressJwt = require("express-jwt");
+var jwtSecret = require('./api/login').jwtSecret;
 
 var config = require('./config/environment');
 
 module.exports = function (app) {
+  app.use(expressJwt({
+    secret : jwtSecret
+  }).unless({
+    path :['/api/v1/login','/api/v1/register','/welcome']
+  }));
 
-  // Insert routes below
-  app.use('/api/v1/home', require('./api/home'));
 
-  app.use('/api/v1/login', require('./api/login'));
+  app.use('/api/v1/login', require('./api/login').router);
   app.use('/api/v1/register', require('./api/register'));
   app.use('/api/v1/getAppointments', require('./api/previous'))
   app.use('/api/v1/appointment', require('./api/appointment'));
@@ -22,14 +28,8 @@ module.exports = function (app) {
   app.use('/api/v1/discussion', require('./api/discussion'));
   app.use('/api/v1/schedule', require('./api/schedule'));
   app.use('/api/v1/review',require('./api/review'));
+  app.use('/api/v1/docs',require('./api/doctors'));
 
-  // Return API Version
-  app.route('/api').get(function (req, res) {
-    res.json({ "name": pkg.name, "version": "v1", "rev": pkg.version });
-  });
 
-  // All undefined asset or api routes should return a 404
-  app.route('/:url(api|auth|components|app|bower_components|assets)/*')
-    .get(errors[404]);
 
 };

@@ -9,8 +9,8 @@ angular.module("app.home")
                 'Content-Type': 'application/json'
             },
             data: {
-                regNum: $window.localStorage.getItem("reg"),
-                password: $window.localStorage.getItem("pass")
+                regNum: $window.sessionStorage.getItem("reg"),
+                password: $window.sessionStorage.getItem("pass")
             }
         }).success(function (data) {
             defer.resolve(data)

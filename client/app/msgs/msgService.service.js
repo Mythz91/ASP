@@ -7,7 +7,7 @@ angular
         $http({
             url: 'http://localhost:9000/api/v1/discussion/messages',
             data: {
-                user: $window.localStorage.getItem("user"),
+                user: $window.sessionStorage.getItem("user"),
 
             },
             method: 'POST',

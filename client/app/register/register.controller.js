@@ -137,6 +137,7 @@
     }
 
         vm.getRegistered = function(userName,regNum,mail,addr,city,state,zip,password){
+       
             if(vm.confirmPass() && vm.verifyPass() && vm.verifyZip()){
                 vm.disp=false;
             var data ={

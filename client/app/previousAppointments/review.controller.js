@@ -13,9 +13,10 @@ $scope.getReview = function(){
        
         if(success.review==""){
             $scope.review="There are no review updates";
+            $scope.drug=["There are no drugs prescribed"];
         }else{
             $scope.show=true;
-        console.log(success);
+      
             $scope.review=success.review;
             $scope.drug=success.drugs;
         }

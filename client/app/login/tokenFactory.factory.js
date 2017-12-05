@@ -1,6 +1,6 @@
 
 angular.module("app.home").factory("authTokenFactory", function($window){
-    var store = $window.localStorage;
+    var store = $window.sessionStorage;
     var key = "auth-token";
     return{
         getToken : getToken,
