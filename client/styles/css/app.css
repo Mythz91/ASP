@@ -6140,10 +6140,6 @@ header {
 .choice {
   background-color: #F1F1EF; }
 
-.choiceDiff {
-  padding: 255px;
-  border: 1px solid black; }
-
 .disp {
   font-size: 20px;
   color: #000000; }
@@ -6153,6 +6149,9 @@ header {
   .disp:active {
     color: #04692E;
     font-size: 38px; }
+
+.wid {
+  width: 50%; }
 
 .login-spacing {
   padding: 2px; }

@@ -2,10 +2,7 @@
 background-color: #F1F1EF;
 
 }
-.choiceDiff{
-padding : 255px;
-border: 1px solid black;
-}
+
 
 .disp {
     font-size: 20px;
@@ -14,11 +11,15 @@ border: 1px solid black;
     &:hover {
       color: $red;
       font-size: 32px;
-     
+
     }
     &:active {
       color: $red;
       font-size: 38px;
-    
+
     }
+  }
+
+  .wid{
+    width:50%;
   }

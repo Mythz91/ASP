@@ -37,7 +37,10 @@
                         <th>Doctor:</th> <td>{{appoint.selectDoc}}</td>
                     </tr>
                     <tr>
-                        <th>Appointment confirmation Date :</th> <td>{{appoint.date | date : "MMMM/dd/yyyy :  hh:mm:ss"}}</td>
+                        <th>Appointment confirmation Date :</th> <td>{{appoint.date | date : "MMMM/dd/yyyy"}}</td>
+                    </tr>
+                    <tr>
+                        <th>Appointment confirmation Time :</th> <td>{{appoint.checkTime}}</td>
                     </tr>
                     <tr>
                         <th>Symptoms : </th> <td>{{appoint.symptoms}}</td>
