@@ -184,7 +184,7 @@ mongoC.connect(url, function (err, db) {
       var day = dayOne.split("T");
       var hour = time.split(":");
 
-      var dateOp = new Date(Date.UTC(year, (month - 1), day[0], getHourTime(hour[0])));
+      var dateOp = new Date(Date.UTC(year, (month - 1), parseInt(day[0]-1), getHourTime(hour[0])));
 
       return dateOp;
 
@@ -207,6 +207,103 @@ mongoC.connect(url, function (err, db) {
           return 21;
       }
     }
+    function getHour(hour) {
+      switch (hour) {
+        case "14":
+          return "8:00 am";
+        case "15":
+          return "9:00 am";
+        case "16":
+          return "10:00 am";
+        case "17":
+          return "11:00 am";
+        case "19":
+          return "1:00 pm";
+        case "20":
+          return "2:00 pm";
+        case "21":
+          return "3:00 pm";
+      }
+    }
+    function obtainHr(date) {
+
+            var split = date.split("-");
+            var year = split[0];
+            var month = split[1];
+            var dayOne = split[2];
+            var day = dayOne.split("T");
+            var hour = day[1].split(":");
+
+         return hour[0];
+
+          }
+
+    router.post("/changeAppointmentDate", function(req,res){
+      var data = req.body;
+      console.log(data);
+
+           var d = new Date(data.obj.date);
+        db.collection("UserDetails").updateOne({ $and: [{ "user.registrationNumber": data.regNum, "user.userName": data.user }] }, { $pull: { "user.appointment": { "user": data.obj.userName, "date":d, "symptoms": data.obj.symptoms, "age": data.obj.age , "doc":data.obj.selectDoc} } }, function (err, reply) {
+            if (err) { throw err } else {
+
+                db.collection("UserDetails").update({ $and: [{ "user.registrationNumber": data.regNum, "user.userName": data.user }] }, { $push: { "user.appointment": { "user": data.userName, "date":getDateConsize(data.date, data.time), "contact": data.obj.contact, "symptoms": data.symptoms, "sex": data.sex, "age": data.age ,"doc":data.doc} } }, function (err1, rep) {
+
+                    if (err1) {
+                        throw err1;
+                    } else {
+                        var mail = {
+                            from: 'medicalinglobal@gmail.com',
+                            to: data.email,
+                            subject: 'Medical Insights-Appointment has been Edited ' + data.regUser,
+                            html: '<h1>Greetings</h1><p>The following appointment is been edited today:</p> <p> The appointment was scheduled for ' + data.pt + ' of age ' + data.age + ' ' + data.sex + ' with symptoms of ' + data.symptoms + ' at ' + dateFormat(data.date, "ddd mmm dd yyyy HH:MM:ss") + "</p> <h4>Please revert back to us for more information</h4> <p>-Medical Insights</p>"
+                        };
+                        transporter.sendMail(mail, function (error, info) {
+                            if (error) throw error;
+                          var name = data.doc.split(".")[1];
+                          db.collection("doctor").updateOne({$and:[{"name":name,"date":dateFormat(d, "mm/dd/yyyy")}]},{$pull:{"app":calculateTime(data.time)}}, function(er,rep){
+                            if(er){
+                              throw er;
+                            }else{
+                              db.collection("doctor").updateOne({$and:[{"name":name,"date":dateFormat(d, "mm/dd/yyyy")}]},{$addToSet:{"app":calculateTime(data.obj.time)}}, function(er,rep){
+                              }, function(e,r){
+                                if(e){
+                                  throw e;
+                                }else{
+                                  res.send("success");
+                                }
+                              })
+                            }
+                          })
+                          res.send("success");
+                        })
+                    }
+                })
+            }
+        });
+
+    })
+
+    router.post("/dropAppointment", function(req,res){
+      var data = req.body;
+ var d = new Date(data.date);
+     console.log(calculateTime(getHour(obtainHr(data.date))), data);
+      db.collection("UserDetails").update({$and: [{"user.registrationNumber":data.regNum,"user.userName":data.user}]},{$pull:{"user.appointment":{"user":data.userName, "age":data.age, "doc": data.doc, "date":d, "sex":data.gen}}},function(err,reply) {
+        if(err){
+          throw err;
+        }else{
+          console.log(reply)
+          db.collection("doctor").updateOne({$and:[{"name":data.doc.split(".")[1],"date":dateFormat(d, "mm/dd/yyyy")}]},{$push:{"app":calculateTime(getHour(obtainHr(data.date)))}}, function(er,rep){
+            if(er){
+              throw er;
+            }else{
+
+                res.send("success");
+            }
+
+        })
+      }
+      })
+    })
   });
 
   module.exports = router;

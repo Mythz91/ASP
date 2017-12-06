@@ -5,6 +5,9 @@
         .controller('appCtrl', appCtrl);
 
     function appCtrl(appService, $location, $window, $uibModal, $rootScope,ReviewFactory) {
+      if (!$window.sessionStorage.getItem("auth-token")) {
+        $location.path("/");
+    }
         var vm = this;
       var index;
         var data;
@@ -16,10 +19,10 @@
         vm.regUser;
         vm.reg;
         vm.email;
-        
+
         $rootScope.review = false;
-     
-       
+
+
         $rootScope.$on("changesEdit", function (event, data) {
             var changes = {
                 regUser:vm.regUser,
@@ -40,15 +43,13 @@
             }
             appService.editAppointment(changes).then(function(success){
                 vm.loadDetails();
-      
+
 
             }, function(err){
 
             })
         })
-        if (!$window.sessionStorage.getItem("auth-token")) {
-            $location.path("/");
-        }
+
         vm.closeAlert = function () {
             vm.bool = false;
         }
@@ -58,7 +59,7 @@
         vm.closeFound = function(){
             vm.found=false;
         }
-     
+
         vm.loadDetails = function () {
             appService.getApp().then(function (success) {
 
@@ -67,7 +68,7 @@
                 vm.present = res.present;
                 vm.future = res.future;
                 vm.past = res.past;
-            
+
 
             }, function (err) {
 
@@ -110,7 +111,7 @@
                 index:index
 
             }
-          
+
             appService.findReview(val).then(function(success){
                 console.log(typeof success)
                if(success=="found"){
@@ -118,7 +119,7 @@
                }
               else{
                 ReviewFactory.setData(val);
-                
+
                  var modalInstance = $uibModal.open({
                    templateUrl: 'templates/review-form.html',
                      controller: ReviewCtrlStart,
@@ -133,12 +134,12 @@
 
             })
 
-       
-    
+
+
 
         }
         vm.edit = function (userName, reg, email, user, age, sex, symptoms, date, contact, index) {
-            
+
             vm.regUser = userName;
             vm.reg=reg;
             vm.email =email;
@@ -160,7 +161,7 @@
             })
         }
         vm.delete = function (userName, reg, email, user, age, sex, symptoms, date, index) {
-            
+
             var text = {
                 regUser: userName,
                 regNum: reg,

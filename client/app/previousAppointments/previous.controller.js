@@ -3,11 +3,36 @@
         .module('app.home')
         .controller('previousController', previous)
 
-    function previous($uibModal,$rootScope,prevService,$window,dataFactory) {
-        if(!$window.sessionStorage.getItem("auth-token")){
-            $location.path("/");
-        }
-        var previous = this;
+    function previous($uibModal,$rootScope,prevService,$window,dataFactory,$location) {
+      if (!$window.sessionStorage.getItem("auth-token")) {
+        $location.path("/");
+    }
+    var previous = this;
+    previous.dispEditClose = function(){
+      previous.dispEdit=false;
+    }
+    $rootScope.$on('change4', function (event, data) {
+      previous.dispEdit=true;
+      previous.appointments;
+      previous.show=false;
+      previous.hide = true;
+      previous.past;
+      previous.future;
+      previous.present;
+      $rootScope.userInfo={};
+      previous.past = null;
+      previous.present = null;
+      previous.future = null;
+      obj = seggregateDate(data);
+      previous.past = obj.past;
+      previous.present = obj.present;
+      previous.future = obj.future;
+
+         previous.show=true;
+         previous.hide=false;
+         previous.appointments = data;
+  });
+
         previous.appointments;
         previous.show=false;
         previous.hide = true;
@@ -70,15 +95,15 @@ function seggregateDate(data) {
       var diff = Math.round(milDiff / one_day);
 
       if (diff == 0) {
-        console.log("present",data[i]);
+
           obj.present.push(data[i]);
       }
       if (diff < 0) {
-        console.log("past",data[i]);
+
           obj.past.push(data[i]);
       }
       if (diff > 0) {
-        console.log("future",data[i]);
+
           obj.future.push(data[i]);
 
 
@@ -95,15 +120,14 @@ $rootScope.userInfo.user = $window
 $rootScope.userInfo.reg = $window
   .sessionStorage
   .getItem("reg");
-$rootScope.userInfo.email = $window
-  .sessionStorage
-  .getItem("email");
-console.log(sex);
+
 $rootScope.userInfo.userApp = user;
 $rootScope.userInfo.age = age;
 $rootScope.userInfo.sex = sex;
 $rootScope.userInfo.doc = doc;
 $rootScope.userInfo.date = date;
+$rootScope.userInfo.contact=contact;
+
 $rootScope.userInfo.symptoms = symptoms;
   var modalInstance = $uibModal.open({
       templateUrl: 'templates/edit-form.html',
@@ -114,6 +138,35 @@ $rootScope.userInfo.symptoms = symptoms;
           }
       }
   })
+}
+previous.delete = function(index,date,user,sex,symptoms,doc,age,contact){
+$rootScope.select = {
+regNum : $window
+  .sessionStorage
+  .getItem("reg"),
+user : $window
+  .sessionStorage
+  .getItem("user"),
+email : $window
+  .sessionStorage
+  .getItem("email"),
+date : date,
+userName : user,
+gen : sex,
+symp : symptoms,
+doc : doc,
+age : age,
+phone : contact
+}
+  var modal = $uibModal.open({
+    templateUrl: 'templates/delete-form.html',
+    controller: DeleteAppCtrl,
+    resolve: {
+        deleteForm: function () {
+            return previous.deleteForm;
+        }
+    }
+})
 }
 
     }

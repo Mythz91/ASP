@@ -15,7 +15,7 @@ var reg = "";
         vm.err = "";
         vm.errUser = "";
         vm.verifyUser = function () {
-     
+
             if( (vm.regNum.match(/^\d+$/g))){
                 if(vm.regNum.charAt(0)==0||vm.regNum.charAt(0)=="0"){
                 vm.errUser = "Please enter a valid registration number";
@@ -32,7 +32,7 @@ var reg = "";
             vm.PassErr = "";
         }
         vm.verifyPass = function () {
-           
+
             if (!(vm.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g))) {
                 vm.passErr = "please enter  at least one number, one lowercase and one uppercase letter at least four characters long password";
             }
@@ -46,7 +46,7 @@ var reg = "";
             if(vm.verifyUser()){
            try {
                 UserService.login(regNum, password, URL).then(function (res) {
-                 
+
                     reg = regNum;
                    data=res.username;
                     pass=password;
@@ -59,7 +59,7 @@ var reg = "";
                         $location.path('/admin')
                     }
                    else if(res.token){
-                    
+
                         authTokenFactory.setToken(res.token);
                         $location.path('/welcome');
                     }
@@ -74,11 +74,13 @@ var reg = "";
     }
         vm.logout = logout;
         function logout(){
+
             authTokenFactory.setToken("");
             vm.userName = "";
             $window.sessionStorage.clear();
             $location.path("/");
-           
+            $window.localStorage.clear();
+
         }
 
     }

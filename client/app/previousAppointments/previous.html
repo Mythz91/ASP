@@ -2,9 +2,27 @@
     <header data-ng-include="'templates/loginHeader.html'" class="navbar-fixed-top"></header>
     <div class="body-content">
       <div class="shift">
+          <div uib-alert class="alert alert-success"  close="data.dispEditClose()" ng-if="data.dispEdit" >
+             The appointment has been updated
+        </div>
         <div ng-init="data.getData()">
                <div> <label><span class="text-success"><b>Search Criteria:</b></span> <input ng-model="searchText" ng-disabled="data.hide"></label></div>
+               <h2>Present Appointments:</h2>
+               <div ng-show="data.show" class="listDown pull" ng-repeat="(key,value) in   data.present| filter:searchText |  orderBy:'value.time':true">
+                 <div class="prevData">
+                   <div class="prevHead"> <strong>#</strong> <span>{{$index+1}}</span> <br/></div>
+                <strong>User Name : </strong> <span>{{value.user}}</span><br/>
+                 <strong>Age :</strong> <span>{{value.age}}</span><br/>
+                <strong>Sex :</strong> <span>{{value.sex}}</span><br/>
 
+                <strong>Date :</strong> <span>{{value.date | date : "MMMM/dd/yyyy : hh:mm:ss"}}</span><br/>
+                <strong>Doctor :</strong> <span>{{value.doc}}</span><br/>
+                <strong>Symptoms :</strong> <span>{{value.symptoms}}</span> <br/>
+                <strong>Phone :</strong><span>{{value.contact}}</span><br/>
+
+             </div>
+             <br/>
+               </div>
                 <h2>Future Appointments:</h2>
                 <div ng-show="data.show" class="listDown pull" ng-repeat="(key,value) in   data.future| filter:searchText |  orderBy:'value.time':true">
                   <div class="prevData">
@@ -17,26 +35,11 @@
                  <strong>Symptoms :</strong> <span>{{value.symptoms}}</span> <br/>
                  <strong>Phone :</strong><span>{{value.contact}}</span><br/>
                  <button class="btn btn-success" ng-click="data.edit($index+1,value.date,value.user,value.sex,value.symptoms,value.doc,value.age,value.contact)">Edit</button>
-                 <button class="btn btn-danger" ng-click="data.delete($index+1,value.date,value.user,value.sex,value.symptoms)">Delete</button>
+                 <button class="btn btn-danger" ng-click="data.delete($index+1,value.date,value.user,value.sex,value.symptoms,value.doc,value.age,value.contact)">Delete</button>
               </div>
               <br/>
                 </div>
-                <h2>Present Appointments:</h2>
-                <div ng-show="data.show" class="listDown pull" ng-repeat="(key,value) in   data.present| filter:searchText |  orderBy:'value.time':true">
-                  <div class="prevData">
-                    <div class="prevHead"> <strong>#</strong> <span>{{$index+1}}</span> <br/></div>
-                 <strong>User Name : </strong> <span>{{value.user}}</span><br/>
-                  <strong>Age :</strong> <span>{{value.age}}</span><br/>
-                 <strong>Sex :</strong> <span>{{value.sex}}</span><br/>
 
-                 <strong>Date :</strong> <span>{{value.date | date : "MMMM/dd/yyyy : hh:mm:ss"}}</span><br/>
-                 <strong>Doctor :</strong> <span>{{value.doc}}</span><br/>
-                 <strong>Symptoms :</strong> <span>{{value.symptoms}}</span> <br/>
-                 <strong>Phone :</strong><span>{{value.contact}}</span><br/>
-
-              </div>
-              <br/>
-                </div>
                 <h2>Previous Appointments:</h2>
                 <div ng-show="data.show" class="listDown pull" ng-repeat="(key,value) in   data.past| filter:searchText |  orderBy:'value.time':true">
                   <div class="prevData">

@@ -51,7 +51,7 @@
             <input type="date" name="date" class="form-control" ng-model="appoint.date" id="datepicker" ng-change="appoint.verifyDate()"
                 ng-change="appoint.clearDate()" required/> <span class="warn">{{appoint.dateCheck}}</span>
         </p>
-        
+
         <div ng-messages="appointment.date.$error">
             <p class="warn" ng-message="required">Please a date as Date "mm/dd/yyyy ".</p>
         </div>
@@ -60,7 +60,7 @@
             <table border="1px">
                 <tr>
                     <th>For the Date : <b>{{appoint.date | date : "MMMM/dd/yyyy"}}</b></th>
-              <td><button class="btn btn-success" ng-click="appoint.checkAvailability(appoint.selectDoc,appoint.date, appoint.selectDept)">Check Availability</button></td></tr>
+              <td><button class="btn btn-success" ng-click="appoint.checkAvailability(appoint.selectDoc,appoint.date, appoint.selectDept)" ng-disabled="appoint.view">Check Availability</button></td></tr>
             </table>
         </div>
         <div>
@@ -76,15 +76,15 @@
             <button class="btn btn-success" ng-click="appoint.checkChosenTime()">Confirm Time</button>
         </div>
         <div ng-show="appoint.timeShow">
-            
+
            <table ng-hide="view">
                <tr ng-model="appoint.time" name="time"  ng-repeat=" times in appoint.timings">
                    <td>{{times}}</td><td><button class="btn btn-primary" ng-click="appoint.choose(times)">Take Slot</button></td>
-                   
+
                </tr>
            </table>
         </div>
-     
+
         <p>Enter the symptoms of the problem:
             <br/>
             <textarea id="problem" rows="5" cols="50" name="symptoms" minlength="5" ng-model="appoint.symptoms" required></textarea>
@@ -114,7 +114,7 @@
         <div uib-alert class="alert alert-warning"  close="appoint.closeTime()" ng-if="appoint.timeDisp" >
            Please confirm a time
        </div>
-    
+
     </div>
     </form>
 </div>

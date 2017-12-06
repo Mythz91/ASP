@@ -2,14 +2,20 @@
     <h3>Edit Appointment</h3>
 </div>
 <form name="form.editForm" ng-submit="submitForm(userName,age,sext,date,symptoms)" novalidate ng-init="getData()">
-   <div class="well"> <p> Name :
-          <input type="text" class="form-control"  placeholder="enter your name" name="userName" ng-model="userName" minlength="5"  maxlength="20" required onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)|| event.charCode==32"/>
+  <div uib-alert class="alert alert-warning"  close="closeValidate" ng-if="validate" >
+    Please fill in all the details
+</div>
+
+  <div class="well"> <p> Name :
+          <input type="text" class="form-control"  placeholder="enter your name" ng-keypress="clearName()" name="userName" ng-model="userName" minlength="5"  maxlength="20" required ng-blur="verifyName()" onkeypress=" return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)|| event.charCode==32"/>
 
        </p>
        <div ng-messages="form.editForm.userName.$error">
                <p class="warn" ng-message="minlength">Your name is too short.</p>
                <p class="warn" ng-message="maxlength">Your name is too long.</p>
                <p  class="warn" ng-message="required">Your name is required.</p>
+               {{errName}}
+
            </div>
        <p>Age :
            <input type="number" class="form-control" name="age" min="1" max="90" ng-model="age"  required/>
@@ -31,6 +37,10 @@
        <p>Date of Appointment:
 
            <input type="date" name="date" class="form-control" ng-model="date" id="datepicker" ng-blur="verifyDate()" ng-change="clearDate()"required/> <span class="warn">{{dateCheck}}</span>
+           <div ng-messages="form.editForm.date.$error">
+              <p class="warn" ng-message="required">Please select a Date.</p>
+              {{dateCheck}}
+         </div>
        </p>
        <div ng-messages="form.editForm.date.$error">
                <p class="warn" ng-message="required">Please a date as Date "mm/dd/yyyy".</p>
@@ -54,7 +64,7 @@
       </div>
 
          <table ng-hide="view">
-             <tr ng-model="time" name="time"  ng-repeat=" times in timings">
+             <tr ng-model="time" name="time"  ng-repeat=" times in timings track by $index">
                  <td>{{times}}</td><td><button class="btn btn-primary" ng-click="choose(times)">Take Slot</button></td>
 
              </tr>
