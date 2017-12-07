@@ -3,27 +3,32 @@
 </div>
 
 <form name="form.reviewForm"  enctype="multipart/form-data" novalidate>
-
+  <div class="well">
+<div>
    <div>
        <p><strong>Patient Name: </strong>{{userName}}</p>
-       <p><strong>Age  :</strong> {{age}} <strong>Sex :</strong> {{sext}} <strong>Symptoms : </strong>{{symptoms}} <strong>Date :</strong> {{date| date : "MMMM/dd/yyyy : hh:mm:ss"}} </p>
+       <p><strong>Age  :</strong> {{age}} <br/>
+        <strong>Sex :</strong> {{sext}} <br/>
+        <strong>Symptoms : </strong>{{symptoms}}
+   </div>
+   <div>
+    <strong> <p>Doctor Incharge : {{doc}}</p> <span>&nbsp; &nbsp;</span> Date : {{date| date : "MMMM/dd/yyyy : hh:mm:ss"}} </p></strong>
+   </div>
    </div>
         <div class="form-group">
-            <label>Review</label><br/>
+          <div> <label>Review</label><br/>
             <textarea rows="5" cols="50" ng-model="data" ng-minlength="2" ng-maxlength="500" required></textarea>
-            <p ng-show="form.reviewForm.data.$error.minlength" class="help-block">Review is too short.</p>
-            <p ng-show="form.reviewForm.data.$error.maxlength" class="help-block">Review is too long.</p>
-        </div>
-        <div class="form-group">
-            <label>Drugs</label><br/>
-            <input type="text" ng-model="drugs" />
 
         </div>
+        <p ng-show="form.reviewForm.data.$error.minlength" class="help-block">Review is too short.</p>
+        <p ng-show="form.reviewForm.data.$error.maxlength" class="help-block">Review is too long.</p>
+      </div>
 
 
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-success" ng-disabled="form.reviewForm.$invalid" ng-click="submitForm(data,drugs)">Save</button>
+        <button type="submit" class="btn btn-success" ng-disabled="form.reviewForm.$invalid" ng-click="submitForm(data)">Save</button>
         <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
     </div>
+  </div>
 </form>

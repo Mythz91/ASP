@@ -2,8 +2,9 @@ angular
     .module('app.home')
     .controller("EditCtrl", EditCtrl)
 
-var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $window,appService) {
+var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $window,appService, appointmentService) {
     $scope.getData = function () {
+      $scope.disp = false;
         $scope.userName = $rootScope.userDetails.user;
         $scope.age = $rootScope.userDetails.age;
         $scope.sex = ["male", "female", "not interested to disclose"];
@@ -14,12 +15,142 @@ var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $windo
         $scope.dateCheck = "";
         $scope.symptoms = $rootScope.userDetails.symptoms;
         $scope.res = "";
+        $scope.dept =[];
+        appointmentService.getDocDetails().then(function(success){
+          for(var i=0;i<success.length;i++){
+        $scope.dept.push(success[i].dept);
+          }
+           data=success;
+       },function(err){
+           console.log(err);
+       })
     }
+    $scope.closeValidate= function(){
+      $scope.validate=false;
+    }
+    function matchTime(data){
+      var arr = [];
+
+      for(var i=0;i<data.length;i++){
+          if(data[i]==1){
+              arr.push(8)
+          }
+          if(data[i]==2){
+              arr.push(9)
+          }
+          if(data[i]==3){
+              arr.push(10)
+          }
+          if(data[i]==4){
+              arr.push(11)
+          }
+          if(data[i]==5){
+              arr.push(13)
+          }
+          if(data[i]==6){
+              arr.push(14)
+          }
+          if(data[i]==7){
+              arr.push(15)
+          }
+      }
+      return arr;
+  }
+  function correctTime(data){
+    var hour = new Date().getHours();
+   var time = [];
+   var hours=[];
+
+
+   var today = new Date();
+   var check = new Date(appoint.date);
+   for(var i=0;i<data.length;i++){
+
+      if( Math.round((today.getTime() - check.getTime()) )>= 0){
+
+        if(data[i]>hour){
+            time.push(data[i]);
+        }
+      } else{
+        time.push(data[i]);
+      }
+   }
+   for(var i=0;i<time.length;i++){
+
+    if(time[i]==13){
+       hours.push("1:00 pm");
+    }
+    if(time[i]==14){
+       hours.push("2:00 pm");
+    }
+    if(time[i]==15){
+       hours.push("3:00 pm");
+    }
+    if(time[i]==8){
+       hours.push("8:00 am")
+    }
+    if(time[i]==9){
+       hours.push("9:00 am")
+    }
+    if(time[i]==10){
+       hours.push("10:00 am")
+    }
+    if(time[i]==11){
+       hours.push("11:00 am")
+    }
+
+   }
+   return hours;
+
+}
+$scope.clearData=function(){
+  $scope.show=false;
+  $scope.checkTime="";
+  $scope.disp=false;
+}
+
+   $scope.checkAvailability=function(selectDoc,date, selectDept){
+    $scope.disp=true;
+    $scope.show=false;
+
+                var obj = {
+                    doc : selectDoc,
+                    date : date,
+                    dept : selectDept
+                }
+                appointmentService.docTime(obj).then(function(success){
+                  if(success.length==0){
+                   $scope.info = "Please select another Doctor as the Doctor you have selected is busy for the day!"
+                  }
+                 var data=  matchTime(success);
+                 time = correctTime(data);
+                  $scope.timings=time;
+                  $scope.timeShow=true;
+                  $scope.show=true;
+                },function(err){
+
+                })
+
+   }
+$scope.doc=[];
+$scope.selectDoc="";
+$scope.changeDoc = function(dep){
+
+   $scope.doc=[];
+      for(var i=0;i<data.length;i++){
+          if(data[i].dept == dep){
+              data[i].docs.forEach(function(ele){
+               $scope.doc.push(ele);
+              })
+          }
+
+         }
+  }
     $scope.clearDate = function () {
         $scope.dateCheck = "";
     }
     $scope.verifyDate = function () {
-
+      console.log("leaving2");
         if (!$scope.date) {
             $scope.dateCheck = "please select a date and time";
             return false;
@@ -30,10 +161,6 @@ var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $windo
         var today = new Date();
         var check = new Date($scope.date);
 
-        // if (check < today || check == today) {
-        //     $scope.dateCheck = "please select a date of future occurance";
-        // return false;
-        // }
         var todayTime = today.getTime();
         var checkTime = check.getTime();
 
@@ -46,26 +173,60 @@ var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $windo
 
     }
 
-
+    $scope.choose=function(times){
+      $scope.show=false;
+      $scope.checkTime = times;
+    }
+    $scope.checkChosenTime =function(){
+      $scope.view = true;
+    }
 
     $scope.form = {}
-    $scope.submitForm = function (userName, age, sext, date, symptoms) {
-        if ($scope.verifyDate()) {
-            var change = {
-                userName: userName,
-                age: age,
-                sex: sext,
-                date: date,
-                symptoms: symptoms
-            }
-            $rootScope.$emit("changesEdit",change);
-          
-           
-        }
-       
-            $uibModalInstance.close('closed');
+    $scope.submitForm = function (userName, age, sext, symptoms) {
+      if ($scope.userName == "" || $scope.date == "" || $scope.date == undefined || $scope.age == undefined || $scope.symptoms == "" || $scope.sext == ""||!$scope.checkTime||!$scope.selectDoc||!$scope.verifyDate()) {
+        $scope.validate = true;
+        return;
+    } else {
+var obj = $rootScope.data;
+      var data = {
+        obj,
+        new:{
+       userName  : $scope.userName,
+        age : $scope.age,
+        sex : $scope.sext,
+        date: $scope.date,
+        age: $scope.age,
+        symptoms: $scope.symptoms,
+        sex: $scope.sext,
+        doc:$scope.selectDoc,
+        time:$scope.checkTime,
 
-    };
+        }
+      }
+      console.log(data);
+
+      appService.editAppointment(data).then(function(text){
+
+
+
+      appService.getApp().then(function (success) {
+        console.log(success);
+                        data = success;
+
+                        $rootScope.$emit("changesEdit",data);
+
+
+                    }, function (err) {
+
+                    });
+            }, function(err){
+
+            })
+        }
+       $uibModalInstance.close('closed');
+
+    }
+
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

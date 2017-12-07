@@ -24,30 +24,12 @@
 
 
         $rootScope.$on("changesEdit", function (event, data) {
-            var changes = {
-                regUser:vm.regUser,
-                reg:vm.reg,
-                email:vm.email,
-                pt:data.userName,
-                age:data.age,
-                sex:data.sex,
-                date:data.date,
-                contact:vm.contact,
-                symptoms:data.symptoms,
-                pastPt: $rootScope.userDetails.user,
-                pastAge: $rootScope.userDetails.age,
-                pastSex: $rootScope.userDetails.sex,
-                pastSymp: $rootScope.userDetails.symptoms,
-                pastDate: $rootScope.userDetails.date
+          console.log(data);
+          var res = seggregate(data);
+          vm.present = res.present;
+          vm.future = res.future;
+          vm.past = res.past;
 
-            }
-            appService.editAppointment(changes).then(function(success){
-                vm.loadDetails();
-
-
-            }, function(err){
-
-            })
         })
 
         vm.closeAlert = function () {
@@ -99,7 +81,7 @@
 
 
         }
-        vm.review = function (userName, user, age, sex, symptoms, date,reg, index) {
+        vm.review = function (userName, user, age, sex, symptoms, date,reg, index,doc) {
             var val ={
                 userReg:userName,
                 user:user,
@@ -108,7 +90,8 @@
                 symp:symptoms,
                 date:date,
                 reg:reg,
-                index:index
+                index:index,
+                doc:doc
 
             }
 
@@ -138,8 +121,22 @@
 
 
         }
-        vm.edit = function (userName, reg, email, user, age, sex, symptoms, date, contact, index) {
+        vm.edit = function (userName, reg, email, user, age, sex, symptoms, date, contact, index,doc) {
+          $rootScope.data={
+            userName:user,
+            age:age,
+            sex:sex,
+            symptoms:symptoms,
+            date:date,
+            doc:doc,
+            obj:{
+              user:userName,
+              regNum:reg,
+              email:email,
+              contact:contact
+            }
 
+          }
             vm.regUser = userName;
             vm.reg=reg;
             vm.email =email;
@@ -151,7 +148,7 @@
             $rootScope.userDetails.date = date;
 
             var modalInstance = $uibModal.open({
-                templateUrl: 'templates/edit-form.html',
+                templateUrl: 'templates/edit-formAdmin.html',
                 controller: EditCtrl,
                 resolve: {
                     editForm: function () {
@@ -160,29 +157,31 @@
                 }
             })
         }
-        vm.delete = function (userName, reg, email, user, age, sex, symptoms, date, index) {
 
-            var text = {
-                regUser: userName,
-                regNum: reg,
-                mail: email,
-                pt: user,
-                age: age,
-                sex: sex,
-                sym: symptoms,
-                date: date
-            }
-            appService.deleteApp(text).then(function (success) {
 
-                vm.del = true;
-                vm.loadDetails();
+        // vm.delete = function (userName, reg, email, user, age, sex, symptoms, date, index) {
 
-            }, function (err) {
+        //     var text = {
+        //         regUser: userName,
+        //         regNum: reg,
+        //         mail: email,
+        //         pt: user,
+        //         age: age,
+        //         sex: sex,
+        //         sym: symptoms,
+        //         date: date
+        //     }
+        //     appService.deleteApp(text).then(function (success) {
 
-            });
+        //         vm.del = true;
+        //         vm.loadDetails();
 
-        }
-    }
+        //     }, function (err) {
+
+        //     });
+
+        // }
+   //}
 
     function seggregate(data) {
         var obj = {
@@ -209,6 +208,29 @@
         }
         return obj;
     }
-
+ vm.delete = function(userName ,reg, email,user,age,sex,symptoms,date,index,doc,contact){
+$rootScope.select = {
+regNum :reg,
+user : userName,
+email : email,
+date : date,
+userName : user,
+gen : sex,
+symp : symptoms,
+doc : doc,
+age : age,
+phone : contact
+}
+  var modal = $uibModal.open({
+    templateUrl: 'templates/delete-form.html',
+    controller: deleteCtrl,
+    resolve: {
+        deleteForm: function () {
+            return vm.deleteForm;
+        }
+    }
+})
+}
+}
 })();
 

@@ -10,16 +10,21 @@ var AppEditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $wi
 };
 $scope.verifyName = function(){
 
-  if($scope.userName && $scope.userName.trinm().length==0){
+  if($scope.userName && $scope.userName.trim().length==0){
     $scope.errName = "Please enter valid name";
   }
 }
+$scope.closeValidate=function(){
+  $scope.validate=false;
+}
+$scope.view = false;
 $scope.verifyDate = function(){
-  /*
+
 
             if (!$scope.date) {
                 $scope.dateCheck = "please select a date";
                 $scope.selectedDet=false;
+                $scope.view = true;
                 return false;
             }
             $scope.dateCheck = "";
@@ -30,6 +35,7 @@ $scope.verifyDate = function(){
 
             if ( today-check>86400000 ) {
                 $scope.dateCheck = "please select a date of future occurance";
+                $scope.view = true;
                 return false;
             }
             var todayTime = today.getTime();
@@ -39,9 +45,11 @@ $scope.verifyDate = function(){
             if (diff > 6) {
                 $scope.selectedDet=false;
                 $scope.dateCheck = "please select a date which is within a week from today " + (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+                $scope.view = true;
            return false;
             }
-           return true;*/
+            $scope.view = false;
+           return true;
 }
 
 $scope.clearName = function(){
@@ -61,6 +69,7 @@ $scope.selectDoc=$rootScope.userInfo.doc;
 $scope.symptoms = $rootScope.userInfo.symptoms;
 var date =getDate($rootScope.userInfo.date);
 $scope.date = date[0];
+var select = date[0];
 $scope.checkTime = date[1];
 console.log(date[1]);
 
@@ -117,6 +126,7 @@ function getTime(hr){
   }
 }
 $scope.checkAvailability=function(selectDoc,date, selectDept){
+
 console.log(selectDoc,date,hr)
 
    var obj = {
@@ -128,7 +138,8 @@ console.log(selectDoc,date,hr)
               if(success.length==0){
                 appoint.info = "Please select another Doctor as the Doctor you have selected is busy for the day!"
               }
-              console.log(success);
+              $scope.show=true;
+              console.log($scope.date,new Date(select) );
              var data=  matchTime(success);
              time = correctTime(data);
                $scope.timings=time;
@@ -171,7 +182,6 @@ function correctTime(data){
  var time = [];
  var hours=[];
 
-console.log(hr);
  var today = new Date();
  var check = new Date(appoint.date);
  for(var i=0;i<data.length;i++){
@@ -187,25 +197,25 @@ console.log(hr);
  }
  for(var i=0;i<time.length;i++){
 
-  if(time[i]==13 && time[i] != hr){
+  if(time[i]==13 && time[i] != $scope.checkTime.split(":")[0]){
      hours.push("1:00 pm");
   }
-  if(time[i]==14  && time[i] != hr){
+  if(time[i]==14  && time[i] != $scope.checkTime.split(":")[0]){
      hours.push("2:00 pm");
   }
-  if(time[i]==15  && time[i] != hr){
+  if(time[i]==15  && time[i] != $scope.checkTime.split(":")[0]){
      hours.push("3:00 pm");
   }
-  if(time[i]==8  && time[i] != hr){
+  if(time[i]==8  && time[i] != $scope.checkTime.split(":")[0]){
      hours.push("8:00 am")
   }
-  if(time[i]==9  && time[i] != hr){
+  if(time[i]==9  && time[i] != $scope.checkTime.split(":")[0]){
      hours.push("9:00 am")
   }
-  if(time[i]==10  && time[i] != hr){
+  if(time[i]==10  && time[i] != $scope.checkTime.split(":")[0]){
      hours.push("10:00 am")
   }
-  if(time[i]==11  && time[i] != hr){
+  if(time[i]==11  && time[i] != $scope.checkTime.split(":")[0]){
      hours.push("11:00 am")
   }
 
@@ -214,6 +224,7 @@ console.log(hr);
 
 }
 $scope.choose=function(times){
+  $scope.show=false;
   $scope.checkTime = times;
 }
 $scope.checkChosenTime =function(){

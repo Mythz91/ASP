@@ -184,7 +184,7 @@ mongoC.connect(url, function (err, db) {
       var day = dayOne.split("T");
       var hour = time.split(":");
 
-      var dateOp = new Date(Date.UTC(year, (month - 1), parseInt(day[0]-1), getHourTime(hour[0])));
+      var dateOp = new Date(Date.UTC(year, (month - 1), parseInt(day[0]), getHourTime(hour[0])));
 
       return dateOp;
 

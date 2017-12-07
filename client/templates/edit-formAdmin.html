@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h3>Edit Appointment</h3>
 </div>
-<form name="form.editForm" ng-submit="submitForm(userName,age,sext,date,symptoms)" novalidate ng-init="getData()">
+<form name="form.editForm" ng-submit="" novalidate ng-init="getData()">
   <div uib-alert class="alert alert-warning"  close="closeValidate()" ng-if="validate" >
     Please fill in all the details
 </div>
@@ -45,7 +45,22 @@
        <div ng-messages="form.editForm.date.$error">
                <p class="warn" ng-message="required">Please a date as Date "mm/dd/yyyy".</p>
           </div>
-          <p>Availability of Doctor <b>{{selectDoc}}</b></p>
+
+          <div>Department:
+              <select required ng-model="selectDept" name="dept" ng-change="changeDoc(selectDept)" ng-options="dept as dept for dept in dept" ng-change="clearData()"></select>
+              <div ng-messages="appointment.dept.$error">
+                  <p class="warn" ng-message="required">Please select Department.</p>
+              </div>
+          </div>
+          <br/>
+          <div>
+              Doctor:
+              <select required ng-model="selectDoc" name="doc"  ng-options="doc as doc for doc in doc" ng-change="clearData()"></select>
+              <div ng-messages="appointment.doc.$error">
+                  <p class="warn" ng-message="required">Please select a Doctor.</p>
+              </div>
+
+          </div>
           <table border="1px">
               <tr>
                   <th>For the Date : <b>{{date | date : "MMMM/dd/yyyy"}}</b></th>
@@ -56,7 +71,7 @@
 
 
 
-      <div>
+      <div ng-show="disp">
          <div>
              <h3>The chosen time is {{checkTime}}</h3>
           <button class="btn btn-danger" ng-click="checkAvailability(selectDoc,date, selectDept)" ng-disabled="view">Choose another Time</button>
@@ -69,7 +84,7 @@
 
              </tr>
          </table>
-
+</div>
        <p>Enter the symptoms of the problem:
            <br/>
            <textarea id="problem" rows="5" cols="50" name="symptoms" minlength="5" ng-model="symptoms"  required></textarea>
@@ -81,7 +96,7 @@
           </div>
 
        <p>
-           <button class="btn btn-success"  type="submit" ng-click="makeAppointment()">Change Appointment!</button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+           <button class="btn btn-success"  type="button" ng-click="submitForm(userName,age,sext,date,symptoms)" ng-disabled="!disp">Change Appointment!</button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
            <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
            <br/>
 

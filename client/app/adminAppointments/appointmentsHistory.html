@@ -3,7 +3,7 @@
     <legend>
         <h2>The Scheduled Appointments</h2>
     </legend>
-   
+
     <div uib-alert class="alert alert-success" close="vm.closeAlert()" ng-if="vm.bool">
         The email has been sent successfully
     </div>
@@ -16,7 +16,7 @@
     <div uib-alert class="alert alert-warning" close="vm.closeFound()" ng-if="vm.found">
            The review is already created
         </div>
- 
+
     <h3>Today:</h3>
     <div>
         <table class="table table-hover">
@@ -38,6 +38,7 @@
                         <th>Contact</th>
                         <th>Symptoms</th>
                         <th>Date</th>
+                        <th>Doctor</th>
                         <th>User Details</th>
                         <th></th>
 
@@ -50,13 +51,14 @@
                         <td>{{value.appoint.contact}}</td>
                         <td>{{value.appoint.symptoms}}</td>
                         <td>{{value.appoint.date| date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
+                        <td>{{value.appoint.doc}}</td>
                         <td><b>User Name: </b>&nbsp;{{value.user.userName}} <br/>
                             <b>Registration Number:</b>&nbsp;{{value.user.reg}} <br/>
                             <b>Email:</b>&nbsp;{{value.user.email}} <br/>
                             <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
                             <br/>{{value.user.addr.zip}}</td>
                         <td>
-                            <button  class="btn btn-success" ng-click="vm.review(value.user.userName ,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.user.reg,$index+1)" >Review</button>                            &nbsp;&nbsp;
+                            <button  class="btn btn-success" ng-click="vm.review(value.user.userName ,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.user.reg,$index+1,value.appoint.doc)" >Review</button>                            &nbsp;&nbsp;
                             <button class="btn btn-warning" ng-click="vm.remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
                                 >Remind</button>
                         </td>
@@ -88,6 +90,7 @@
                         <th>Contact</th>
                         <th>Symptoms</th>
                         <th>Date</th>
+                        <th>Doctor</th>
                         <th>User Details</th>
                         <th></th>
 
@@ -100,13 +103,14 @@
                         <td>{{value.appoint.contact}}</td>
                         <td>{{value.appoint.symptoms}}</td>
                         <td>{{value.appoint.date| date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
+                        <td>{{value.appoint.doc}}</td>
                         <td><b>User Name: </b>&nbsp;{{value.user.userName}} <br/>
                             <b>Registration Number:</b>&nbsp;{{value.user.reg}} <br/>
                             <b>Email:</b>&nbsp;{{value.user.email}} <br/>
                             <b>Address:</b><br/> {{value.user.addr.street}} <br/> {{value.user.addr.city}} <br/> {{value.user.addr.state}}&nbsp;&nbsp;
                             <br/>{{value.user.addr.zip}}</td>
-                        <td><button class="btn btn-info" ng-click="vm.edit(value.user.userName ,value.user.reg,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.appoint.contact,$index+1)">Edit</button>                            &nbsp;&nbsp;
-                            <button class="btn btn-danger" ng-click="vm.delete(value.user.userName ,value.user.reg, value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)">Delete</button>
+                        <td><button class="btn btn-info" ng-click="vm.edit(value.user.userName ,value.user.reg,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.appoint.contact,$index+1,value.appoint.doc)">Edit</button>                            &nbsp;&nbsp;
+                            <button class="btn btn-danger" ng-click="vm.delete(value.user.userName ,value.user.reg, value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1,value.appoint.doc,value.appoint.contact)">Delete</button>
                         </td>
                     </tr>
 
@@ -136,6 +140,7 @@
                         <th>Contact</th>
                         <th>Symptoms</th>
                         <th>Date</th>
+                        <th>Doctor</th>
                         <th>User Details</th>
 
                     </tr>
@@ -147,6 +152,7 @@
                         <td>{{value.appoint.contact}}</td>
                         <td>{{value.appoint.symptoms}}</td>
                         <td>{{value.appoint.date| date : "MMMM/dd/yyyy : hh:mm:ss"}}</td>
+                        <td>{{value.appoint.doc}}</td>
                         <td><b>User Name: </b>&nbsp;{{value.user.userName}} <br/>
                             <b>Registration Number:</b>&nbsp;{{value.user.reg}} <br/>
                             <b>Email:</b>&nbsp;{{value.user.email}} <br/>
