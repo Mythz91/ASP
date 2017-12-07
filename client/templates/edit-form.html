@@ -55,7 +55,7 @@
       <div>
 
 
-
+<div ng-show="chang">
       <div>
          <div>
              <h3>The chosen time is {{checkTime}}</h3>
@@ -81,11 +81,12 @@
           </div>
 
        <p>
-           <button class="btn btn-success"  type="submit" ng-click="makeAppointment()">Change Appointment!</button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+           <button class="btn btn-success"  type="submit" ng-click="makeAppointment()" ng-disabled="disp">Change Appointment!</button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
            <button class="btn btn-danger" ng-click="cancel()">Cancel</button>
            <br/>
 
 
        </p>
       </div>
+    </div>
    </form>

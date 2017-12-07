@@ -243,39 +243,49 @@ mongoC.connect(url, function (err, db) {
       console.log(data);
 
            var d = new Date(data.obj.date);
+           console.log(d);
+           console.log(getDateConsize(data.date, data.time));
         db.collection("UserDetails").updateOne({ $and: [{ "user.registrationNumber": data.regNum, "user.userName": data.user }] }, { $pull: { "user.appointment": { "user": data.obj.userName, "date":d, "symptoms": data.obj.symptoms, "age": data.obj.age , "doc":data.obj.selectDoc} } }, function (err, reply) {
             if (err) { throw err } else {
-
+              console.log("here")
                 db.collection("UserDetails").update({ $and: [{ "user.registrationNumber": data.regNum, "user.userName": data.user }] }, { $push: { "user.appointment": { "user": data.userName, "date":getDateConsize(data.date, data.time), "contact": data.obj.contact, "symptoms": data.symptoms, "sex": data.sex, "age": data.age ,"doc":data.doc} } }, function (err1, rep) {
 
                     if (err1) {
                         throw err1;
                     } else {
-                        var mail = {
-                            from: 'medicalinglobal@gmail.com',
-                            to: data.email,
-                            subject: 'Medical Insights-Appointment has been Edited ' + data.regUser,
-                            html: '<h1>Greetings</h1><p>The following appointment is been edited today:</p> <p> The appointment was scheduled for ' + data.pt + ' of age ' + data.age + ' ' + data.sex + ' with symptoms of ' + data.symptoms + ' at ' + dateFormat(data.date, "ddd mmm dd yyyy HH:MM:ss") + "</p> <h4>Please revert back to us for more information</h4> <p>-Medical Insights</p>"
-                        };
-                        transporter.sendMail(mail, function (error, info) {
-                            if (error) throw error;
+                      console.log("here1")
                           var name = data.doc.split(".")[1];
+                          console.log(name)
                           db.collection("doctor").updateOne({$and:[{"name":name,"date":dateFormat(d, "mm/dd/yyyy")}]},{$pull:{"app":calculateTime(data.time)}}, function(er,rep){
                             if(er){
                               throw er;
                             }else{
+                              console.log("here2")
+                              console.log(data.email)
                               db.collection("doctor").updateOne({$and:[{"name":name,"date":dateFormat(d, "mm/dd/yyyy")}]},{$addToSet:{"app":calculateTime(data.obj.time)}}, function(er,rep){
-                              }, function(e,r){
-                                if(e){
+
+                                if(er){
                                   throw e;
-                                }else{
-                                  res.send("success");
                                 }
+                                  console.log(data.email)
+                                  var mail = {
+                                    from: 'medicalinglobal@gmail.com',
+                                    to: data.email,
+                                    subject: 'Medical Insights-Appointment has been Edited ' + data.user,
+                                    html: '<h1>Greetings</h1><p>The following appointment is been edited today:</p> <p> The appointment was scheduled for ' + data.userName + ' of age ' + data.age + ' ' + data.sex + ' with symptoms of ' + data.symptoms + ' at ' + dateFormat(new Date(data.date), "ddd mmm dd yyyy HH:MM:ss") + "</p> <h4>Please revert back to us for more information</h4> <p>-Medical Insights</p>"
+                                };
+                                transporter.sendMail(mail, function (error, info) {
+                                    if (error) throw error;})
+                                  res.send("success");
+
                               })
                             }
                           })
-                          res.send("success");
-                        })
+
+
+
+
+
                     }
                 })
             }

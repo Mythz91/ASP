@@ -110,7 +110,7 @@ $scope.clearData=function(){
 }
 
    $scope.checkAvailability=function(selectDoc,date, selectDept){
-    $scope.disp=true;
+
     $scope.show=false;
 
                 var obj = {
@@ -164,6 +164,11 @@ $scope.changeDoc = function(dep){
         var todayTime = today.getTime();
         var checkTime = check.getTime();
 
+        if (check < today || check == today) {
+          $scope.dateCheck = "please select a date of future occurance cannot make immediate appointment";
+          return false;
+      }
+
         var diff = Math.round(Math.abs((todayTime - checkTime) / (24 * 60 * 60 * 1000)));
         if (diff > 6) {
             $scope.dateCheck = "please select a date which is within a week from today " + (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
@@ -176,6 +181,7 @@ $scope.changeDoc = function(dep){
     $scope.choose=function(times){
       $scope.show=false;
       $scope.checkTime = times;
+      $scope.disp=true;
     }
     $scope.checkChosenTime =function(){
       $scope.view = true;

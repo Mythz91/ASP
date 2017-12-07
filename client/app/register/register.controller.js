@@ -68,7 +68,7 @@
         vm.regNum = "";
         vm.dataErr=false;
         vm.mail = "";
-      
+
         vm.address = "";
         vm.city="";
         vm.Errdata=false;
@@ -92,8 +92,8 @@
     vm.closeErr= function(){
         vm.dataErr=false;
     }
-    
-  
+
+
     vm.verifyZip = function(){
         if((vm.zip.match(/^\d+$/g))){
             if(vm.zip.charAt(0)==0||vm.zip.charAt(0)=="0"){
@@ -106,20 +106,20 @@
     }
     vm.verifyPass = function(){
         if(!(vm.password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g))){
-          
+
             vm.passErr= "please enter  at least one number, one lowercase and one uppercase letter at least four characters long password"
         return false;
         }
         return true;
     }
     vm.confirmPass=function(){
-        
+
         if(!(vm.passwordConfirm.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g))){
             vm.confirmErr= "please enter  at least one number, one lowercase and one uppercase letter at least four characters long password"
         return false;
         }
       if(!(vm.password==vm.passwordConfirm)){
-        
+
         vm.confirmErr="please enter same password for confirmation";
         vm.passwordConfirm="";
         vm.password="";
@@ -128,7 +128,11 @@
        return true;
 
     }
-   
+   vm.checkRegister = function(){
+    if(vm.regNum.charAt(0)==0){
+      vm.regNum="";
+    }
+   }
     vm.clearPassErr = function(){
         vm.passErr = "";
     }
@@ -137,14 +141,14 @@
     }
 
         vm.getRegistered = function(userName,regNum,mail,addr,city,state,zip,password){
-       
+
             if(vm.confirmPass() && vm.verifyPass() && vm.verifyZip()){
                 vm.disp=false;
             var data ={
                userName: userName,
                registration: regNum,
                email: mail,
-              address:{ 
+              address:{
                 street: addr,
                  city:  city,
                  state: state,
@@ -154,9 +158,9 @@
             }
             vm.userName = "";
             vm.regNum = "";
-            
+
             vm.mail = "";
-          
+
             vm.address = "";
             vm.city="";
             vm.states;
@@ -176,8 +180,8 @@
                 }else{
                     vm.data=true;
                 }
-            
-               
+
+
             },function(err){
                 vm.dataErr=true;
             })
@@ -189,5 +193,5 @@
 
     }
 
-   
+
 })();

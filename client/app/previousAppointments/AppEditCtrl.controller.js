@@ -5,6 +5,8 @@ var AppEditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $wi
   if(!$window.sessionStorage.getItem("auth-token")){
     $location.path("/");
 }
+$scope.chang=true;
+$scope.disp = false;
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
 };
@@ -17,9 +19,10 @@ $scope.verifyName = function(){
 $scope.closeValidate=function(){
   $scope.validate=false;
 }
+
 $scope.view = false;
 $scope.verifyDate = function(){
-
+$scope.chang = false;
 
             if (!$scope.date) {
                 $scope.dateCheck = "please select a date";
@@ -40,6 +43,11 @@ $scope.verifyDate = function(){
             }
             var todayTime = today.getTime();
             var checkTime = check.getTime();
+
+            if (check < today || check == today) {
+              $scope.dateCheck = "please select a date of future occurance cannot make immediate appointment";
+              return false;
+          }
 
             var diff = Math.round(Math.abs((todayTime - checkTime) / (24 * 60 * 60 * 1000)));
             if (diff > 6) {
@@ -96,16 +104,16 @@ function getDate(date){
   var month = split[1];
   var dayOne = split[2];
   var dayNow = dayOne.split("T");
-  var day = parseInt(dayNow[0])+1;
+  var day = parseInt(dayNow[0]);
 
  hr = (dayNow[1].split(":")[0])-6;
 
 var time = getTime(hr);
-console.log(time);
+console.log(day);
 
-var da = [new Date(Date.UTC(year, (month-1), day)),time];
-
-    return [new Date(Date.UTC(year, (month-1), day)),time];
+var da = [new Date(Date.UTC(year, (month-1), day,12)),time];
+console.log(da);
+    return [new Date(Date.UTC(year, (month-1), day,12)),time];
 }
 function getTime(hr){
   switch (hr) {
@@ -126,7 +134,7 @@ function getTime(hr){
   }
 }
 $scope.checkAvailability=function(selectDoc,date, selectDept){
-
+$scope.chang=true;
 console.log(selectDoc,date,hr)
 
    var obj = {
@@ -139,7 +147,7 @@ console.log(selectDoc,date,hr)
                 appoint.info = "Please select another Doctor as the Doctor you have selected is busy for the day!"
               }
               $scope.show=true;
-              console.log($scope.date,new Date(select) );
+
              var data=  matchTime(success);
              time = correctTime(data);
                $scope.timings=time;
@@ -226,6 +234,7 @@ function correctTime(data){
 $scope.choose=function(times){
   $scope.show=false;
   $scope.checkTime = times;
+  $scope.disp=true;
 }
 $scope.checkChosenTime =function(){
   $scope.view = true;
