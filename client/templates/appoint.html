@@ -40,7 +40,7 @@
         <br/>
         <div>
             Doctor:
-            <select required ng-model="appoint.selectDoc" name="doc"  ng-options="doc as doc for doc in appoint.doc"></select>
+            <select required ng-model="appoint.selectDoc" name="doc"  ng-options="doc as doc for doc in appoint.doc" ng-change="appoint.clearDoc()"></select>
             <div ng-messages="appointment.doc.$error">
                 <p class="warn" ng-message="required">Please select a Doctor.</p>
             </div>
@@ -70,6 +70,7 @@
               </div>
         </div>
         <div ng-show="appoint.dispTime">
+          <div></div>
            <div>
                <h3>The chosen time is {{appoint.checkTime}}</h3>
             <button class="btn btn-danger" ng-click="appoint.checkAvailability(appoint.selectDoc,appoint.date, appoint.selectDept)" ng-disabled="appoint.view">Choose another Time</button>
@@ -77,7 +78,7 @@
         </div>
         <div ng-show="appoint.timeShow">
 
-           <table ng-hide="view">
+           <table ng-hide="appoint.view">
                <tr ng-model="appoint.time" name="time"  ng-repeat=" times in appoint.timings">
                    <td>{{times}}</td><td><button class="btn btn-primary" ng-click="appoint.choose(times)">Take Slot</button></td>
 

@@ -38,23 +38,17 @@ mongoC.connect(url, function (err, db) {
           if (er) {
             console.log(er);
           } else {
-            var diffTime = true;
+            var diffTime = 1;
             var element = response[0].user.appointment
             for (var i = 0; i < element.length; i++) {
               var eleDate = new Date(element[i].date);
 
               var confDate = new Date(dateConsize);
               if ((Math.round(Math.abs(eleDate.getTime() - confDate.getTime()) / (1000 * 60 * 60 * 24))) == 0) {
-                var diff = confDate.getTime() - eleDate.getTime()
-
-                if (diff <= 3600000) {
-                  diffTime = false;
-                  break;
-                }
+               diffTime=diffTime+1;
               }
-
             }
-            if (!diffTime) {
+            if (diffTime >5) {
               res.send("failed");
             }
             if (diffTime) {

@@ -126,7 +126,7 @@ $rootScope.userInfo.age = age;
 $rootScope.userInfo.sex = sex;
 $rootScope.userInfo.doc = doc;
 $rootScope.userInfo.date = date;
-console.log($rootScope.userInfo.date)
+
 $rootScope.userInfo.contact=contact;
 
 $rootScope.userInfo.symptoms = symptoms;

@@ -18,7 +18,7 @@ mongoC.connect(url, function (err, db) {
                 .toArray(function (err, reply) {
                     if (err)
                         throw err;
-                    console.log(reply);
+
                     for (var i = 0; i < reply.length; i++) {
                         if (reply[i].department) {
                             data.push({dept: reply[i].department, docs: reply[i].doctors});
@@ -62,7 +62,7 @@ mongoC.connect(url, function (err, db) {
                   if(reply[0].name ==doc && reply[0].date==date){
                     found==true;
 
-                    console.log(reply[0]);
+
                     res.send(reply[0].app).end();
                     return;
                   }

@@ -4,12 +4,12 @@
 <div id="login">
         <div class="shift" ng-init="appoint.getData()">
     <legend><h2 class="text-success">Make a Appointment</h2></legend>
-   
+
             <div uib-alert class="alert alert-danger"  close="appoint.closeOne()" ng-if="appoint.validate" >
                     Please fill in all the details
               </div>
               <div uib-alert class="alert alert-danger"  close="appoint.clearFail()" ng-if="appoint.fail" >
-               You already have a appointment around that time. Please try another time for appointment
+               You have a lot of appointments on your schedule for today. Please try another day for appointment
           </div>
               <div uib-alert class="alert alert-success"  close="appoint.closeRes()" ng-if="appoint.showres" >
                    Your appointment is confirmed
@@ -22,7 +22,7 @@
                 <table>
                     <tr>
                         <th>User Name :</th> <td>{{appoint.userName}}</td>
-    
+
                     </tr>
                     <tr>
                         <th>Age :</th> <td>{{appoint.age}}</td>

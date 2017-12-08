@@ -1,7 +1,7 @@
 angular.module("app.home")
 .service("changeAppointmentService", ['$http', '$q','$window', function ($http, $q, $window) {
   this.changeAppointment = function(text){
-    console.log(text);
+
     var defer = $q.defer();
     $http({
         method: 'POST',
@@ -18,7 +18,7 @@ angular.module("app.home")
     return defer.promise;
 }
 this.delete = function(text){
-  console.log(text);
+
   var defer = $q.defer();
   $http({
       method: 'POST',

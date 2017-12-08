@@ -58,9 +58,9 @@ mongoC.connect(url, function (err, db) {
     })
     router.post("/checkReview",function(req,res){
         var data = req.body;
-        console.log(data);
+
         db.collection("review").find().toArray(function(err,reply){
-            console.log(reply.length)
+
             if(err){
                 throw err
             }

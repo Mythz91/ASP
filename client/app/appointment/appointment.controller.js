@@ -250,7 +250,7 @@
                     doc:appoint.selectDoc,
                     time:appoint.checkTime
                 }
-                console.log(data);
+
                 clearData();
 
 
@@ -322,8 +322,16 @@
         }
         appoint.doc=[];
         appoint.selectDoc="";
+
         appoint.changeDoc = function(dep){
             appoint.doc=[];
+            appoint.date="";
+            appoint.checkTime="";
+            appoint.dateCheck = "";
+            appoint.selectedDet=false;
+            appoint.timeShow=false;
+
+            appoint.dispTime=false;
             for(var i=0;i<data.length;i++){
                 if(data[i].dept == dep){
                     data[i].docs.forEach(function(ele){
@@ -333,7 +341,15 @@
 
                }
         }
+appoint.clearDoc=function(){
+  appoint.date="";
+  appoint.checkTime="";
+  appoint.dateCheck = "";
+  appoint.selectedDet=false;
+  appoint.timeShow=false;
 
+  appoint.dispTime=false;
+}
 
     }
 

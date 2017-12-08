@@ -24,7 +24,7 @@
 
 
         $rootScope.$on("changesEdit", function (event, data) {
-          console.log(data);
+
           var res = seggregate(data);
           vm.present = res.present;
           vm.future = res.future;
@@ -96,7 +96,7 @@
             }
 
             appService.findReview(val).then(function(success){
-                console.log(typeof success)
+
                if(success=="found"){
                 vm.found =true
                }

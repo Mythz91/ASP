@@ -127,6 +127,7 @@ $scope.clearData=function(){
                   $scope.timings=time;
                   $scope.timeShow=true;
                   $scope.show=true;
+                  $scope.disp=true;
                 },function(err){
 
                 })
@@ -150,7 +151,7 @@ $scope.changeDoc = function(dep){
         $scope.dateCheck = "";
     }
     $scope.verifyDate = function () {
-      console.log("leaving2");
+
         if (!$scope.date) {
             $scope.dateCheck = "please select a date and time";
             return false;
@@ -209,14 +210,14 @@ var obj = $rootScope.data;
 
         }
       }
-      console.log(data);
+
 
       appService.editAppointment(data).then(function(text){
 
 
 
       appService.getApp().then(function (success) {
-        console.log(success);
+
                         data = success;
 
                         $rootScope.$emit("changesEdit",data);

@@ -59,8 +59,15 @@
                             <br/>{{value.user.addr.zip}}</td>
                         <td>
                             <button  class="btn btn-success" ng-click="vm.review(value.user.userName ,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.user.reg,$index+1,value.appoint.doc)" >Review</button>                            &nbsp;&nbsp;
-                            <button class="btn btn-warning" ng-click="vm.remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
+                            <br/>
+                            <br/><button class="btn btn-warning" ng-click="vm.remind(value.user.userName ,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1)"
                                 >Remind</button>
+                                <br/>
+                                <br/>
+                                <button class="btn btn-info" ng-click="vm.edit(value.user.userName ,value.user.reg,value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,value.appoint.contact,$index+1,value.appoint.doc)">Edit</button>                            &nbsp;&nbsp;
+                              <br/>
+                              <br/>  <button class="btn btn-danger" ng-click="vm.delete(value.user.userName ,value.user.reg, value.user.email,value.appoint.user,value.appoint.age,value.appoint.sex,value.appoint.symptoms,value.appoint.date,$index+1,value.appoint.doc,value.appoint.contact)">Delete</button>
+
                         </td>
                     </tr>
 
