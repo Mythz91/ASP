@@ -19,7 +19,7 @@ mongoC.connect(url, function (err, db) {
   if (err) throw err;
   router.post("/getData", function (req, res) {
     var data = req.body;
-    console.log(data);
+
     var arr=[];
    db.collection("UserDetails").find().toArray(function(err, response){
     for(var i=1; i<response.length;i++){
@@ -30,8 +30,7 @@ mongoC.connect(url, function (err, db) {
        var doc="Dr."+data.user;
 
        if(a[j].doc==doc){
-         console.log(response[i].user.registrationNumber)
-         console.log(a[j])
+
          arr.push(response[i].user.registrationNumber);
        }
      }
@@ -44,7 +43,7 @@ mongoC.connect(url, function (err, db) {
   })
   router.post("/getNames", function (req, res) {
     var data = req.body;
-    console.log(data);
+
     var arr=[];
    db.collection("UserDetails").find().toArray(function(err, response){
     for(var i=1; i<response.length;i++){
@@ -88,16 +87,52 @@ router.post("/getDetails",function(req,res){
   }
 }
 if(now.getTime() <reply[i].date.getTime()){
-  console.log("in future")
+
   obj.future.push(reply[i])
 }
 if(now.getTime() >reply[i].date.getTime() && !(dateOb == presentDate)){
-  console.log("in past")
+
   obj.past.push(reply[i])
 }
     }
 res.send(obj);
   })
+
+})
+
+router.post("/update", function(req,res){
+  var data = req.body;
+  console.log(data)
+  var arr = [];
+  arr.push(data.rev);
+  console.log(arr);
+  var d = new Date(data.date);
+   db.collection("summary").remove({
+                                  "name":data.name,
+                                  "reg": data.reg,
+                                  "doc":data.doc,
+                                  "date":d,
+                                  "age":data.age,
+                                  "prob": data.prob,
+                                   "summary":[]
+
+                                 },function(err,resp){
+                                   if(err) throw err;
+                                   db.collection("summary").insert({
+                                   "name":data.name,
+                                  "reg": data.reg,
+                                  "doc":data.doc,
+                                  "date":d,
+                                  "age":data.age,
+                                  "prob": data.prob,
+                                    "summary":arr
+
+                                   }, function(err,rep){
+                                     if(err) throw err;
+                                     res.send("success")
+                                   })
+                                  })
+
 
 })
 

@@ -16,8 +16,9 @@ vm.past;
 vm.present;
 vm.future;
 vm.show=false;
+vm.rev;
 vm.getData=function(){
-  console.log($window.sessionStorage.getItem("user"))
+
   var data={
     user:$window.sessionStorage.getItem("user")
   }
@@ -54,13 +55,35 @@ docService.getDetails(text).then(function(success){
   vm.past = success.past;
   vm.present = success.present;
   vm.future = success.future;
-console.log(success);
+
 }, function(error){
 
 })
 }
 vm.closeAlert= function(){
   vm.disp=false;
+}
+vm.update = function(reg,name,date,prob,rev,age){
+console.log(reg,name,date,prob,rev)
+var obj={
+  reg:reg,
+  name:name,
+  date:date,
+  prob:prob,
+  doc:"Dr."+$window.sessionStorage.getItem("user"),
+  rev:rev,
+  age:age
+}
+docService.updateDetails(obj).then(function(success){
+  docService.getData(data).then(function(text){
+    vm.choices=text;
+
+  }, function(error){
+    console.log("error")
+  })
+}, function(error){
+  console.log(error)
+})
 }
 
 }
