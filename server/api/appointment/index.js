@@ -118,22 +118,35 @@ mongoC.connect(url, function (err, db) {
                               if (err){
                                 throw err;}
                              else{
-                              var sendEMail = {
-                                from: 'medicalinglobal@gmail.com',
-                                to: email,
-                                subject: 'Medical Insights-Appointment Confirmation',
-                                html: '<h2>Appointment Confirmation --- Medical Insights</h2><p>The following appointme' +
-                                    'nt has been confirmed :</p> <table><tr><th>Name : </th><td>' + data.userName + '</td></tr><tr><th>Age : </th><td>' + data.age + '</td></tr><tr><th>Sex : </th><td>' + data.sex + '</td></tr><tr><th>Date: </th><td>' + presDate+ '</td></tr><tr><th>with doc: </th><td>'+doc+'</td></tr><tr><th>Symptoms: </th><td>' + data.symptoms + '</td></tr><tr><th>Phone: </th><td>' + data.contact + '</td></tr></table>'
+                               db.collection("summary").insertOne({
+                                 "name":data.userName,
+                                 "reg": data.regNum,
+                                 "doc":data.doc,
+                                 "date":dateConsize,
+                                 "prob": data.symptoms,
+                                 "age":data.age,
+                                 "summary":[]
 
-                              };
-                              transporter.sendMail(sendEMail, function (error, info) {
-                                if (error) {
-                                  throw err;
-                                } else {
-                                  res.send("appointment confirmed")
-                                }
+                               }, function(err,response){
+                                if(err) throw err;
+                                var sendEMail = {
+                                  from: 'medicalinglobal@gmail.com',
+                                  to: email,
+                                  subject: 'Medical Insights-Appointment Confirmation',
+                                  html: '<h2>Appointment Confirmation --- Medical Insights</h2><p>The following appointme' +
+                                      'nt has been confirmed :</p> <table><tr><th>Name : </th><td>' + data.userName + '</td></tr><tr><th>Age : </th><td>' + data.age + '</td></tr><tr><th>Sex : </th><td>' + data.sex + '</td></tr><tr><th>Date: </th><td>' + presDate+ '</td></tr><tr><th>with doc: </th><td>'+doc+'</td></tr><tr><th>Symptoms: </th><td>' + data.symptoms + '</td></tr><tr><th>Phone: </th><td>' + data.contact + '</td></tr></table>'
 
-                              })
+                                };
+                                transporter.sendMail(sendEMail, function (error, info) {
+                                  if (error) {
+                                    console.log(err)
+                                  }
+                                    res.send("appointment confirmed")
+
+
+                                })
+                               })
+
                             }
                             })
 
@@ -234,14 +247,13 @@ mongoC.connect(url, function (err, db) {
 
     router.post("/changeAppointmentDate", function(req,res){
       var data = req.body;
-      console.log(data);
 
            var d = new Date(data.obj.date);
-           console.log(d);
+
            console.log(getDateConsize(data.date, data.time));
         db.collection("UserDetails").updateOne({ $and: [{ "user.registrationNumber": data.regNum, "user.userName": data.user }] }, { $pull: { "user.appointment": { "user": data.obj.userName, "date":d, "symptoms": data.obj.symptoms, "age": data.obj.age , "doc":data.obj.selectDoc} } }, function (err, reply) {
             if (err) { throw err } else {
-              console.log("here")
+
                 db.collection("UserDetails").update({ $and: [{ "user.registrationNumber": data.regNum, "user.userName": data.user }] }, { $push: { "user.appointment": { "user": data.userName, "date":getDateConsize(data.date, data.time), "contact": data.obj.contact, "symptoms": data.symptoms, "sex": data.sex, "age": data.age ,"doc":data.doc} } }, function (err1, rep) {
 
                     if (err1) {
@@ -249,27 +261,50 @@ mongoC.connect(url, function (err, db) {
                     } else {
                       console.log("here1")
                           var name = data.doc.split(".")[1];
-                          console.log(name)
+
                           db.collection("doctor").updateOne({$and:[{"name":name,"date":dateFormat(d, "mm/dd/yyyy")}]},{$pull:{"app":calculateTime(data.time)}}, function(er,rep){
                             if(er){
                               throw er;
                             }else{
-                              console.log("here2")
-                              console.log(data.email)
+
                               db.collection("doctor").updateOne({$and:[{"name":name,"date":dateFormat(d, "mm/dd/yyyy")}]},{$addToSet:{"app":calculateTime(data.obj.time)}}, function(er,rep){
 
                                 if(er){
                                   throw e;
                                 }
-                                  console.log(data.email)
-                                  var mail = {
-                                    from: 'medicalinglobal@gmail.com',
-                                    to: data.email,
-                                    subject: 'Medical Insights-Appointment has been Edited ' + data.user,
-                                    html: '<h1>Greetings</h1><p>The following appointment is been edited today:</p> <p> The appointment was scheduled for ' + data.userName + ' of age ' + data.age + ' ' + data.sex + ' with symptoms of ' + data.symptoms + ' at ' + dateFormat(new Date(data.date), "ddd mmm dd yyyy HH:MM:ss") + "</p> <h4>Please revert back to us for more information</h4> <p>-Medical Insights</p>"
-                                };
-                                transporter.sendMail(mail, function (error, info) {
-                                    if (error) throw error;})
+
+                                 db.collection("summary").remove({
+                                  "name":data.obj.userName,
+                                  "reg": data.regNum,
+                                  "doc":data.doc,
+                                  "date":d,
+                                  "prob": data.obj.symptoms,
+                                  "age":data.obj.age
+
+
+                                 },function(err,resp){
+                                   if(err) throw err;
+                                   db.collection("summary").insert({
+                                    "name":data.userName,
+                                    "reg": data.regNum,
+                                    "doc":data.doc,
+                                    "prob":data.symptoms,
+                                    "date":getDateConsize(data.date, data.time),
+                                    "age": data.age,
+                                    "summary":[]
+
+                                   }, function(err,resp){
+                                     if(err) throw err;
+                                     var mail = {
+                                      from: 'medicalinglobal@gmail.com',
+                                      to: data.email,
+                                      subject: 'Medical Insights-Appointment has been Edited ' + data.user,
+                                      html: '<h1>Greetings</h1><p>The following appointment is been edited today:</p> <p> The appointment was scheduled for ' + data.userName + ' of age ' + data.age + ' ' + data.sex + ' with symptoms of ' + data.symptoms + ' at ' + dateFormat(new Date(data.date), "ddd mmm dd yyyy HH:MM:ss") + "</p> <h4>Please revert back to us for more information</h4> <p>-Medical Insights</p>"
+                                  };
+                                  transporter.sendMail(mail, function (error, info) {
+                                      if (error) throw error;})
+                                   })
+                                 })
                                   res.send("success");
 
                               })
@@ -290,19 +325,26 @@ mongoC.connect(url, function (err, db) {
     router.post("/dropAppointment", function(req,res){
       var data = req.body;
  var d = new Date(data.date);
-     console.log(calculateTime(getHour(obtainHr(data.date))), data);
       db.collection("UserDetails").update({$and: [{"user.registrationNumber":data.regNum,"user.userName":data.user}]},{$pull:{"user.appointment":{"user":data.userName, "age":data.age, "doc": data.doc, "date":d, "sex":data.gen}}},function(err,reply) {
         if(err){
           throw err;
         }else{
-          console.log(reply)
           db.collection("doctor").updateOne({$and:[{"name":data.doc.split(".")[1],"date":dateFormat(d, "mm/dd/yyyy")}]},{$push:{"app":calculateTime(getHour(obtainHr(data.date)))}}, function(er,rep){
             if(er){
               throw er;
             }else{
+              db.collection("summary").remove({
+                "name":data.userName,
+                "reg": data.regNum,
+                "doc":data.doc,
+                "date":d,
 
+               },function(err,resp){
+                 if(err) throw err;
                 res.send("success");
             }
+          )
+        }
 
         })
       }

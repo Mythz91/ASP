@@ -1,0 +1,27 @@
+<header>
+  <nav class="navbar navbar-default navbar-cd">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a  ng-class="vm.getClass('/doctor')" class="navbar-brand" href="/doctor"><span>Medical Insights</span>
+        <img class="img-responsive" src="./assets/images/icon.jpg" alt="Brand Name" style="height:50px;">
+        </a>
+      </div>
+      <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
+        <div class="nav-main-wrapper">
+          <ul class="nav navbar-nav nav-main ">
+            <li ng-class="vm.getClass('/doctor')"><a href="/doctor">Appointments</a></li>
+
+
+              <li ng-controller="getLogin as vm" ng-class="vm.getClass('/')"><a ng-click="vm.logout()"><img class="logout" src="./assets/images/logout.jpg"/></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  </header>

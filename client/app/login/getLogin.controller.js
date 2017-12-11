@@ -58,6 +58,10 @@ var reg = "";
                         authTokenFactory.setToken(res.token);
                         $location.path('/admin')
                     }
+                    if(res.username=='Patrick'&& res.token && regNum=="1111111"){
+                      authTokenFactory.setToken(res.token);
+                      $location.path('/doctor')
+                  }
                    else if(res.token){
 
                         authTokenFactory.setToken(res.token);

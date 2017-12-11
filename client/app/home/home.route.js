@@ -19,12 +19,12 @@
       .state('home', {
         url: '/',
         templateUrl: 'app/home/home.html',
-        
+
       })
       .state('login', {
         url: '/login',
         templateUrl: 'templates/redirect.html',
-        
+
       })
       .state('msgs',{
         url:'/msgs',
@@ -42,7 +42,7 @@
         templateUrl:'app/admin/admin.html',
         controller:'adminCtrl as vm'
       })
-      
+
       .state('app',{
         url:'/app',
         templateUrl:'app/adminAppointments/appointmentsHistory.html',
@@ -62,15 +62,15 @@
         url: '/about',
         templateUrl: 'app/about/about.html',
         controller:'aboutCtrl'
-       
+
       })
-      
+
       .state('welcome',{
         url:'/welcome',
         templateUrl : 'app/welcome/welcome.html',
         controller:'welcomeCtrl as vm'
       })
-     
+
       .state("reply",{
         url:'/reply',
         templateUrl:'app/reply/reply.html',
@@ -86,12 +86,25 @@
         templateUrl:'app/previousAppointments/previous.html',
         controller:'previousController as data'
       })
-      
-  
+
+
       .state('update',{
         url:'/update',
         templateUrl:'app/update/update.html',
         controller:'updateCtrl as vm'
+      })
+
+      .state('doctor',{
+        url:'/doctor',
+        templateUrl : 'app/doc/doctor.html',
+        controller:'docCtrl as vm'
+
+      })
+      .state('intro',{
+        url:'/intro',
+        templateUrl : 'app/doc/intro.html',
+        controller:'intro as vm'
+
       })
 
   }

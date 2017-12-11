@@ -1,0 +1,48 @@
+<header data-ng-include="'templates/doctorHeader.html'" class="navbar-fixed-top"></header>
+<div class="shift" ng-init="vm.getData()">
+    <div uib-alert class="alert alert-danger" close="vm.closeAlert()" ng-if="vm.disp">
+       please select username and registration number
+    </div>
+  <h3>Choose a registration number to find appointment history:</h3>
+  <div> <select ng-model="vm.choice" ng-options="choice as choice for choice in vm.choices" ng-change="vm.change()"></select></div>
+  <h3>Choose a User Name to find appointment history:</h3>
+  <div> <select ng-model="vm.name" ng-options="name as name for name in vm.names" ng-change="vm.changeName()"></select></div>
+  <br/>
+  <button class="btn btn-success" ng-click="vm.getDetails()">Get History</button>
+  <div ng-show="vm.show">
+    <h3>Previous Appointment Details:</h3>
+    <table  class="table table-hover" >
+      <tr   ng-repeat="(key,value) in   vm.past |  orderBy:'value.date':true">
+        <td>{{value.reg}}</td>
+        <td>{{value.name}}</td>
+        <td>{{value.doc}}</td>
+        <td>{{value.date|date : "MM/dd/yy : hh:mm:ss"}}</td>
+        <td>{{value.prob}}</td>
+        <td ng-repeat="(k,v) in value.summary">{{v}}</td>
+          </tr>
+    </table>
+    <h3>Present Appointment Details:</h3>
+    <table  class="table table-hover" >
+        <tr   ng-repeat="(key,value) in   vm.present |  orderBy:'value.date':true">
+            <td>{{value.reg}}</td>
+            <td>{{value.name}}</td>
+
+            <td>{{value.date|date : "MM/dd/yy : hh:mm:ss"}}</td>
+            <td>{{value.prob}}</td>
+            <td><textarea rows="10" cols="30" ng-model="vm.rev"></textarea></td>
+            <td><button class="btn btn-success" ng-click="vm.update(value.reg,value.name,value.date,value.prob,vm.rev)">Submit</button></td>
+            </tr>
+      </table>
+    <h3>Future Appointment Details:</h3>
+    <table  class="table table-hover" >
+        <tr   ng-repeat="(key,value) in   vm.future |  orderBy:'value.date':true">
+            <td>{{value.reg}}</td>
+            <td>{{value.name}}</td>
+
+            <td>{{value.date|date : "MM/dd/yy : hh:mm:ss"}}</td>
+            <td>{{value.prob}}</td>
+
+      </table>
+
+  </div>
+</div>

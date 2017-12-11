@@ -75,6 +75,20 @@ var EditCtrl = function ($scope, $rootScope, $uibModalInstance, editForm, $windo
         time.push(data[i]);
       }
    }
+
+   var swapped;
+   do {
+       swapped = false;
+       for (var i=0; i < time.length-1; i++) {
+           if (time[i] > time[i+1]) {
+               var temp = time[i];
+               time[i] = time[i+1];
+               time[i+1] = temp;
+               swapped = true;
+           }
+       }
+   } while (swapped);
+
    for(var i=0;i<time.length;i++){
 
     if(time[i]==13){

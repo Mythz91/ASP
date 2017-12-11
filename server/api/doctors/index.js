@@ -27,8 +27,7 @@ mongoC.connect(url, function (err, db) {
                     }
 
                     res
-                        .send(data)
-                        .end();
+                        .send(data);
                 })
 
         })
@@ -65,6 +64,7 @@ mongoC.connect(url, function (err, db) {
 
                     res.send(reply[0].app).end();
                     return;
+
                   }
                 }
 

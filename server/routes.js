@@ -29,7 +29,7 @@ module.exports = function (app) {
   app.use('/api/v1/schedule', require('./api/schedule'));
   app.use('/api/v1/review',require('./api/review'));
   app.use('/api/v1/docs',require('./api/doctors'));
-
+app.use('/api/v1/doctors', require('./api/doc'))
 
 
 };
